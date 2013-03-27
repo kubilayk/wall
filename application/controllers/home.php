@@ -1,0 +1,209 @@
+<?php
+ 
+class Home extends CI_Controller 
+{
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model('entry_model');
+		$this->load->model('comment_model');
+		$this->load->model('user_model');
+		
+	}
+
+	function index()
+	{
+			
+			$data['boolean']=$this->entry_model->is_logged_in();
+			
+			if($data['boolean'])
+			{
+				
+				$session_data = $this->session->userdata('logged_in');
+				//print_r($session_data['user_id']);
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+		     	$data['page_title']="Home_view";		
+				$data['question']=$this->entry_model->get_all_question();
+				//print_r($data['question']);
+				//foreach($data['question'] as $question)
+					//echo  $question->last_vote[0]->username; 
+				//$data['total_comment'] = $this->comment_model->total_comment($data['question']);
+				$this->load->view('home_view',$data);
+
+			}
+			  else
+
+		    {
+		   		
+		   		$data['guest'] = "Uye olmak için tiklayin";
+		   		$this->load->model('entry_model');
+				$data['page_title']="Home_view";		
+				$data['question']=$this->entry_model->get_all_question();
+				$this->load->view('home_view',$data);
+
+   			}
+   	}
+
+	
+
+	function rate()
+	{
+		//echo "rate";
+		$data=$this->input->post();
+		//print_r($data);
+		$this->entry_model->rate_insert($data);
+		$result=$this->entry_model->get_vote_nb($this->input->post('entry_id'));
+		$this->entry_model->user_rate($this->input->post('entry_id'));
+	    $avg = array();
+			//print_r($result);
+		$avg['like'] = $result[0]->vote_like;
+		$avg['dislike']= $result[0]->total_votes - $result[0]->vote_like;
+		$avg['question_id']=$this->input->post('entry_id');
+			//print_r($avg);
+		$this->entry_model->set_title_rate($avg);
+		if($this->input->post('view')=="entry")
+			{
+				redirect(base_url().'entry/'.$data['entry_id'], 'refresh');
+			}
+		else if($this->input->post('view')=="comment")
+			{
+				redirect(base_url().'home/last_comments', 'refresh');
+			}
+		
+		else
+			{
+				redirect(base_url().'home', 'refresh');
+			}
+
+	}	 
+
+			  	 
+	function last_comments()
+	{
+		
+	    
+	    $data['boolean']=$this->entry_model->is_logged_in(); 
+	    if($data['boolean'])
+			{ 
+			    $session_data = $this->session->userdata('logged_in');
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+				$data['page_title']="Comment_view";		
+				
+				$data['comment']=$this->comment_model->last_comments();
+				$this->load->view('comment_view',$data);
+			}
+		else
+
+		   {	$data['guest'] = "Uye olmak için tiklayin";
+				$data['page_title']="Comment_view";		
+				
+				$data['comment']=$this->comment_model->last_comments();
+				//print_r($data['comment']);
+				$this->load->view('comment_view',$data);
+			}
+	}	
+		
+	function user_info()
+	{
+		$data=$this->input->post();
+		$data['boolean']=$this->entry_model->is_logged_in();
+		if($data['boolean'])
+			{ 
+			    $session_data = $this->session->userdata('logged_in');
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+				$data['page_title']="User_info_view";
+	    		$data['user_info']= $this->user_model->get_user_info($this->input->post('user_id'));
+	    		$this->load->view('user_info_view', $data);
+	    	}
+	    else
+	    {
+	    		$data['guest'] = "Uye olmak için tiklayin";
+				$data['page_title']="User_info_view";
+				$data['user_info']= $this->user_model->get_user_info($this->input->post('user_id'));
+	    		$this->load->view('user_info_view', $data);
+
+	    }
+	}
+	function my_info()
+	{
+		$data['boolean']=$this->entry_model->is_logged_in();
+		$session_data = $this->session->userdata('logged_in');
+		if($data['boolean'])
+			{ 
+			    $session_data = $this->session->userdata('logged_in');
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+				$data['page_title']="User_info_view";
+				$data['user_info']= $this->user_model->get_user_info($session_data['user_id']);
+	    		$this->load->view('user_info_view', $data);
+	    	}
+	    else
+	    {
+	    		$data['guest'] = "Uye olmak için tiklayin";
+				$data['page_title']="User_info_view";
+				$data['user_info']= $this->user_model->get_user_info($session_data['user_id']);
+	    		$this->load->view('user_info_view', $data);
+
+	    }
+	   }
+	    
+	function user_comment()
+	{
+		$data=$this->input->post();
+		$data['boolean']=$this->entry_model->is_logged_in(); 
+	    if($data['boolean'])
+			{ 
+			    $session_data = $this->session->userdata('logged_in');
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+				$data['page_title']="User_comment_view";		
+	    		$data['user_comment']= $this->user_model->get_user_comment($this->input->post('user_id'));
+	   			$this->load->view('user_comment_view', $data);
+	   		}
+	   		else
+		   	{		
+	   	 		$data['guest'] = "Uye olmak için tiklayin";
+				$data['page_title']="User_comment_view";
+				$data['user_comment']= $this->user_model->get_user_comment($this->input->post('user_id'));
+	   			$this->load->view('user_comment_view', $data);
+	   		}
+	}
+	function user_question()
+	{
+		$data=$this->input->post();
+		$data['boolean']=$this->entry_model->is_logged_in(); 
+	    if($data['boolean'])
+			{ 
+			    $session_data = $this->session->userdata('logged_in');
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+				$data['page_title']="User_question_view";		
+	    		$data['user_question']= $this->user_model->get_user_question($this->input->post('user_id'));
+	   			$this->load->view('user_question_view', $data);
+	   		}
+	   		else
+	   		{		
+	   	 		$data['guest'] = "Uye olmak için tiklayin";
+				$data['page_title']="User_question_view";
+				$data['user_question']= $this->user_model->get_user_question($this->input->post('user_id'));
+	   			$this->load->view('user_question_view', $data);
+	   		}
+	}
+	
+	
+
+	 function logout()
+
+	{
+		$this->session->unset_userdata('logged_in');
+		redirect(base_url().'account', 'refresh');
+
+	}
+
+	
+}
+
+?>

@@ -1,0 +1,68 @@
+/*
+	 CSS-Tricks Example
+	 by Chris Coyier
+	 http://css-tricks.com
+
+
+*					                { margin: 0; padding: 0; }
+body				                { background: #FFFFFF; color: #333333; font: 14px Helvetica, sans-serif; }
+a                                   { text-decoration: none; color: #333333; border-bottom: 1px dotted #333333; }
+a:hover                             { border-bottom-style: solid; }
+
+input[type=text]                    { float: center; height: 15px; width: 15px; font: bold 10px Helvetica, sans-serif; text-align: center; }
+*/
+.span1{
+      text-align: center;
+      
+    }
+    .span10{
+      text-align: left;
+
+    }
+     .span7{
+      text-align: left;
+      
+    }
+     .span3{
+      text-align: left;
+      
+    }
+    .span4{
+      text-align: left;
+      
+    }
+    .span5{
+      text-align: left;
+      
+    }
+     .span6{
+      background: white;
+      color: #333333;
+      padding: 1px 0;
+      text-align: left;
+     
+      
+    } 
+  #panel,#flip
+  {
+    padding:2px;
+    text-align:left;
+    background-color:#e5eecc;
+    border:solid 1px #c3c3c3;
+  }
+  #panel
+  {
+    padding:50px;
+    display:none;
+    text-align: left;
+  }
+  .tleft
+  {
+    text-align: left;
+  }
+  .resizedTextbox 
+  {
+    width: 30px; 
+    height: 30px; 
+    padding: 1px;
+  }
