@@ -1,7 +1,5 @@
 <?php include_once('header.php'); ?>
 
-
-    <div class="container">
       
       <?php $e_id=0; ?>
       <?php foreach($comment as $com){ ?>
@@ -106,5 +104,4 @@
                       </div>
       <?php endif; ?>
 
-    </div>   
   <?php include_once('footer.php'); ?>

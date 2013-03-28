@@ -1,5 +1,6 @@
 <?php include_once('header.php'); ?>
-    <div class="container">
+
+
      <form action="../entry/save_question" method="POST">
         <div class="row">
           <div class="span9">
@@ -18,6 +19,6 @@
         </div>          
         </div>
     </form>
-  </div>
+
    
 <?php include_once('header.php'); ?>
