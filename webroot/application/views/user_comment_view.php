@@ -1,7 +1,5 @@
 <?php include_once('header.php'); ?>
 
-
-    <div class="container">
       
      <?php  
           if($guest===0)
@@ -96,8 +94,6 @@
                 <?php } ?>
         </div>
 
-<div class="container">
-
 <?php if (! $boolean == false): ?>
                 <div class="row">
                   <form action="<?php echo base_url();?>entry/new_entry" method="POST">
@@ -110,5 +106,4 @@
                  </div>
 <?php endif; ?>
 
- </div>   
   <?php include_once('footer.php'); ?>

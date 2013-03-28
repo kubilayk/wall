@@ -1,8 +1,5 @@
 <?php include_once('header.php'); ?>
 
-
-    <div class="container">
-   
       <?php $e_id=0;?>
       <?php $i=0 ?>
       <?php foreach($question as $quest){ ?>
@@ -72,8 +69,8 @@
                                          {
                                                     
                                                     $hours = $hours % 60;
-                                                    echo "Days:".$days;
-                                                    echo "Hours:".$hours;
+                                                    echo $days . " days ";
+                                                    echo $hours . " hours ago";
                                          }                               
                                 ?>
                             </span>
@@ -82,7 +79,6 @@
                   
             </div>
       <?php } ?>
-  </div>
 
 
 <?php include_once('footer.php'); ?>

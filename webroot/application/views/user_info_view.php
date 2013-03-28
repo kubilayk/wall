@@ -2,7 +2,6 @@
 	
 
 		
-		 <div class="container">
 		 
 		 	<?php  
           if($guest===0)
@@ -48,7 +47,6 @@
 				</div>
 				
 		    </div>
-		</div>
 		<?php } ?>
 	
 	

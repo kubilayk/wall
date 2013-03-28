@@ -1,7 +1,7 @@
 <?php include_once('header.php'); ?>
 
 
-  <div class="container">
+
     <?php  
           if($guest===0)
           {
@@ -83,5 +83,5 @@
                 </div>
         </div>
     <?php } ?>
-  </div>
+
 <?php include_once('footer.php'); ?>

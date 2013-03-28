@@ -3,7 +3,7 @@
 
 		<?php echo validation_errors('<p class="error">'); ?>
 	<?php echo form_open(base_url()."account/sign_up"); ?>
-		 <div class="container">
+		 
 		 	<div class="row">
 				<div class="span2">
 					<label for="user_name">User Name:</label>
@@ -30,13 +30,13 @@
 					<input type="password" id="con_password" name="con_password" value="<?php echo set_value('con_password'); ?>" />
 				</div>
 				<div class="span12">
-					<input type="submit" class="greenButton" value="Submit" />
+					<input type="submit" value="Submit" class="btn btn-primary"/> &nbsp; &nbsp; &nbsp; <a href="<?php echo base_url();?>account/login" class="btn btn-success">Login</a>
 				</div>
 				<div class="span12">
-					 <a href="<?php echo base_url();?>account/login">Login</a></div>
+
 				</div>
 			</div>
-		</div>
+		
 	<?php echo form_close(); ?>
 	
 <?php include_once('footer.php'); ?>
