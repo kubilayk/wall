@@ -22,8 +22,26 @@ class Entry extends CI_Controller
 
       function new_entry()
       {
-          $data['page_title']="Create Questions";
-          $this->load->view('new_entry_view',$data);
+          $data['boolean']=$this->entry_model->is_logged_in();
+      
+          if($data['boolean'])
+          {
+            
+            $session_data = $this->session->userdata('logged_in');
+            //print_r($session_data['user_id']);
+            $data['username'] = $session_data['username'];
+            $data['guest'] =0;
+            
+            $data['page_title']="Create Questions";
+            $this->load->view('new_entry_view',$data);
+          }
+          else
+          {
+            $data['guest'] = "Uye olmak için tiklayin";
+            $this->load->model('entry_model');
+            $data['page_title']="Registration";
+            $this->load->view('new_entry_view',$data);
+          }
       }
 
       function save_question()

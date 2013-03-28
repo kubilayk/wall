@@ -11,6 +11,15 @@ a:hover                             { border-bottom-style: solid; }
 
 input[type=text]                    { float: center; height: 15px; width: 15px; font: bold 10px Helvetica, sans-serif; text-align: center; }
 */
+.contact_form{
+width:400px;
+float:left;
+padding:25px;
+margin:20px 0 0 15px;
+_margin:20px 0 0 5px;
+border:1px #DFD1D2 dashed;
+position:relative;
+}
 .span1{
       text-align: center;
       

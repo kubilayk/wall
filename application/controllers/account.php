@@ -5,19 +5,55 @@ class Account extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->model('user_model');
+		$this->load->model('entry_model');
 	}
 	
 	public function index()
 	{
-		$data['page_title']="User Registration";
-		$this->load->view('registration_view', $data);
+		$data['boolean']=$this->entry_model->is_logged_in();
+			
+			if($data['boolean'])
+			{
+				
+				$session_data = $this->session->userdata('logged_in');
+				//print_r($session_data['user_id']);
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+		     	$data['page_title']="Registration";	
+				$this->load->view('registration_view', $data);
+			}
+			else
+			{
+				$data['guest'] = "Uye olmak için tiklayin";
+		   		$this->load->model('entry_model');
+				$data['page_title']="Registration";
+				$this->load->view('registration_view', $data);
+			}
 	}
 	public function login($msg = NULL)
 	{
-		
-		$data['msg'] = $msg;
-		$data['page_title']="User Login";
-		$this->load->view('login_view', $data);
+		$data['boolean']=$this->entry_model->is_logged_in();
+			
+			if($data['boolean'])
+			{
+				
+				$session_data = $this->session->userdata('logged_in');
+				//print_r($session_data['user_id']);
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+		     	$data['page_title']="User Login";	
+				$data['msg'] = $msg;
+				$data['page_title']="User Login";
+				$this->load->view('login_view', $data);
+			}
+			else
+			{
+				$data['guest'] = "Uye olmak için tiklayin";
+		   		$this->load->model('entry_model');
+		   		$data['msg'] = $msg;
+				$data['page_title']="User Login";
+				$this->load->view('login_view', $data);
+			}
 	}
 	
 	public function user_login()

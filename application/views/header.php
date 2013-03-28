@@ -19,3 +19,43 @@
     </script>
   </head>
   <body>
+    <tr>​
+<tr>
+  <td bgcolor="#ff6600">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
+    <tbody>
+      <tr>
+        <td style="line-height:12pt; height:10px;">
+            <span class="pagetop">
+              <b><a href="<?php echo base_url();?>home">WriteWall|
+              </a></b>
+              <a href="<?php echo base_url();?>home">wall</a> | 
+               
+              <a href="<?php echo base_url();?>home/last_comments">comments</a> | 
+              
+             <?php if (! $boolean == false): ?> 
+              <a href="<?php echo base_url();?>entry/new_entry">write on wall</a>
+            <?php endif; ?></span>
+          </td>
+          <td style="text-align:right;padding-right:4px;">
+            <span class="pagetop">
+              <?php  
+          if($guest===0)
+          {
+            echo ''.$username.'';
+          }
+          else
+          {
+            echo '<a href='.base_url().'account >'.$guest.'</a>';
+          }
+    ?>
+<?php if (! $boolean == false): ?> 
+              <a href="<?php echo base_url();?>home/logout">logout</a>
+<?php endif; ?>
+            </span>
+          </td>
+      </tr>
+    </tbody>
+      </table>
+  </td>
+</tr>
