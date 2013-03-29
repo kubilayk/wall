@@ -24,7 +24,7 @@ class Account extends CI_Controller{
 			}
 			else
 			{
-				$data['guest'] = "Uye olmak için tiklayin";
+				$data['guest'] = "Sign up";
 		   		$this->load->model('entry_model');
 				$data['page_title']="Registration";
 				$this->load->view('registration_view', $data);
@@ -48,7 +48,7 @@ class Account extends CI_Controller{
 			}
 			else
 			{
-				$data['guest'] = "Uye olmak için tiklayin";
+				$data['guest'] = "Sign up";
 		   		$this->load->model('entry_model');
 		   		$data['msg'] = $msg;
 				$data['page_title']="User Login";

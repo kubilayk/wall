@@ -154,7 +154,89 @@ public function set_title_rate($data)
 		$this->db->query($sql, array((int)$data['like'], (int)$data['dislike'], (int)$data['question_id']));
 	
 	}
+	function search($key){
+		
+		
+		$key = '%'.$key.'%';
 
+		$query_str = "SELECT * FROM question 
+					  WHERE ( title LIKE ? )  
+					  ORDER BY question_date";	
+		$query = $this->db->query($query_str,Array($key));
+		$questions = $query->result();
+		$last= null;
+		foreach ($questions as $question)
+		 {
+			$sql="SELECT * from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.`time` DESC LIMIT 1"; 
+			$query2 = $this->db->query($sql,array((int)$question->question_id));
+			$question->last_vote= $query2->result();
+			$session_data = $this->session->userdata('logged_in');
+			$data['user_id'] = $session_data['user_id'];
+			$sql2="SELECT * from user_rate WHERE user_id= ? and entry_id=?";
+			$query3 = $this->db->query($sql2,array($data['user_id'],(int)$question->question_id));
+			$sql3="SELECT user_id,username,email FROM users WHERE user_id=? ";
+			$query4 = $this->db->query($sql3,array((int)$question->user_id));
+			$question->user_info= $query4->result();
+			//print_r($query3->num_rows);
+			if((int)$query3->num_rows == 0)
+			{
+				$question->is_vote= 0;
+			}
+			else 
+			{
+				$question->is_vote=1;
+			}
+			//$sql="SELECT q.question_id, COUNT(c.entry_id) AS total FROM question q JOIN comment c ON c.entry_id = q.question_id GROUP BY c.entry_id ORDER BY total asc";
+  			//$query3 = $this->db->query($sql);
+  			//$question->total=$query3->result();
+			//print_r($last);//print_r($query2->result());
+		}
+		
+		return $questions;//sonucu return ediyoruz.
+	}
+	function advanced_search($key){
+		
+		
+		$title=$key['q_title'];
+		$description=$key['q_description'];
+	   	$title = '%'.$title.'%';
+	    $description = '%'.$title.'%';
+
+		$query_str = "SELECT * FROM question 
+					  WHERE ( title LIKE ? or description LIKE ? )  
+					  ORDER BY question_date";
+		$query = $this->db->query($query_str,array($title,$description));
+		$questions = $query->result();
+		
+		foreach ($questions as $question)
+		 {
+			$sql="SELECT * from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.`time` DESC LIMIT 1"; 
+			$query2 = $this->db->query($sql,array((int)$question->question_id));
+			$question->last_vote= $query2->result();
+			$session_data = $this->session->userdata('logged_in');
+			$data['user_id'] = $session_data['user_id'];
+			$sql2="SELECT * from user_rate WHERE user_id= ? and entry_id=?";
+			$query3 = $this->db->query($sql2,array($data['user_id'],(int)$question->question_id));
+			$sql3="SELECT user_id,username,email FROM users WHERE user_id=? ";
+			$query4 = $this->db->query($sql3,array((int)$question->user_id));
+			$question->user_info= $query4->result();
+			//print_r($query3->num_rows);
+			if((int)$query3->num_rows == 0)
+			{
+				$question->is_vote= 0;
+			}
+			else 
+			{
+				$question->is_vote=1;
+			}
+			//$sql="SELECT q.question_id, COUNT(c.entry_id) AS total FROM question q JOIN comment c ON c.entry_id = q.question_id GROUP BY c.entry_id ORDER BY total asc";
+  			//$query3 = $this->db->query($sql);
+  			//$question->total=$query3->result();
+			//print_r($last);//print_r($query2->result());
+		}
+		 //print_r($questions);
+		return $questions;//sonucu return ediyoruz.
+	}
 public function is_logged_in()
 	{
 		$user_info= $this->session->userdata('logged_in');

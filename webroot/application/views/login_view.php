@@ -24,11 +24,8 @@
 					<input type='password' name='pass' id='pass' size='25' value="" />
 				</div>							
 				<div class="span12">
-					<input type='Submit' value='Login' />
+					<input type='Submit' class="btn btn-success" value='Login' />
 				</div>
-				<div class="span12">
-					<a href="<?php echo base_url();?>account/sign_up">Uye olmak icin tiklayin</a>	
-				</div>		
 		</form>
 
 

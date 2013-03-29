@@ -15,7 +15,7 @@
         </div>
         <div class="row">
           <div class="span3">
-            <input type="submit" id="comment_process" name="process" class="btn" value="Create" >
+            <button type="submit" class="btn btn-primary">Write on wall</button>
         </div>          
         </div>
     </form>

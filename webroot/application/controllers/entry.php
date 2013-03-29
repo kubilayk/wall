@@ -11,19 +11,37 @@ class Entry extends CI_Controller
 
       function index()
       {
+          
           $id_q= $this->uri->segment(2);
           $data['boolean']=$this->entry_model->is_logged_in();
-          $data['comment']=$this->comment_model->get_all_comments($id_q);
-          $data['question']=$this->entry_model->get_id_question($id_q);
-          $data['page_title']="Questions";
-          $this->load->view('entry_view',$data);
+          if($data['boolean'])
+          {
+            $session_data = $this->session->userdata('logged_in');
+            //print_r($session_data['user_id']);
+            $data['username'] = $session_data['username'];
+            $data['guest'] =0;
+            
+            $data['page_title']="Entry";
+            $data['comment']=$this->comment_model->get_all_comments($id_q);
+            $data['question']=$this->entry_model->get_id_question($id_q);
+            $data['page_title']="Questions";
+            $this->load->view('entry_view',$data);
+          }
+          else
+          {
+            $data['guest'] = "Sign up";
+            $data['page_title']="Entry";
+            $data['comment']=$this->comment_model->get_all_comments($id_q);
+            $data['question']=$this->entry_model->get_id_question($id_q);
+            $data['page_title']="Questions";
+            $this->load->view('entry_view',$data);
+          }
 
       }
 
       function new_entry()
       {
           $data['boolean']=$this->entry_model->is_logged_in();
-      
           if($data['boolean'])
           {
             
@@ -37,7 +55,7 @@ class Entry extends CI_Controller
           }
           else
           {
-            $data['guest'] = "Uye olmak için tiklayin";
+            $data['guest'] = "Sign up";
             $this->load->model('entry_model');
             $data['page_title']="Registration";
             $this->load->view('new_entry_view',$data);

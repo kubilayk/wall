@@ -1,20 +1,5 @@
 <?php include_once('header.php'); ?>
-	
-
-		
-		 
-		 	<?php  
-          if($guest===0)
-          {
-            echo '<h2>Welcome '.$username.'</h2>';
-          }
-          else
-          {
-            echo '<h2>Welcome<a href='.base_url().'account >'.$guest.'</a></h2>';
-          }
-   			 ?>
-   		
-		 	 <?php foreach($user_info as $user){ ?>
+		<?php foreach($user_info as $user){ ?>
 		 	<div class="row">
 				<div class="span2">
 					<label for="user_name">User Name:</label>

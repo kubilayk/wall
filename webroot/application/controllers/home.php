@@ -36,13 +36,14 @@ class Home extends CI_Controller
 
 		    {
 		   		
-		   		$data['guest'] = "Uye olmak için tiklayin";
+		   		$data['guest'] = "Sign up";
 		   		$this->load->model('entry_model');
 				$data['page_title']="Home_view";		
 				$data['question']=$this->entry_model->get_all_question();
 				$this->load->view('home_view',$data);
 
    			}
+
    	}
 
 	
@@ -96,7 +97,7 @@ class Home extends CI_Controller
 			}
 		else
 
-		   {	$data['guest'] = "Uye olmak için tiklayin";
+		   {	$data['guest'] = "Sign up";
 				$data['page_title']="Comment_view";		
 				
 				$data['comment']=$this->comment_model->last_comments();
@@ -120,7 +121,7 @@ class Home extends CI_Controller
 	    	}
 	    else
 	    {
-	    		$data['guest'] = "Uye olmak için tiklayin";
+	    		$data['guest'] = "Sign up";
 				$data['page_title']="User_info_view";
 				$data['user_info']= $this->user_model->get_user_info($this->input->post('user_id'));
 	    		$this->load->view('user_info_view', $data);
@@ -142,7 +143,7 @@ class Home extends CI_Controller
 	    	}
 	    else
 	    {
-	    		$data['guest'] = "Uye olmak için tiklayin";
+	    		$data['guest'] = "Sign up";
 				$data['page_title']="User_info_view";
 				$data['user_info']= $this->user_model->get_user_info($session_data['user_id']);
 	    		$this->load->view('user_info_view', $data);
@@ -165,7 +166,7 @@ class Home extends CI_Controller
 	   		}
 	   		else
 		   	{		
-	   	 		$data['guest'] = "Uye olmak için tiklayin";
+	   	 		$data['guest'] = "Sign up";
 				$data['page_title']="User_comment_view";
 				$data['user_comment']= $this->user_model->get_user_comment($this->input->post('user_id'));
 	   			$this->load->view('user_comment_view', $data);
@@ -186,7 +187,7 @@ class Home extends CI_Controller
 	   		}
 	   		else
 	   		{		
-	   	 		$data['guest'] = "Uye olmak için tiklayin";
+	   	 		$data['guest'] = "Sign up";
 				$data['page_title']="User_question_view";
 				$data['user_question']= $this->user_model->get_user_question($this->input->post('user_id'));
 	   			$this->load->view('user_question_view', $data);
@@ -202,7 +203,100 @@ class Home extends CI_Controller
 		redirect(base_url().'account', 'refresh');
 
 	}
+	function search()
 
+	{
+		
+		//print_r($_POST);
+		$data['boolean']=$this->entry_model->is_logged_in();
+		if ($_POST['search']!='')
+		{
+		 
+		 if($data['boolean'])
+			{ 
+			    $session_data = $this->session->userdata('logged_in');
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+				$data['page_title']="Search";		
+	    		$data['question_info']= $this->entry_model->search($this->input->post('search'));
+	   			$this->load->view('search_view', $data);
+	   		}
+	   		else
+	   		{		
+	   	 		$data['guest'] = "Sign up";
+				$data['page_title']="Search";		
+	    		$data['question_info']= $this->entry_model->search($this->input->post('search'));
+	   			$this->load->view('search_view', $data);
+	   		}
+	   	}
+	   	else 
+	   	{
+	   
+	   		 redirect(base_url().'home/advanced_search','refresh');
+
+	   	}
+	}
+
+	function advanced_search()
+	{
+		$data['boolean']=$this->entry_model->is_logged_in();
+			//print_r($_POST);
+			if($data['boolean'])
+			{
+				
+				$session_data = $this->session->userdata('logged_in');
+				//print_r($session_data['user_id']);
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+		     	$data['page_title']="Advanced Search";		
+				$this->load->view('advanced_search', $data);
+
+			}
+			  else
+
+		    {
+		   		
+		   		$data['guest'] = "Sign up";
+		   		$this->load->model('entry_model');
+				$data['page_title']="Advanced Search";		
+				$this->load->view('advanced_search', $data);
+
+   			}
+
+		
+	}
+	function advanced()
+	{
+		print_r($this->input->post());
+		if ($_POST['q_title']!='' || $_POST['q_description']!='')
+		{
+		$data['boolean']=$this->entry_model->is_logged_in(); 
+		 if($data['boolean'])
+			{ 
+			    $session_data = $this->session->userdata('logged_in');
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+				$data['page_title']="Search";		
+	    		$data['question_info']= $this->entry_model->advanced_search($this->input->post());
+	    		//print_r($data['question_info']);
+	   			$this->load->view('search_view', $data);
+	   		}
+	   		else
+	   		{		
+	   	 		$data['guest'] = "Sign up";
+				$data['page_title']="Search";		
+	    		$data['question_info']= $this->entry_model->advanced_search($this->input->post());
+	    		//print_r($data['question_info']);
+	   			$this->load->view('search_view', $data);
+	   		}
+	   	}
+	   	else 
+	   	{
+	   
+	   		 redirect(base_url().'home/advanced_search','refresh');
+
+	   }
+	}
 	
 }
 
