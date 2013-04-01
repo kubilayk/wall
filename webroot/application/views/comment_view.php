@@ -8,8 +8,10 @@
               <div class="row" <?php if ($com->last_comment===0){?>style="display:none"<?php } ?>>
                  <?php $e_id=$com->question_id; ?>
                     
-                    <form action="<?php echo base_url();?>home/rate" id="rate_form_<?php echo $e_id; ?>" method="POST">
+                   
                       <div class="span1" <?php if ($com->is_vote===1){?>style="display:none"<?php } ?> style="text-align: right;">
+                          <span>
+                           <form action="<?php echo base_url();?>home/rate" id="rate_form_<?php echo $e_id; ?>" method="POST">
                            <?php if (! $boolean == false): ?>  
                                <input type="hidden" name="like" id="rate_input_<?php echo $e_id; ?>" value="">
                                <input type="hidden" name="view" id="rate_input_<?php echo $e_id; ?>" value="comment">
@@ -21,13 +23,13 @@
                             <small>
                              Like:<?php echo isset($com->title_like)?($com->title_like):("") ?>
                             </small>
+                            </form> 
+                           </span>
                       </div>
           
-                    </form>       
+                          
                   
-                     <div class="span1" style="text-align: right;">
-                          <span> <?php $i=$i+1; echo "$i."; ?> </span>
-                     </div>        
+                           
                 
                      <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
                      <?php isset($com->user_info[0])?($u_id=$com->user_info[0]->user_id):("") ?>

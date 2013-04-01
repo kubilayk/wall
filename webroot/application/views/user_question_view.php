@@ -5,8 +5,10 @@
     <?php foreach($user_question as $quest){ ?>
        <div class="row">
             <?php $e_id=$quest->question_id; ?>
-            <form action="<?php echo base_url();?>home/rate" id="rate_form_<?php echo $e_id; ?>" method="POST">
+            
               <div class="span1" <?php if ($quest->is_vote===1){?>style="display:none"<?php } ?> style="text-align: right;">
+                <span>
+                <form action="<?php echo base_url();?>home/rate" id="rate_form_<?php echo $e_id; ?>" method="POST">
                  <?php if (! $boolean == false): ?>
                       <input type="hidden" name="like" id="rate_input_<?php echo $e_id; ?>" value="">
                       <input type="hidden" name="entry_id" id="entry_id_<?php echo $e_id; ?>" value="<?php echo $e_id; ?>">
@@ -15,12 +17,13 @@
                   <?php endif; ?>
                   <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
                   <small> Like:<?php echo $quest->title_like; ?>  
-                  </small>            
+                  </small>
+                </form>
+                </span>              
               </div>
-            </form>       
-              <div class="span1" style="text-align: right;">
-                   <span> <?php $i=$i+1; echo "$i."; ?> </span>
-              </div>    
+                  
+              
+              
       
               <?php isset($quest->last_vote[0])?($user_id=$quest->last_vote[0]->user_id):("") ?>
               <?php isset($quest->user_info[0])?($u_id=$quest->user_info[0]->user_id):("") ?>
