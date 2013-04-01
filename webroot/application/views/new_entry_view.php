@@ -4,13 +4,13 @@
      <form action="../entry/save_question" method="POST">
         <div class="row">
           <div class="span9">
-            <input type="text" name="title" value="Title" />
+            <input type="text" class="span8" name="title" placeholder="title"/>
           </div>          
                           
         </div>
         <div class="row">
           <div class="span9">
-            <textarea name="description" > Description</textarea>
+            <textarea name="description" class="span8" rows="7" placeholder="write description" ></textarea>
           </div>
         </div>
         <div class="row">

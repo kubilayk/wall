@@ -77,7 +77,7 @@ class Entry_model extends CI_Model
 	}
 	public function title_insert($data = array())
 	{
-
+		print_r($data);
 		$session_data = $this->session->userdata('logged_in');
 		$data['user_id'] = $session_data['user_id'];
 		if ($data):
@@ -108,7 +108,7 @@ class Entry_model extends CI_Model
 
 	public function rate_insert($data = array())
 	{
-
+		
 		
 		if ($data):
 
@@ -119,27 +119,26 @@ class Entry_model extends CI_Model
 
 	            );
 	    endif;  	
-		$sql="SELECT entry_id FROM ratings WHERE entry_id = ?";
-		$is_empty=$this->db->query($sql,array((int)$data['entry_id']));
-		if($is_empty->num_rows == 1)
-		{
-			$sql = "UPDATE ratings SET vote_like=vote_like + ?, total_votes=total_votes + 1 WHERE entry_id= ?"; 
-			$this->db->query($sql, array((int)$data['like'], (int)$data['entry_id']));
-	 
+	     
+	    if($data['like']==1)
+	    {
+		
+    	$sql= "UPDATE question SET title_like = (title_like + 1) WHERE question_id= ?";
+		$this->db->query($sql, array((int)$data['entry_id']));
 		}
-		else
-		{
-	   		$vote_value=1;
-			$sql = "INSERT INTO ratings(total_votes,vote_like,entry_id) VALUES (?,?,?);";
-			$this->db->query($sql, array((int)$vote_value, (int)$data['like'], (int)$data['entry_id']));	
+		else if($data['like']==0)
+		{//print_r($data);
+			$sql= "UPDATE question SET title_like= (title_like -1) WHERE question_id= ?";
+		$this->db->query($sql, array( (int)$data['entry_id']));
 		}
-    	
+
     
     }
 
 public function set_title_rate($data)
 	{
-		if ($data):
+		
+	if ($data):
 
 	    	$data = array(
 
@@ -251,11 +250,30 @@ public function is_logged_in()
 
 
 	}
-public function user_rate($q_id)
+public function user_rate($data)
 	{
+		if ($data):
+
+	    	$data = array(
+
+	    		'entry_id' => (int)$data['entry_id'],
+	            'like'=>$data['like']
+
+	            );
+	    
+	    endif; 
+	    if($data['like']==1)
+	    {
 		$user_info= $this->session->userdata('logged_in');
 		$sql = "INSERT INTO user_rate(entry_id, user_id) VALUES (?,?);";
-		$this->db->query($sql, array((int)$q_id, (int)$user_info['user_id']));
+		$this->db->query($sql, array((int)$data['entry_id'], (int)$user_info['user_id']));
+		}
+		else
+		{
+			$user_info= $this->session->userdata('logged_in');
+			$sql = "DELETE FROM user_rate WHERE entry_id = (?);";
+			$this->db->query($sql, array((int)$data['entry_id']));
+		}	
 	}
 	
 

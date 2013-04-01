@@ -52,17 +52,11 @@ class Home extends CI_Controller
 	{
 		//echo "rate";
 		$data=$this->input->post();
-		//print_r($data);
+		print_r($data);
 		$this->entry_model->rate_insert($data);
-		$result=$this->entry_model->get_vote_nb($this->input->post('entry_id'));
-		$this->entry_model->user_rate($this->input->post('entry_id'));
-	    $avg = array();
-			//print_r($result);
-		$avg['like'] = $result[0]->vote_like;
-		$avg['dislike']= $result[0]->total_votes - $result[0]->vote_like;
-		$avg['question_id']=$this->input->post('entry_id');
-			//print_r($avg);
-		$this->entry_model->set_title_rate($avg);
+		
+		$this->entry_model->user_rate($this->input->post());
+	   
 		if($this->input->post('view')=="entry")
 			{
 				redirect(base_url().'entry/'.$data['entry_id'], 'refresh');
@@ -108,22 +102,25 @@ class Home extends CI_Controller
 		
 	function user_info()
 	{
-		$data=$this->input->post();
+		
+		$id_u= $this->uri->segment(3);
+		
 		$data['boolean']=$this->entry_model->is_logged_in();
+
 		if($data['boolean'])
 			{ 
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['page_title']="User_info_view";
-	    		$data['user_info']= $this->user_model->get_user_info($this->input->post('user_id'));
+	    		$data['user_info']= $this->user_model->get_user_info($id_u);
 	    		$this->load->view('user_info_view', $data);
 	    	}
 	    else
 	    {
 	    		$data['guest'] = "Sign up";
 				$data['page_title']="User_info_view";
-				$data['user_info']= $this->user_model->get_user_info($this->input->post('user_id'));
+				$data['user_info']= $this->user_model->get_user_info($id_u);
 	    		$this->load->view('user_info_view', $data);
 
 	    }
@@ -267,7 +264,7 @@ class Home extends CI_Controller
 	}
 	function advanced()
 	{
-		print_r($this->input->post());
+		//print_r($this->input->post());
 		if ($_POST['q_title']!='' || $_POST['q_description']!='')
 		{
 		$data['boolean']=$this->entry_model->is_logged_in(); 

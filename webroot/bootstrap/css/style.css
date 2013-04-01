@@ -46,7 +46,7 @@ position:relative;
     }
      .span6{
       background: white;
-      color: #333333;
+      
       padding: 1px 0;
       text-align: left;
      
@@ -54,14 +54,14 @@ position:relative;
     } 
   #panel,#flip
   {
-    padding:2px;
+    padding:3px;
     text-align:left;
-    background-color:#e5eecc;
-    border:solid 1px #c3c3c3;
+    
+    border:solid 1px #333333;
   }
   #panel
   {
-    padding:50px;
+    padding:10px;
     display:none;
     text-align: left;
   }
@@ -75,4 +75,11 @@ position:relative;
     height: 30px; 
     padding: 1px;
   }
-  
+  .overtext
+{
+white-space:nowrap; 
+width:45em; 
+overflow:hidden; 
+display:inline-block;
+text-overflow: ellipsis;
+}

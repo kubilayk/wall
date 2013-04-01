@@ -9,15 +9,25 @@
                  <?php $e_id=$com->question_id; ?>
                     
                    
-                      <div class="span1" <?php if ($com->is_vote===1){?>style="display:none"<?php } ?> style="text-align: right;">
-                          <span>
+                      <div class="span1" < style="text-align: right;">
+                         <?php if (! $boolean == false): ?>   
+                         <span>
                            <form action="<?php echo base_url();?>home/rate" id="rate_form_<?php echo $e_id; ?>" method="POST">
-                           <?php if (! $boolean == false): ?>  
+                           
                                <input type="hidden" name="like" id="rate_input_<?php echo $e_id; ?>" value="">
                                <input type="hidden" name="view" id="rate_input_<?php echo $e_id; ?>" value="comment">
                                <input type="hidden" name="entry_id" id="entry_id_<?php echo $e_id; ?>" value="<?php echo $e_id; ?>">
-                               <a href="#" onclick="$('#rate_input_<?php echo $e_id; ?>').val('1');$('#rate_form_<?php echo $e_id; ?>').submit();return false;"><i class="icon-thumbs-up"> </i> </a>
-                               <a href="#" onclick="$('#rate_input_<?php echo $e_id; ?>').val('0');$('#rate_form_<?php echo $e_id; ?>').submit();return false;"><i class="icon-thumbs-down"></i> </a>
+                               <?php if ($com->is_vote===0)
+                      {
+
+                        echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'1\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-up"> </i> </a>';
+                      }
+                      else 
+                      {
+                       
+                       echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
+                      }
+                        ?>
                             <?php endif; ?>
                             <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
                             <small>
@@ -33,19 +43,18 @@
                 
                      <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
                      <?php isset($com->user_info[0])?($u_id=$com->user_info[0]->user_id):("") ?>
-                     <div class="span6">
+                     <div class="span8">
                           
-                         <small> 
+                         
+                              
                          <span> Last comment:<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("No Comment") ?></span>
-                         <form action="<?php echo base_url();?>home/user_info" id="user_info_form_<?php echo isset($user_id)?($user_id):("") ?>" method="POST">
-                              <input type="hidden" name="user_id" id="user_info_form_<?php echo isset($user_id)?($user_id):("") ?>" value="<?php echo isset($com->last_comment[0])?($com->last_comment[0]->user_id):("") ?>">
-                              by:<a href="#" onclick="$('#user_info_form_<?php echo isset($user_id)?($user_id):("") ?>').submit();return false;"> <?php echo isset($com->last_comment[0])?($com->last_comment[0]->username):("") ?></a>
-                          </form>
-                          <form action="<?php echo base_url();?>home/user_info" id="user_info_form_<?php echo isset($u_id)?($u_id):("") ?>" method="POST">
-                               <input type="hidden" name="user_id" id="user_info_form_<?php echo isset($user_id)?($user_id):("") ?>" value="<?php echo isset($com->user_info[0])?($com->user_info[0]->user_id):("") ?>">
-                               created by:<a href="#" onclick="$('#user_info_form_<?php echo isset($u_id)?($u_id):("") ?>').submit();return false;"> <?php echo isset($com->user_info[0])?($com->user_info[0]->username):("") ?></a>
-                          </form>
-                          <span>on:<a href="entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
+                        <small> <br/> created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($com->user_info[0])?($com->user_info[0]->username):("") ?></a>
+                        
+                         
+                          
+                              
+                         
+                          <span><br/>on:<a class="overtext"href="<?php echo base_url();?>entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
                         </small>
                      </div>
                 

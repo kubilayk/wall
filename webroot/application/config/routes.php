@@ -38,9 +38,9 @@
 |
 */
 
-$route['default_controller'] = 'account';
+$route['default_controller'] = 'home';
 $route['entry/:num'] = 'entry/index/$1/$1';
-$route['home/:num'] = 'home/$1';
+$route['home/:num'] = 'home/user_info/$1';
 
 
 /* End of file routes.php */

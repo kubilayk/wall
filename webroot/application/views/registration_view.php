@@ -30,7 +30,7 @@
 					<input type="password" id="con_password" name="con_password" value="<?php echo set_value('con_password'); ?>" />
 				</div>
 				<div class="span12">
-					<input type="submit" value="Submit" class="btn btn-primary"/> &nbsp; &nbsp; &nbsp; <a href="<?php echo base_url();?>account/login" class="btn btn-success">Login</a>
+					<input type="submit" value="Submit" class="btn btn-primary"/> &nbsp; &nbsp; &nbsp; <a href="<?php echo base_url();?>account/login" class="btn btn-success">Login</a>&nbsp; &nbsp; &nbsp;
 				</div>
 				<div class="span12">
 
@@ -38,5 +38,22 @@
 			</div>
 		
 	<?php echo form_close(); ?>
-	
+	<div id="dialog-form" title="Login">
+		  <p class="validateTips">All form fields are required.</p>
+		 
+		  <form>
+		  <fieldset>
+		    <label for="name">Name</label>
+		    <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+		    
+		    <label for="password">Password</label>
+		    <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
+		  </fieldset>
+		  </form>
+   </div>
+ 
+ <button id="create-user">Create new user</button>
+
+
+
 <?php include_once('footer.php'); ?>
