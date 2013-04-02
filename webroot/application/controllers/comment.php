@@ -11,19 +11,12 @@ class Comment extends CI_Controller
 
     public function save_comment()
     {
-      
-      if($this->input->post('comment')) 
+        if($this->input->post('comment')) 
         {
-             $this->comment_model->comment_insert($this->input->post());
-             $entry_id=(int)$this->input->post('entry_id');
-             if(filter_var($entry_id, FILTER_VALIDATE_INT)):
-                {
-                    redirect(base_url().'entry/'.(int)$entry_id,'refresh');  
-                }
-              endif;
-        }
-      else
-        {
+              $this->comment_model->comment_insert($this->input->post());
+              $entry_id=(int)$this->input->post('entry_id');
+              redirect(base_url().'entry/'.(int)$entry_id,'refresh');  
+        }else{
             redirect(base_url().'home','location');
         }
 
@@ -35,7 +28,6 @@ class Comment extends CI_Controller
         $data['entry_id'] = $this->input->post('entry_id');
         $session_data = $this->session->userdata('logged_in');
         $data['user_id'] = $session_data['user_id'];
-        //print_r($this->input->post());
         
        if($session_data && filter_var($data['user_id'], FILTER_VALIDATE_INT))
         {

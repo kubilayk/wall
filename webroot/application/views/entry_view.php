@@ -2,7 +2,6 @@
   <?php $i=0; ?>
   <?php $e_id=0; ?>
   
-      <h4>Questions</a></h4>
           <?php foreach($question as $quest){ ?>
           
           <div class="row">
@@ -15,39 +14,35 @@
                          <input type="hidden" name="like" id="rate_input_<?php echo $e_id; ?>" value="">
                          <input type="hidden" name="view" id="rate_input_<?php echo $e_id; ?>" value="entry">
                          <input type="hidden" name="entry_id" id="entry_id_<?php echo $e_id; ?>" value="<?php echo $e_id; ?>">
-                         <?php if ($quest->is_vote===0)
-                      {
+                          <?php if ($quest->is_vote===0)
+                          {
 
-                        echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'1\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-up"> </i> </a>';
-                      }
-                      else 
-                      {
-                       
-                       echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
-                      }
-                        ?>
+                            echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'1\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-up"> </i> </a>';
+                          }
+                          else 
+                          {
+                           
+                           echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
+                          }
+                          ?>
                          <?php endif; ?>
                         
-                         <small>  Like:<?php echo $quest->title_like; ?>
+                         <small class="label label-info">  Like : <?php echo ( $quest->title_like ? $quest->title_like : 0 ); ?>
                          </small>
                          </span>
                       </form>
                  </div>
                   
-<form action="<?php echo base_url();?>entry/delete_entry" id="question_delete_<?php echo isset($quest->question_id)?($quest->question_id):("") ?>" method="POST">
-<input type="hidden" name="question_id" value="<?php echo isset($quest->question_id)?($quest->question_id):("") ?>">   
-<input type="hidden" name="view" value="entry_comment">
-                 
+            <form action="<?php echo base_url();?>entry/delete_entry" id="question_delete_<?php echo isset($quest->question_id)?($quest->question_id):("") ?>" method="POST">
+              <input type="hidden" name="question_id" value="<?php echo isset($quest->question_id)?($quest->question_id):("") ?>">   
+              <input type="hidden" name="view" value="entry_comment">
+                     
          
              <?php isset($quest->last_vote[0])?($user_id=$quest->last_vote[0]->user_id):("") ?>
              <?php isset($quest->user_info[0])?($u_id=$quest->user_info[0]->user_id):("") ?>
                  <div class="span11">
-                    <div id="flip">
-                        <?php echo $quest->title; ?></a>
-                    </div>
-                    <div id="panel">
-                        <?php echo $quest->description; ?>
-                    </div>
+                        <p><strong><?php echo $quest->title; ?></strong></p>
+                        <p><?php echo $quest->description; ?></p>
                    
                         <small>
                         created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
@@ -119,7 +114,7 @@
     <div class="container">          
         <div class="row">
           
-                  <h4>Leave your comment !</h4><hr>
+           <h4>Leave your comment !</h4><hr>
            </div>
            <?php foreach($comment as $com){ ?>
            <form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo isset($com->comment_id)?($com->comment_id):("") ?>" method="POST">
@@ -147,7 +142,7 @@
                                     {
                                       echo"";
                                     } 
-                             ?><p></p><p></p><hr>
+                             ?><hr>
                  
               </div>
             </form>
