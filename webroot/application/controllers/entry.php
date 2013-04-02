@@ -71,7 +71,7 @@ class Entry extends CI_Controller
              $this->entry_model->title_insert($this->input->post());
             } 
           
-          redirect(base_url().'home','refresh'); 
+          redirect(base_url().'home','location'); 
       }
       function delete_entry()
       {
@@ -84,20 +84,20 @@ class Entry extends CI_Controller
           $this->entry_model->title_drop($data);
           if($this->input->post('view')=="entry_comment")
             {
-              redirect(base_url().'entry/'.$data['question_id'], 'refresh');
+              redirect(base_url().'entry/'.$data['question_id'], 'location');
             }
           else if($this->input->post('view')=="user_question")
             {
-              redirect(base_url().'home/user_question/'.$data['user_id'], 'refresh');
+              redirect(base_url().'home/user_question/'.$data['user_id'], 'location');
             }
           else
             { 
-              redirect(base_url().'home','refresh');
+              redirect(base_url().'home','location');
             }        
         }
        else
        {
-          redirect(base_url().'home','refresh');
+          redirect(base_url().'home','location');
        } 
       }
   

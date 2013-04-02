@@ -15,9 +15,9 @@ class Comment extends CI_Controller
         {
               $this->comment_model->comment_insert($this->input->post());
               $entry_id=(int)$this->input->post('entry_id');
-              redirect(base_url().'entry/'.(int)$entry_id,'location', 301);  
+              redirect(base_url().'entry/'.(int)$entry_id,'refresh');  
         }else{
-            redirect(base_url().'home','location', 301);
+            redirect(base_url().'home','location');
         }
 
 
@@ -34,7 +34,7 @@ class Comment extends CI_Controller
           $this->comment_model->comment_drop($data);
           if($this->input->post('view')=="entry_comment")
           {
-            redirect(base_url().'entry/'.$data['entry_id'],'refresh');
+            redirect(base_url().'entry/'.$data['entry_id'],'location');
           }
           else if($this->input->post('view')=="user_comment")
             {
@@ -42,7 +42,7 @@ class Comment extends CI_Controller
             }
           else if($this->input->post('view')=="last_comment")
             {
-              redirect(base_url().'home/last_comments', 'refresh');
+              redirect(base_url().'home/last_comments', 'location');
             }
           else
           {

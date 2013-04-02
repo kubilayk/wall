@@ -58,15 +58,15 @@ class Home extends CI_Controller
 		$this->entry_model->user_rate($this->input->post());
 	   
 		if($this->input->post('view')=="entry"){
-				redirect(base_url().'entry/'.$data['entry_id'], 'refresh');
+				redirect(base_url().'entry/'.$data['entry_id'], 'location');
 		}else if($this->input->post('view')=="comment"){
-				redirect(base_url().'home/last_comments', 'refresh');
+				redirect(base_url().'home/last_comments', 'location');
 		}else if($this->input->post('view')=="user_question"){
-				redirect(base_url().'home/user_question/'.$data['user'], 'refresh');
+				redirect(base_url().'home/user_question/'.$data['user'], 'location');
 		}else if($this->input->post('view')=="user_comment"){
-				redirect(base_url().'home/user_comment/'.$data['user'], 'refresh');
+				redirect(base_url().'home/user_comment/'.$data['user'], 'location');
 		}else{
-				redirect(base_url().'home', 'refresh');
+				redirect(base_url().'home', 'location');
 		}
 	}	 
 
@@ -194,7 +194,7 @@ class Home extends CI_Controller
 	function logout()
 	{
 		$this->session->sess_destroy();
-		redirect(base_url().'account', 'location', 301);
+		redirect(base_url().'account', 'location');
 
 	}
 	function search()
