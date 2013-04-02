@@ -194,7 +194,7 @@ class Home extends CI_Controller
 	function logout()
 	{
 		$this->session->sess_destroy();
-		redirect(base_url().'account', 'refresh');
+		redirect(base_url().'account', 'location', 301);
 
 	}
 	function search()
