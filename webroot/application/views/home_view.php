@@ -2,8 +2,9 @@
 
       <?php $e_id=0;?>
       <?php $i=0 ?>
-      <?php foreach($question as $quest){ ?>
-          
+      <?php foreach 
+      ($question as $quest){ ?>
+
            <div class="row">
               <?php $e_id=$quest->question_id; ?>
              
@@ -42,7 +43,8 @@
                     </span>                        
                    </div>
                     
-                        
+<form action="<?php echo base_url();?>entry/delete_entry" id="question_delete_<?php echo isset($quest->question_id)?($quest->question_id):("") ?>" method="POST">
+<input type="hidden" name="question_id" value="<?php echo isset($quest->question_id)?($quest->question_id):("") ?>">   
                          
                     
                 
@@ -53,7 +55,7 @@
                         <a class="overtext" href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>"><?php echo $quest->title;?></a><small>  created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a></small>
                         
                             
-                            <small> | last like by:<a href="<?php echo base_url();?>home/user_info/<?php echo $user_id; ?>"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a> | time:<?php 
+                            <small> | last like by:<a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):("") ?>"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a> | time:<?php 
                                  if(isset($quest->last_vote[0]->time))
                                  {  
                                         $seconds = strtotime("now") - strtotime($quest->last_vote[0]->time)+3600;
@@ -95,12 +97,29 @@
                                   }                            
                                 ?> 
                               </span>
-                        <form action="<?php echo base_url();?>home/user_info" id="user_info_form_<?php echo isset($u_id)?($u_id):("") ?>" method="POST">
-                            <input type="hidden" name="user_id" id="user_info_form_<?php echo isset($user_id)?($user_id):("") ?>" value="<?php echo isset($quest->user_info[0])?($quest->user_info[0]->user_id):("") ?>">
-                           
-                            </small>
-                        </form>
-                  </div>
+                              <?php   
+
+                                    $session_data = $this->session->userdata('logged_in');
+                                    
+                                    if($quest->user_info[0]->user_id == $session_data['user_id'])
+                                    {
+                                      echo '<a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;">| delete</a>';
+                                    }
+                                    else
+                                    {
+                                      echo"";
+                                    } 
+                             ?>
+
+
+
+
+                            
+</form> 
+                        </small>                          
+                        </small>
+                        
+                  </div>  
 
                   <div class="span3">
                          <span> <?php 
@@ -144,6 +163,7 @@
                   </div>
                   
             </div>
+            <br/>
       <?php } ?>
 
 

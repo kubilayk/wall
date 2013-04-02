@@ -34,6 +34,9 @@
                       </form>
                  </div>
                   
+<form action="<?php echo base_url();?>entry/delete_entry" id="question_delete_<?php echo isset($quest->question_id)?($quest->question_id):("") ?>" method="POST">
+<input type="hidden" name="question_id" value="<?php echo isset($quest->question_id)?($quest->question_id):("") ?>">   
+<input type="hidden" name="view" value="entry_comment">
                  
          
              <?php isset($quest->last_vote[0])?($user_id=$quest->last_vote[0]->user_id):("") ?>
@@ -48,7 +51,7 @@
                    
                         <small>
                         created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
-                        | last like by:<a href="<?php echo base_url();?>home/user_info/<?php echo $user_id; ?>"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a> | time:<?php 
+                        | last like by:<a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):(""); ?>"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a> | time:<?php 
                      if(isset($quest->last_vote[0]->time))
                                  {  
                                         $seconds = strtotime("now") - strtotime($quest->last_vote[0]->time)+3600;
@@ -92,10 +95,22 @@
                       </span>
                     
                     
-                        
+                         <?php   
+
+                                    $session_data = $this->session->userdata('logged_in');
+                                    
+                                    if($quest->user_info[0]->user_id == $session_data['user_id'])
+                                    {
+                                      echo '<a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;">| delete</a>';
+                                    }
+                                    else
+                                    {
+                                      echo"";
+                                    } 
+                             ?>
                         
                         </small>
-                    
+                    </form> 
                  </div>
            </div>
            <?php } ?>
@@ -103,20 +118,43 @@
 
     <div class="container">          
         <div class="row">
-           <div class="span12">
+          
                   <h4>Leave your comment !</h4><hr>
            </div>
            <?php foreach($comment as $com){ ?>
-             <div class="span12">
+           <form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo isset($com->comment_id)?($com->comment_id):("") ?>" method="POST">
+           <input type="hidden" name="comment_id" value="<?php echo isset($com->comment_id)?($com->comment_id):("") ?>">
+           
+          <div class="span12">
+            <form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo isset($com->comment_id)?($com->comment_id):("") ?>" method="POST">
+            <input type="hidden" name="comment_id" value="<?php echo isset($com->comment_id)?($com->comment_id):("") ?>">
+            <input type="hidden" name="view" value="entry_comment">
+            <input type="hidden" name="entry_id" value="<?php echo $e_id; ?>">
+           
                 Time:
                   <?php echo $com->comment_date; ?>
                  <br/>
                 Comment:
-                  <?php echo $com->comment; ?><p></p><p></p><hr>
+                  <?php echo $com->comment; ?> <?php   
+
+                                    $session_data = $this->session->userdata('logged_in');
+                                    
+                                    if($com->user_id == $session_data['user_id'])
+                                    {
+                                      echo '<a href="#" onclick="$(\'#comment_delete_'.$com->comment_id.'\').submit();return false;"> | delete</a>';
+                                    }
+                                    else
+                                    {
+                                      echo"";
+                                    } 
+                             ?><p></p><p></p><hr>
+                 
               </div>
+            </form>
             <?php } ?>
-        
+                            
           <form action="<?php echo base_url();?>comment/save_comment" method="POST">
+            
               <div class="span6">
                   <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
                   <?php if (! $boolean == false): ?>

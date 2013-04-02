@@ -83,7 +83,10 @@ class User_model extends CI_Model
 
 	public function get_user_question($id)
 	{	
-		$query = $this->db->get_where('question',array('user_id'=>$id));
+		$this->db->from("question");
+		$this->db->where("user_id",$id);
+		$this->db->order_by("question_date", "desc");
+		$query = $this->db->get();
 		$questions = $query->result();
 		$last= null;
 		foreach ($questions as $question) 
@@ -116,7 +119,11 @@ class User_model extends CI_Model
 	public function get_user_comment($id)
 	{
 		
-		$query = $this->db->get_where('question',array('user_id'=>$id));
+		$this->db->from("question");
+		$this->db->where("user_id",$id);
+		$this->db->order_by("question_date", "desc");
+		$query = $this->db->get();
+		
 		$questions = $query->result();
 		$last= null;
 		

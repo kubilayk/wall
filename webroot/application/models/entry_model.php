@@ -8,7 +8,9 @@ class Entry_model extends CI_Model
  
 	public function get_all_question()
 	{
-		$query = $this->db->get('question');
+		$this->db->from("question");
+		$this->db->order_by("question_date", "desc");
+		$query = $this->db->get();
 		$questions = $query->result();
 		$last= null;
 		foreach ($questions as $question)
@@ -274,6 +276,21 @@ public function user_rate($data)
 			$sql = "DELETE FROM user_rate WHERE entry_id = (?);";
 			$this->db->query($sql, array((int)$data['entry_id']));
 		}	
+	}
+public function title_drop($data)
+	{
+		if($data):
+			$data = array(
+				'question_id' => (int)$data['question_id'],
+				'user_id' => (int)$data['user_id']
+
+				);
+		endif;
+		$sql="DELETE FROM question WHERE user_id = ? AND question_id = ?";
+		$this->db->query($sql, array((int)$data['user_id'], (int)$data['question_id']));
+
+
+
 	}
 	
 

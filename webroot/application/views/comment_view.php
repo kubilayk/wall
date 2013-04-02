@@ -18,16 +18,16 @@
                                <input type="hidden" name="view" id="rate_input_<?php echo $e_id; ?>" value="comment">
                                <input type="hidden" name="entry_id" id="entry_id_<?php echo $e_id; ?>" value="<?php echo $e_id; ?>">
                                <?php if ($com->is_vote===0)
-                      {
+                                  {
 
-                        echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'1\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-up"> </i> </a>';
-                      }
-                      else 
-                      {
-                       
-                       echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
-                      }
-                        ?>
+                                    echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'1\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-up"> </i> </a>';
+                                  }
+                                  else 
+                                  {
+                                   
+                                   echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
+                                  }
+                              ?>
                             <?php endif; ?>
                             <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
                             <small>
@@ -38,8 +38,9 @@
                       </div>
           
                           
-                  
-                           
+<form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>" method="POST">
+<input type="hidden" name="comment_id" value="<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>">               
+<input type="hidden" name="view" value="last_comment">                           
                 
                      <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
                      <?php isset($com->user_info[0])?($u_id=$com->user_info[0]->user_id):("") ?>
@@ -50,14 +51,28 @@
                          <span> Last comment:<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("No Comment") ?></span>
                         <small> <br/> created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($com->user_info[0])?($com->user_info[0]->username):("") ?></a>
                         
-                         
+
+                         <?php   
+
+                                    $session_data = $this->session->userdata('logged_in');
+                                    
+                                    if($com->user_info[0]->user_id == $session_data['user_id'])
+                                    {
+                                      echo '<a href="#" onclick="$(\'#comment_delete_'.$com->last_comment[0]->comment_id.'\').submit();return false;">| delete</a>';
+                                    }
+                                    else
+                                    {
+                                      echo"";
+                                    } 
+                             ?>
                           
-                              
+                               
                          
                           <span><br/>on:<a class="overtext"href="<?php echo base_url();?>entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
+
                         </small>
                      </div>
-                
+               
                      <div class="span3">
                             <span> at: <span> 
                               <?php 
@@ -101,11 +116,11 @@
                                       }                        
                               ?>
                             </span> </span>
-
+                 
                       </div>
           </div>
-           <?php } ?>
+           </form>
     </div>
 
-    
+    <?php } ?>
   <?php include_once('footer.php'); ?>

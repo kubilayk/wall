@@ -65,12 +65,18 @@ class Home extends CI_Controller
 			{
 				redirect(base_url().'home/last_comments', 'refresh');
 			}
-		
+		else if($this->input->post('view')=="user_question")
+			{
+				redirect(base_url().'home/user_question/'.$data['user'], 'refresh');
+			}
+		else if($this->input->post('view')=="user_comment")
+			{
+				redirect(base_url().'home/user_comment/'.$data['user'], 'refresh');
+			}
 		else
 			{
 				redirect(base_url().'home', 'refresh');
 			}
-
 	}	 
 
 			  	 
@@ -150,7 +156,7 @@ class Home extends CI_Controller
 	    
 	function user_comment()
 	{
-		$data=$this->input->post();
+		$id_u = $this->uri->segment(3);
 		$data['boolean']=$this->entry_model->is_logged_in(); 
 	    if($data['boolean'])
 			{ 
@@ -158,20 +164,21 @@ class Home extends CI_Controller
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['page_title']="User_comment_view";		
-	    		$data['user_comment']= $this->user_model->get_user_comment($this->input->post('user_id'));
+	    		$data['user_comment']= $this->user_model->get_user_comment($id_u);
 	   			$this->load->view('user_comment_view', $data);
 	   		}
 	   		else
 		   	{		
 	   	 		$data['guest'] = "Sign up";
 				$data['page_title']="User_comment_view";
-				$data['user_comment']= $this->user_model->get_user_comment($this->input->post('user_id'));
+				$data['user_comment']= $this->user_model->get_user_comment($id_u);
 	   			$this->load->view('user_comment_view', $data);
 	   		}
 	}
 	function user_question()
 	{
-		$data=$this->input->post();
+		$id_u= $this->uri->segment(3);
+		
 		$data['boolean']=$this->entry_model->is_logged_in(); 
 	    if($data['boolean'])
 			{ 
@@ -179,14 +186,14 @@ class Home extends CI_Controller
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['page_title']="User_question_view";		
-	    		$data['user_question']= $this->user_model->get_user_question($this->input->post('user_id'));
+	    		$data['user_question']= $this->user_model->get_user_question($id_u);
 	   			$this->load->view('user_question_view', $data);
 	   		}
 	   		else
 	   		{		
 	   	 		$data['guest'] = "Sign up";
 				$data['page_title']="User_question_view";
-				$data['user_question']= $this->user_model->get_user_question($this->input->post('user_id'));
+				$data['user_question']= $this->user_model->get_user_question($id_u);
 	   			$this->load->view('user_question_view', $data);
 	   		}
 	}

@@ -64,7 +64,7 @@ class Entry extends CI_Controller
 
       function save_question()
       {
-          $this->load->helper('url');
+          
           if($this->input->post('title')) 
             {
 
@@ -72,6 +72,33 @@ class Entry extends CI_Controller
             } 
           
           redirect(base_url().'home','refresh'); 
+      }
+      function delete_entry()
+      {
+        $data['question_id'] = $this->input->post('question_id');
+        $session_data = $this->session->userdata('logged_in');
+        $data['user_id'] = $session_data['user_id'];
+        //print_r($data);
+        if($session_data && $data['user_id'])
+        { 
+          $this->entry_model->title_drop($data);
+          if($this->input->post('view')=="entry_comment")
+            {
+              redirect(base_url().'entry/'.$data['question_id'], 'refresh');
+            }
+          else if($this->input->post('view')=="user_question")
+            {
+              redirect(base_url().'home/user_question/'.$data['user_id'], 'refresh');
+            }
+          else
+            { 
+              redirect(base_url().'home','refresh');
+            }        
+        }
+       else
+       {
+          redirect(base_url().'home','refresh');
+       } 
       }
   
 }

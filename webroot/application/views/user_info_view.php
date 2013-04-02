@@ -18,17 +18,16 @@
 				</div>
 
 				<div class="span7">
-					<form action="<?php echo base_url();?>home/user_question" id="user_question" method="POST">
-                            <input type="hidden" name="user_id" id="user_question" value="<?php echo $user->user_id ?>">
-                            <a href="#" onclick="$('#user_question').submit();return false;">Question</a>
-                    </form>
+					
+                            
+                            <a href="<?php echo base_url();?>home/user_question/<?php echo $user->user_id; ?>">Question</a>
+                    
 				</div>
 
 				<div class="span7">
-				    <form action="<?php echo base_url();?>home/user_comment" id="user_comment" method="POST">
-                            <input type="hidden" name="user_id" id="user_comment" value="<?php echo $user->user_id ?>">
-                            <a href="#" onclick="$('#user_comment').submit();return false;">Comment</a>
-                    </form>
+				    
+                            <a href="<?php echo base_url();?>home/user_comment/<?php echo $user->user_id; ?>">Comment</a>
+                   
 				</div>
 				
 		    </div>

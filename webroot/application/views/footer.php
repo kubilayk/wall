@@ -86,12 +86,10 @@
           }
         },
         Signup: function() {
-           $.ajax({
-                    url: "http://localhost/wall/webroot/account",
-                    type: 'POST',
-                    data: frm.serialize(),
-                    success: $dialog.dialog('close')
-                });
+           $('#div_id').on('click',function(){
+    window.location.href = "<?php echo base_url();?>account; ?>";
+ });
+        }
       },
       close: function() {
         allFields.val( "" ).removeClass( "ui-state-error" );

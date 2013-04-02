@@ -10,7 +10,7 @@ class Comment_model extends CI_Model
 	function get_all_comments($entry_id = 0)
 	{
 		
-		$sql= "SELECT * FROM comment WHERE entry_id = ? ";
+		$sql= "SELECT * FROM comment WHERE entry_id = ? ORDER BY comment_date DESC";
 		$query = $this->db->query($sql,array((int)$entry_id));//soru tablosundaki bütün verileri çekiyoruz.
 		return $query->result();//sonucu return ediyoruz.
 	}
@@ -81,5 +81,20 @@ class Comment_model extends CI_Model
 		}
 		return $questions;
   }
+  public function comment_drop($data)
+	{
+		if($data):
+			$data = array(
+				'comment_id' => (int)$data['comment_id'],
+				'user_id' => (int)$data['user_id']
+
+				);
+		endif;
+		$sql="DELETE FROM comment WHERE user_id = ? AND comment_id = ?";
+		$this->db->query($sql, array((int)$data['user_id'], (int)$data['comment_id']));
+
+
+
+	}
 }
 ?>
