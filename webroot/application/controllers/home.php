@@ -223,7 +223,7 @@ class Home extends CI_Controller
 	   			$this->load->view('search_view', $data);
 	   		}
 	   	}else{
-	   		 redirect(base_url().'home/advanced_search','refresh');
+	   		 redirect(base_url().'home/advanced_search','location');
 
 	   	}
 	}
@@ -284,7 +284,7 @@ class Home extends CI_Controller
 	   	else 
 	   	{
 	   
-	   		 redirect(base_url().'home/advanced_search','refresh');
+	   		 redirect(base_url().'home/advanced_search','location');
 
 	   }
 	}
