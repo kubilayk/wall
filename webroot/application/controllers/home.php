@@ -57,27 +57,17 @@ class Home extends CI_Controller
 		
 		$this->entry_model->user_rate($this->input->post());
 	   
-		if($this->input->post('view')=="entry")
-			{
+		if($this->input->post('view')=="entry"){
 				redirect(base_url().'entry/'.$data['entry_id'], 'refresh');
-			}
-		else if($this->input->post('view')=="comment")
-			{
+		}else if($this->input->post('view')=="comment"){
 				redirect(base_url().'home/last_comments', 'refresh');
-			}
-		else if($this->input->post('view')=="user_question")
-			{
+		}else if($this->input->post('view')=="user_question"){
 				redirect(base_url().'home/user_question/'.$data['user'], 'refresh');
-			}
-		else if($this->input->post('view')=="user_comment")
-			{
+		}else if($this->input->post('view')=="user_comment"){
 				redirect(base_url().'home/user_comment/'.$data['user'], 'refresh');
-			}
-
-		else
-			{
+		}else{
 				redirect(base_url().'home', 'refresh');
-			}
+		}
 	}	 
 
 			  	 
@@ -201,8 +191,7 @@ class Home extends CI_Controller
 	
 	
 
-	 function logout()
-
+	function logout()
 	{
 		$this->session->sess_destroy();
 		redirect(base_url().'account', 'refresh');
@@ -212,31 +201,28 @@ class Home extends CI_Controller
 
 	{
 		
-		//print_r($_POST);
+		$q = $this->input->get('search');
+
 		$data['boolean']=$this->entry_model->is_logged_in();
-		if ($_POST['search']!='')
-		{
+		if (trim($q) != ''){
 		 
-		 if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{ 
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['page_title']="Search";		
-	    		$data['question_info']= $this->entry_model->search($this->input->post('search'));
+	    		$data['question_info']= $this->entry_model->search($q);
 	   			$this->load->view('search_view', $data);
 	   		}
 	   		else
 	   		{		
 	   	 		$data['guest'] = "Sign up";
 				$data['page_title']="Search";		
-	    		$data['question_info']= $this->entry_model->search($this->input->post('search'));
+	    		$data['question_info']= $this->entry_model->search($q);
 	   			$this->load->view('search_view', $data);
 	   		}
-	   	}
-	   	else 
-	   	{
-	   
+	   	}else{
 	   		 redirect(base_url().'home/advanced_search','refresh');
 
 	   	}

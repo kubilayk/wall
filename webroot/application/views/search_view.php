@@ -18,19 +18,19 @@
                           <input type="hidden" name="entry_id" id="entry_id_<?php echo $e_id; ?>" value="<?php echo $e_id; ?>">
                           <input type="hidden" name="view" value="search">
                           <?php if ($quest->is_vote===0)
-                      {
+                          {
 
-                        echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'1\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-up"> </i> </a>';
-                      }
-                      else 
-                      {
-                       
-                       echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
-                      }
-                        ?>
+                            echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'1\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-up"> </i> </a>';
+                          }
+                          else 
+                          {
+                           
+                           echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
+                          }
+                          ?>
                       <?php endif; ?>
                       <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
-                      <small>Like:<?php echo $quest->title_like; ?>
+                      <small class="label label-info">Like : <?php echo ( $quest->title_like ? $quest->title_like : 0 ); ?>
                       </small>
                     </form> 
                     </span>

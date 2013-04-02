@@ -19,16 +19,16 @@
                          <input type="hidden" name="view" id="rate_input_<?php echo $e_id; ?>" value="">
                          <input type="hidden" name="entry_id" id="entry_id_<?php echo $e_id; ?>" value="<?php echo $e_id; ?>">
                           
-                     <?php if ($quest->is_vote===0)
-                      {
+                        <?php if ($quest->is_vote===0)
+                          {
 
-                        echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'1\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-up"> </i> </a>';
-                      }
-                      else 
-                      {
-                       
-                       echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
-                      }
+                            echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'1\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-up"> </i> </a>';
+                          }
+                          else 
+                          {
+                           
+                           echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
+                          }
                         ?>
                       
                          
@@ -36,23 +36,21 @@
                        
                       <?php endif; ?>
                       <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
-                      <small>
-                         Like:<?php echo $quest->title_like; ?>
-                        </small>
+                      <small class="label label-info"> Like : <?php echo ( $quest->title_like ? $quest->title_like : 0 ); ?></small>
                       </form> 
                     </span>                        
                    </div>
                     
-<form action="<?php echo base_url();?>entry/delete_entry" id="question_delete_<?php echo isset($quest->question_id)?($quest->question_id):("") ?>" method="POST">
-<input type="hidden" name="question_id" value="<?php echo isset($quest->question_id)?($quest->question_id):("") ?>">   
+                  <form action="<?php echo base_url();?>entry/delete_entry" id="question_delete_<?php echo isset($quest->question_id)?($quest->question_id):("") ?>" method="POST">
+                  <input type="hidden" name="question_id" value="<?php echo isset($quest->question_id)?($quest->question_id):("") ?>">   
                          
                     
                 
                     <?php isset($quest->last_vote[0])?($user_id=$quest->last_vote[0]->user_id):("") ?>
                     <?php isset($quest->user_info[0])?($u_id=$quest->user_info[0]->user_id):("") ?>
-                    <div class="span8" style="text-align: left;">
+                    <div class="span11" style="text-align: left;">
                       
-                        <a class="overtext" href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>"><?php echo $quest->title;?></a><small>  created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a></small>
+                        <a class="overtext" href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>" style="display:block;"><?php echo $quest->title;?></a><small>  created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a></small>
                         
                             
                             <small> | last like by:<a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):("") ?>"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a> | time:<?php 
@@ -115,52 +113,11 @@
 
 
                             
-</form> 
+                        </form> 
                         </small>                          
                         </small>
                         
                   </div>  
-
-                  <div class="span3">
-                         <span> <?php 
-                                 
-                                        $seconds = strtotime("now") - strtotime($quest->question_date)+3600;
-                                        //echo $seconds;
-
-                                        
-                                        $minutes = (int)($seconds / 60);
-                                        $hours = (int)($minutes / 60);
-                                        $days = (int)($hours / 24);
-                                        if($seconds <60 && $minutes<60)
-                                          {
-                                            
-                                            echo $seconds  . " seconds ago";
-                                          }
-                                        else if ( $seconds >= 60 && $minutes< 60 )
-                                          {
-                                                   
-                                                    $seconds = $seconds % 60;
-                                                    echo $minutes  . " minutes ";
-                                                    echo $seconds  . " seconds ago";
-                                          }
-                                        else if ( $minutes >= 60 && $hours<24)
-                                         {
-                                                   
-                                                    $minutes = $minutes % 60;
-                                                    echo $hours . " hour ";
-                                                    echo $minutes  . " minutes ago";
-                                          }         
-                                        else if ( $hours >= 24 && $days<30 )
-                                         {
-                                                    
-                                                    $hours = $hours % 60;
-                                                    echo $days . " days ";
-                                                    echo $hours . " hours ago";
-                                         }                    
-                                ?>
-                            </span>
-                               
-                  </div>
                   
             </div>
             <br/>
