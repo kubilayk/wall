@@ -79,7 +79,7 @@ class Entry_model extends CI_Model
 	}
 	public function title_insert($data = array())
 	{
-		print_r($data);
+		//print_r($data);
 		$session_data = $this->session->userdata('logged_in');
 		$data['user_id'] = $session_data['user_id'];
 		if ($data):

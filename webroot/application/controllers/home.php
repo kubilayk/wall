@@ -52,7 +52,7 @@ class Home extends CI_Controller
 	{
 		//echo "rate";
 		$data=$this->input->post();
-		print_r($data);
+		//print_r($data);
 		$this->entry_model->rate_insert($data);
 		
 		$this->entry_model->user_rate($this->input->post());
@@ -73,6 +73,7 @@ class Home extends CI_Controller
 			{
 				redirect(base_url().'home/user_comment/'.$data['user'], 'refresh');
 			}
+
 		else
 			{
 				redirect(base_url().'home', 'refresh');

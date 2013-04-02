@@ -46,7 +46,9 @@ class Comment_model extends CI_Model
   }
   public function last_comments()
   {
-  		$query = $this->db->get('question');
+  		$this->db->from("question");
+		$this->db->order_by("question_date", "desc");
+		$query = $this->db->get();
 		$questions = $query->result();
 		$last= null;
 		foreach ($questions as $question) {

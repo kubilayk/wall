@@ -89,7 +89,7 @@
                                   {
                                     echo "";                                  
                                   }                            
-                                ?> </span>
+                                ?> 
                              <?php   
 
                                     $session_data = $this->session->userdata('logged_in');

@@ -34,7 +34,7 @@ class Comment extends CI_Controller
         $data['entry_id'] = $this->input->post('entry_id');
         $session_data = $this->session->userdata('logged_in');
         $data['user_id'] = $session_data['user_id'];
-        print_r($this->input->post());
+        //print_r($this->input->post());
         
        if($session_data && $data['user_id'])
         {
