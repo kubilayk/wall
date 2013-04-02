@@ -15,7 +15,7 @@ class Comment extends CI_Controller
         {
               $this->comment_model->comment_insert($this->input->post());
               $entry_id=(int)$this->input->post('entry_id');
-              redirect(base_url().'entry/'.(int)$entry_id,'location');  
+              redirect(base_url().'entry/'.(int)$entry_id,'location',301);  
         }else{
             redirect(base_url().'home','location');
         }
