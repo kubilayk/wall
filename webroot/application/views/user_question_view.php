@@ -46,7 +46,7 @@
               <?php isset($quest->user_info[0])?($u_id=$quest->user_info[0]->user_id):("") ?>
                  <div class="span8">
                      
-                     <a class="overtext" href="entry/<?php echo $quest->question_id;?>"><?php echo $quest->title;?></a><small>created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
+                     <a class="overtext" href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>"><?php echo $quest->title;?></a><small>created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
                     
                          
                         last like by:<a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):("") ?>" ><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a> time:<?php 

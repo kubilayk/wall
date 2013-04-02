@@ -16,7 +16,7 @@ class Home extends CI_Controller
 			
 			$data['boolean']=$this->entry_model->is_logged_in();
 			
-			if($data['boolean'])
+			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{
 				
 				$session_data = $this->session->userdata('logged_in');
@@ -86,7 +86,7 @@ class Home extends CI_Controller
 		
 	    
 	    $data['boolean']=$this->entry_model->is_logged_in(); 
-	    if($data['boolean'])
+	    if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{ 
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
@@ -114,20 +114,20 @@ class Home extends CI_Controller
 		
 		$data['boolean']=$this->entry_model->is_logged_in();
 
-		if($data['boolean'])
+		if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{ 
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['page_title']="User_info_view";
-	    		$data['user_info']= $this->user_model->get_user_info($id_u);
+	    		$data['user_info']= $this->user_model->get_user_info(filter_var($id_u, FILTER_VALIDATE_INT));
 	    		$this->load->view('user_info_view', $data);
 	    	}
 	    else
 	    {
 	    		$data['guest'] = "Sign up";
 				$data['page_title']="User_info_view";
-				$data['user_info']= $this->user_model->get_user_info($id_u);
+				$data['user_info']= $this->user_model->get_user_info(filter_var($id_u, FILTER_VALIDATE_INT));
 	    		$this->load->view('user_info_view', $data);
 
 	    }
@@ -136,20 +136,20 @@ class Home extends CI_Controller
 	{
 		$data['boolean']=$this->entry_model->is_logged_in();
 		$session_data = $this->session->userdata('logged_in');
-		if($data['boolean'])
+		if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{ 
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['page_title']="User_info_view";
-				$data['user_info']= $this->user_model->get_user_info($session_data['user_id']);
+				$data['user_info']= $this->user_model->get_user_info(filter_var($session_data['user_id'], FILTER_VALIDATE_INT));
 	    		$this->load->view('user_info_view', $data);
 	    	}
 	    else
 	    {
 	    		$data['guest'] = "Sign up";
 				$data['page_title']="User_info_view";
-				$data['user_info']= $this->user_model->get_user_info($session_data['user_id']);
+				$data['user_info']= $this->user_model->get_user_info(filter_var($session_data['user_id'], FILTER_VALIDATE_INT));
 	    		$this->load->view('user_info_view', $data);
 
 	    }
@@ -159,20 +159,20 @@ class Home extends CI_Controller
 	{
 		$id_u = $this->uri->segment(3);
 		$data['boolean']=$this->entry_model->is_logged_in(); 
-	    if($data['boolean'])
+	    if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{ 
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['page_title']="User_comment_view";		
-	    		$data['user_comment']= $this->user_model->get_user_comment($id_u);
+	    		$data['user_comment']= $this->user_model->get_user_comment(filter_var($id_u, FILTER_VALIDATE_INT));
 	   			$this->load->view('user_comment_view', $data);
 	   		}
 	   		else
 		   	{		
 	   	 		$data['guest'] = "Sign up";
 				$data['page_title']="User_comment_view";
-				$data['user_comment']= $this->user_model->get_user_comment($id_u);
+				$data['user_comment']= $this->user_model->get_user_comment(filter_var($id_u, FILTER_VALIDATE_INT));
 	   			$this->load->view('user_comment_view', $data);
 	   		}
 	}
@@ -181,20 +181,20 @@ class Home extends CI_Controller
 		$id_u= $this->uri->segment(3);
 		
 		$data['boolean']=$this->entry_model->is_logged_in(); 
-	    if($data['boolean'])
+	    if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{ 
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['page_title']="User_question_view";		
-	    		$data['user_question']= $this->user_model->get_user_question($id_u);
+	    		$data['user_question']= $this->user_model->get_user_question(filter_var($id_u, FILTER_VALIDATE_INT));
 	   			$this->load->view('user_question_view', $data);
 	   		}
 	   		else
 	   		{		
 	   	 		$data['guest'] = "Sign up";
 				$data['page_title']="User_question_view";
-				$data['user_question']= $this->user_model->get_user_question($id_u);
+				$data['user_question']= $this->user_model->get_user_question(filter_var($id_u, FILTER_VALIDATE_INT));
 	   			$this->load->view('user_question_view', $data);
 	   		}
 	}
@@ -204,7 +204,7 @@ class Home extends CI_Controller
 	 function logout()
 
 	{
-		$this->session->unset_userdata('logged_in');
+		$this->session->sess_destroy();
 		redirect(base_url().'account', 'refresh');
 
 	}
@@ -217,7 +217,7 @@ class Home extends CI_Controller
 		if ($_POST['search']!='')
 		{
 		 
-		 if($data['boolean'])
+		 if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{ 
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
@@ -246,7 +246,7 @@ class Home extends CI_Controller
 	{
 		$data['boolean']=$this->entry_model->is_logged_in();
 			//print_r($_POST);
-			if($data['boolean'])
+			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{
 				
 				$session_data = $this->session->userdata('logged_in');
@@ -276,7 +276,7 @@ class Home extends CI_Controller
 		if ($_POST['q_title']!='' || $_POST['q_description']!='')
 		{
 		$data['boolean']=$this->entry_model->is_logged_in(); 
-		 if($data['boolean'])
+		 if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{ 
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];

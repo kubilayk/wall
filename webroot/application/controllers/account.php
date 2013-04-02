@@ -12,7 +12,7 @@ class Account extends CI_Controller{
 	{
 		$data['boolean']=$this->entry_model->is_logged_in();
 			
-			if($data['boolean'])
+			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{
 				
 				$session_data = $this->session->userdata('logged_in');
@@ -34,7 +34,7 @@ class Account extends CI_Controller{
 	{
 		$data['boolean']=$this->entry_model->is_logged_in();
 			
-			if($data['boolean'])
+			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{
 				
 				$session_data = $this->session->userdata('logged_in');

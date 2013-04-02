@@ -14,7 +14,7 @@ class Entry extends CI_Controller
           
           $id_q= $this->uri->segment(2);
           $data['boolean']=$this->entry_model->is_logged_in();
-          if($data['boolean'])
+          if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
           {
             $session_data = $this->session->userdata('logged_in');
             //print_r($session_data['user_id']);
@@ -42,7 +42,7 @@ class Entry extends CI_Controller
       function new_entry()
       {
           $data['boolean']=$this->entry_model->is_logged_in();
-          if($data['boolean'])
+          if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
           {
             
             $session_data = $this->session->userdata('logged_in');
@@ -79,7 +79,7 @@ class Entry extends CI_Controller
         $session_data = $this->session->userdata('logged_in');
         $data['user_id'] = $session_data['user_id'];
         //print_r($data);
-        if($session_data && $data['user_id'])
+        if($session_data && filter_var($data['user_id'], FILTER_VALIDATE_INT))
         { 
           $this->entry_model->title_drop($data);
           if($this->input->post('view')=="entry_comment")

@@ -11,21 +11,22 @@ class Comment extends CI_Controller
 
     public function save_comment()
     {
-      $this->load->helper('url');
+      
       if($this->input->post('comment')) 
         {
-            $this->comment_model->comment_insert($this->input->post());
-        } 
-      
-      $entry_id=(int)$this->input->post("entry_id");
-      if(filter_var($entry_id, FILTER_VALIDATE_INT))
-        {
-            redirect(base_url().'entry/'.(int)$entry_id,'refresh');  
+             $this->comment_model->comment_insert($this->input->post());
+             $entry_id=(int)$this->input->post('entry_id');
+             if(filter_var($entry_id, FILTER_VALIDATE_INT)):
+                {
+                    redirect(base_url().'entry/'.(int)$entry_id,'refresh');  
+                }
+              endif;
         }
       else
         {
             redirect(base_url().'home','location');
         }
+
 
     }
     function delete_comment()
@@ -36,7 +37,7 @@ class Comment extends CI_Controller
         $data['user_id'] = $session_data['user_id'];
         //print_r($this->input->post());
         
-       if($session_data && $data['user_id'])
+       if($session_data && filter_var($data['user_id'], FILTER_VALIDATE_INT))
         {
           $this->comment_model->comment_drop($data);
           if($this->input->post('view')=="entry_comment")
