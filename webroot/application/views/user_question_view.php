@@ -30,7 +30,7 @@
                        
                   <?php endif; ?>
                   <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
-                  <small> Like:<?php echo $quest->title_like; ?>  
+                  <small class="label label-info"> Like:<?php echo $quest->title_like; ?>  
                   </small>
                 </form>
                 </span>              

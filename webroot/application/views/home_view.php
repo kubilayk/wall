@@ -50,10 +50,28 @@
                     <?php isset($quest->user_info[0])?($u_id=$quest->user_info[0]->user_id):("") ?>
                     <div class="span11" style="text-align: left;">
                       
-                        <a class="overtext" href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>" style="display:block;"><?php echo $quest->title;?></a><small>  created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a></small>
-                        
-                            
-                            <small> | last like by:<a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):("") ?>"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a> | time:<?php 
+                        <a class="overtext" href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>" style="display:block;"><?php echo $quest->title;?></a>
+                        created by:<small> 
+                        <?php  
+                          if($guest===0)
+                          { 
+                        ?> 
+                        <a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
+                        <?php }else{ ?>
+                        <a class="create-user" href="#"><?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
+                         <?php } ?>
+                         </small>   
+                            <small> | last like by:
+                              <?php  
+                                if($guest===0)
+                                { 
+                              ?> 
+                              <a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):("") ?>"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a>
+                              <?php }else{ ?>
+                              <a class="create-user" href="#"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a>
+                              <?php } ?>
+
+                               | time:<?php 
                                  if(isset($quest->last_vote[0]->time))
                                  {  
                                         $seconds = strtotime("now") - strtotime($quest->last_vote[0]->time)+3600;

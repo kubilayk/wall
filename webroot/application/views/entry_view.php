@@ -45,8 +45,26 @@
                         <p><?php echo $quest->description; ?></p>
                    
                         <small>
-                        created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
-                        | last like by:<a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):(""); ?>"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a> | time:<?php 
+                        created by:
+                        <?php  
+                          if($guest===0)
+                          { 
+                        ?> 
+
+                        <a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
+                        <?php }else{ ?>
+                        <a class="create-user" href="#"><?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
+                        <?php } ?>
+                        | last like by:     
+                        <?php  
+                          if($guest===0)
+                          { 
+                        ?> 
+                        <a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):(""); ?>"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a>
+                        <?php }else{ ?>
+                        <a class="create-user" href="#"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a>
+                        <?php } ?>
+                         | time:<?php 
                      if(isset($quest->last_vote[0]->time))
                                  {  
                                         $seconds = strtotime("now") - strtotime($quest->last_vote[0]->time)+3600;
@@ -130,19 +148,71 @@
                   <?php echo $com->comment_date; ?>
                  <br/>
                 Comment:
-                  <?php echo $com->comment; ?> <?php   
+                  <?php echo $com->comment; ?><br/><small>
+                                  by: 
+                                  <?php  
+                                  if($guest===0)
+                                  { 
+                                  ?> 
+                                  <a href="<?php echo base_url();?>home/user_info/<?php echo isset($com->user_comment[0])?($com->user_comment[0]->user_id):("") ?>"><?php echo isset($com->user_comment[0]->username)?($com->user_comment[0]->username):("") ?></a> 
+                                  <?php }else{ ?>
+                                  <a class="create-user" href="#"><?php echo isset($com->user_comment[0]->username)?($com->user_comment[0]->username):("") ?></a> 
+                                  <?php } ?>
+                                  <?php   
 
                                     $session_data = $this->session->userdata('logged_in');
                                     
                                     if($com->user_id == $session_data['user_id'])
                                     {
-                                      echo '<a href="#" onclick="$(\'#comment_delete_'.$com->comment_id.'\').submit();return false;"> | delete</a>';
+                                      echo '<a href="#" onclick="$(\'#comment_delete_'.$com->comment_id.'\').submit();return false;">  delete</a>';
                                     }
                                     else
                                     {
                                       echo"";
                                     } 
-                             ?><hr>
+                                 ?>
+
+                                   | time:
+                                    <?php 
+                                     if(isset($com->comment_date))
+                                                 {  
+                                                        $seconds = strtotime("now") - strtotime($quest->last_vote[0]->time)+3600;
+                                                        //echo $seconds;
+
+                                                        $minutes = (int)($seconds / 60);
+                                                        $hours = (int)($minutes / 60);
+                                                        $days = (int)($hours / 24);
+                                                        if($seconds <60 && $minutes<60)
+                                                          {
+                                                            
+                                                            echo $seconds  . " seconds ago";
+                                                          }
+                                                        else if ( $seconds >= 60 && $minutes< 60 )
+                                                          {
+                                                                   
+                                                                    $seconds = $seconds % 60;
+                                                                    echo $minutes  . " minutes ";
+                                                                    echo $seconds  . " seconds ago";
+                                                          }
+                                                        else if ( $minutes >= 60 && $hours<24)
+                                                         {
+                                                                   
+                                                                    $minutes = $minutes % 60;
+                                                                    echo $hours . " hour ";
+                                                                    echo $minutes  . " minutes ago";
+                                                          }         
+                                                        else if ( $hours >= 24 && $days<30 )
+                                                         {
+                                                                    
+                                                                    $hours = $hours % 60;
+                                                                    echo $days . " days ";
+                                                                    echo $hours . " hours ago";
+                                                         }   
+                                                  }
+                                                                          
+                                  ?> 
+                        
+                                        <hr>
                  
               </div>
             </form>

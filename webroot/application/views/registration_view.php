@@ -38,22 +38,7 @@
 			</div>
 		
 	<?php echo form_close(); ?>
-	<div id="dialog-form" title="Login">
-		  <p class="validateTips">All form fields are required.</p>
-		 
-		  <form>
-		  <fieldset>
-		    <label for="name">Name</label>
-		    <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
-		    
-		    <label for="password">Password</label>
-		    <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
-		  </fieldset>
-		  </form>
-   </div>
- 
- <button id="create-user">Create new user</button>
-
+	
 
 
 <?php include_once('footer.php'); ?>

@@ -11,8 +11,14 @@ class Comment_model extends CI_Model
 	{
 		
 		$sql= "SELECT * FROM comment WHERE entry_id = ? ORDER BY comment_date DESC";
-		$query = $this->db->query($sql,array((int)$entry_id));//soru tablosundaki bütün verileri çekiyoruz.
-		return $query->result();//sonucu return ediyoruz.
+		$query = $this->db->query($sql,array((int)$entry_id));
+		$comments = $query->result();
+		foreach ($comments as $com) {
+			$sql="SELECT user_id,username FROM users WHERE user_id=? ";
+			$query2 = $this->db->query($sql,array((int)$com->user_id));
+			$com->user_comment= $query2->result();
+		}
+		return $comments;//sonucu return ediyoruz.
 	}
 	
 	function comment_insert($data = array()){

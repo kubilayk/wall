@@ -88,11 +88,13 @@ class Entry_model extends CI_Model
 
 	    		'title' => $data['title'],
 	            'description'=>$data['description'],
-	            'user_id'=>$data['user_id']
+	            'user_id'=>$data['user_id'],
+	            'link'=>$data['link']
 
 	            );
 	    	$data['title']=strip_tags($data['title']);
 	    	$data['description']=strip_tags($data['description']);
+	    	$data['link']=strip_tags($data['link']);
 
 	    	$this->db->insert('question',$data);
 
@@ -115,27 +117,21 @@ class Entry_model extends CI_Model
 		if ($data):
 
 	    	$data = array(
-
 	    		'entry_id' => (int)$data['entry_id'],
-	            'like'=>$data['like']
+
+	    		'rate_count' => (int)$data['rate_count']
 
 	            );
 	    endif;  	
-	     
-	    if($data['like']==1)
-	    {
+	     print_r($data['rate_count']);
+	    
+    	$sql= "UPDATE question SET title_like = ? WHERE question_id= ?";
+		$this->db->query($sql, array((int)$data['rate_count'],(int)$data['entry_id']));
+		}
 		
-    	$sql= "UPDATE question SET title_like = (title_like + 1) WHERE question_id= ?";
-		$this->db->query($sql, array((int)$data['entry_id']));
-		}
-		else if($data['like']==0)
-		{//print_r($data);
-			$sql= "UPDATE question SET title_like= (title_like -1) WHERE question_id= ?";
-		$this->db->query($sql, array( (int)$data['entry_id']));
-		}
 
     
-    }
+    
 
 public function set_title_rate($data)
 	{
@@ -267,15 +263,34 @@ public function user_rate($data)
 	    if($data['like']==1)
 	    {
 		$user_info= $this->session->userdata('logged_in');
-		$sql = "INSERT INTO user_rate(entry_id, user_id) VALUES (?,?);";
-		$this->db->query($sql, array((int)$data['entry_id'], (int)$user_info['user_id']));
+		$sql = "INSERT IGNORE INTO user_rate(entry_id, user_id,user_entry) VALUES (?,?,?);";
+		$this->db->query($sql, array((int)$data['entry_id'], (int)$user_info['user_id'],"".(int)$data['entry_id']."".(int)$user_info['user_id']) );
 		}
 		else
 		{
 			$user_info= $this->session->userdata('logged_in');
-			$sql = "DELETE FROM user_rate WHERE entry_id = (?);";
-			$this->db->query($sql, array((int)$data['entry_id']));
+			$sql = "DELETE FROM user_rate WHERE user_entry = (?);";
+			$this->db->query($sql, array("".(int)$data['entry_id']."".(int)$user_info['user_id']));
 		}	
+	}
+	public function rate_count($data)
+	{
+		print_r($data);
+		if ($data):
+
+	    	$data = array(
+
+	    		'entry_id' => (int)$data['entry_id'],
+
+	            );
+	    
+	    endif; 
+	    $sql= "SELECT count(entry_id) as count FROM user_rate WHERE entry_id= ?";
+	    $query = $this->db->query($sql, array((int)$data['entry_id']));
+		
+		$rate_count = $query->result();
+		print_r($rate_count[0]->count);
+		return $rate_count[0]->count;
 	}
 public function title_drop($data)
 	{

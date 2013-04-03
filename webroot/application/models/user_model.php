@@ -11,7 +11,7 @@ class User_model extends CI_Model
 	{
 
 		$username = $this->security->xss_clean($user_info['username']);
-		$password = $this->security->xss_clean($user_info['pass']);
+		$password = $this->security->xss_clean($user_info['password']);
 		$md5_password = md5($password);
 		$query = $this->db->get_where('users',array('username'=>$username, 'password'=>$md5_password));
 		if($query->num_rows == 1)

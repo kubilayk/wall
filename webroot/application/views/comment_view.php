@@ -30,7 +30,7 @@
                               ?>
                             <?php endif; ?>
                             <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
-                            <small>
+                            <small class="label label-info">
                              Like:<?php echo isset($com->title_like)?($com->title_like):("") ?>
                             </small>
                             </form> 
@@ -43,14 +43,20 @@
 <input type="hidden" name="view" value="last_comment">                           
                 
                      <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
-                     <?php isset($com->user_info[0])?($u_id=$com->user_info[0]->user_id):("") ?>
+                     <?php isset($com->last_comment[0])?($u_id=$com->last_comment[0]->user_id):("") ?>
                      <div class="span8">
                           
                          
                               
                          <span> Last comment:<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("No Comment") ?></span>
-                        <small> <br/> created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($com->user_info[0])?($com->user_info[0]->username):("") ?></a>
-                        
+                        <small> <br/>created by:
+    <?php  
+      if($guest===0)
+      { 
+    ?> <a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($com->last_comment[0])?($com->last_comment[0]->username):("") ?></a>
+   <?php }else{ ?>
+      <a class="create-user" href="#"><?php echo isset($com->last_comment[0])?($com->last_comment[0]->username):("") ?></a>
+   <?php } ?>           
 
                          <?php   
 

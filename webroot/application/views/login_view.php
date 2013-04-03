@@ -21,7 +21,7 @@
 					<label for='password'>Password</label>
 				</div>
 				<div class="span12">
-					<input type='password' name='pass' id='pass' size='25' value="" />
+					<input type='password' name='password' id='password' size='25' value="" />
 				</div>							
 				<div class="span12">
 					<input type='Submit' class="btn btn-success" value='Login' />

@@ -65,13 +65,34 @@ class Entry extends CI_Controller
       function save_question()
       {
           
-          if($this->input->post('title')) 
+          $data['link']=$this->input->post('link');
+          $data['boolean']=$this->entry_model->is_logged_in();
+          if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+          {
+            $session_data = $this->session->userdata('logged_in');
+            //print_r($session_data['user_id']);
+            $data['username'] = $session_data['username'];
+            $data['guest'] =0;
+            
+            $data['page_title']="New Entry";
+          if(filter_var($data['link'], FILTER_VALIDATE_URL) || $data['link']=="" ) 
+          {
+            
+            
+            $this->entry_model->title_insert($this->input->post());
+            redirect(base_url().'home','location');
+           }
+          else 
             {
 
-             $this->entry_model->title_insert($this->input->post());
+              $data['bool']=false;
+              $this->load->view('new_entry_view',$data);
             } 
+          }
+
+
           
-          redirect(base_url().'home','location'); 
+           
       }
       function delete_entry()
       {

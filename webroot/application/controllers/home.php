@@ -50,12 +50,14 @@ class Home extends CI_Controller
 
 	function rate()
 	{
-		//echo "rate";
-		$data=$this->input->post();
+		$data['entry_id']=$this->input->post('entry_id');
+
 		//print_r($data);
-		$this->entry_model->rate_insert($data);
+		
 		
 		$this->entry_model->user_rate($this->input->post());
+		$data['rate_count']= $this->entry_model->rate_count($this->input->post());
+	   	$this->entry_model->rate_insert($data);
 	   
 		if($this->input->post('view')=="entry"){
 				redirect(base_url().'entry/'.$data['entry_id'], 'location');
