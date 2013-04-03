@@ -176,7 +176,7 @@
                                     <?php 
                                      if(isset($com->comment_date))
                                                  {  
-                                                        $seconds = strtotime("now") - strtotime($quest->last_vote[0]->time)+3600;
+                                                        $seconds = strtotime("now") - strtotime($com->comment_date)+3600;
                                                         //echo $seconds;
 
                                                         $minutes = (int)($seconds / 60);
@@ -211,7 +211,7 @@
                                                   }
                                                                           
                                   ?> 
-                        
+                        </small>
                                         <hr>
                  
               </div>

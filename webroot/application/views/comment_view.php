@@ -49,20 +49,14 @@
                          
                               
                          <span> Last comment:<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("No Comment") ?></span>
-                        <small> <br/>created by:
-    <?php  
-      if($guest===0)
-      { 
-    ?> <a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($com->last_comment[0])?($com->last_comment[0]->username):("") ?></a>
-   <?php }else{ ?>
-      <a class="create-user" href="#"><?php echo isset($com->last_comment[0])?($com->last_comment[0]->username):("") ?></a>
-   <?php } ?>           
+                        <small> <br/> created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($com->last_comment[0])?($com->last_comment[0]->username):("") ?></a>
+                        
 
                          <?php   
 
                                     $session_data = $this->session->userdata('logged_in');
                                     
-                                    if($com->user_info[0]->user_id == $session_data['user_id'])
+                                    if($com->last_comment[0]->user_id == $session_data['user_id'])
                                     {
                                       echo '<a href="#" onclick="$(\'#comment_delete_'.$com->last_comment[0]->comment_id.'\').submit();return false;">| delete</a>';
                                     }
