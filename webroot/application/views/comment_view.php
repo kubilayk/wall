@@ -4,8 +4,8 @@
       <?php $e_id=0; ?>
       <?php $i=0 ?>
       <?php foreach($comment as $com){ ?>
-         
-              <div class="row" <?php if ($com->last_comment===0){?>style="display:none"<?php } ?>>
+         <?php if ($com->last_comment===0){?>
+              <div class="row">
                  <?php $e_id=$com->question_id; ?>
                   <div class="span1" < style="text-align: right;">
                          <?php if (! $boolean == false): ?>   
@@ -113,6 +113,8 @@
                         </form>
                       </div>
               </div>
+
+              <?php } ?>
 
     <?php } ?>
   <?php include_once('footer.php'); ?>
