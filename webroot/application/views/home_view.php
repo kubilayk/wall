@@ -73,7 +73,7 @@
                                | time:<?php 
                                  if(isset($quest->question_date))
                                  {  
-                                        $seconds = strtotime("now") - strtotime($quest->question_date)+3600;
+                                        $seconds = strtotime("now") - strtotime($quest->question_date);
                                         //echo $seconds;
 
                                         $minutes = (int)($seconds / 60);

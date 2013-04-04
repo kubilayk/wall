@@ -69,9 +69,9 @@
                         <a class="create-user" href="#"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a>
                         <?php } ?>
                          | time:<?php 
-                     if(isset($quest->last_vote[0]->time))
+                     if(isset($quest->question_date))
                                  {  
-                                        $seconds = strtotime("now") - strtotime($quest->last_vote[0]->time)+3600;
+                                        $seconds = strtotime("now") - strtotime($quest->question_date);
                                         //echo $seconds;
 
                                         $minutes = (int)($seconds / 60);
@@ -165,7 +165,7 @@
                                     <?php 
                                      if(isset($com->comment_date))
                                                  {  
-                                                        $seconds = strtotime("now") - strtotime($com->comment_date)+3600;
+                                                        $seconds = strtotime("now") - strtotime($com->comment_date);
                                                         //echo $seconds;
 
                                                         $minutes = (int)($seconds / 60);
