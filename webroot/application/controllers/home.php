@@ -138,7 +138,9 @@ class Home extends CI_Controller
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['user_info']= $this->user_model->get_user_info(filter_var($session_data['user_id'], FILTER_VALIDATE_INT));
+				
 				$data['page_title']="".$data['user_info'][0]->username."'s info";
+
 	    		$this->load->view('user_info_view', $data);
 	    	}
 	    else
@@ -161,8 +163,9 @@ class Home extends CI_Controller
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['user_comment']= $this->user_model->get_user_comment(filter_var($id_u, FILTER_VALIDATE_INT));
-	    		$data['page_title']="".$data['user_comment'][0]->user_info[0]->username."'s question";
+	    		$data['page_title']="".isset($data['user_comment'][0]->user_info[0])?($data['user_comment'][0]->user_info[0]->username):("User")."'s question";
 	   			$this->load->view('user_comment_view', $data);
+	   			
 	   		}
 	   		else
 		   	{		
@@ -184,7 +187,8 @@ class Home extends CI_Controller
 				$data['guest'] =0;
 						
 	    		$data['user_question']= $this->user_model->get_user_question(filter_var($id_u, FILTER_VALIDATE_INT));
-	    		$data['page_title']="".$data['user_question'][0]->user_info[0]->username."'s question";
+	    		$data['page_title']="".isset($data['user_question'][0]->user_info[0])?($data['user_question'][0]->user_info[0]->username):("User")."'s question";
+	    		
 	   			$this->load->view('user_question_view', $data);
 	   		}
 	   		else
