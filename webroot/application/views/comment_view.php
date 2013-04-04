@@ -43,8 +43,8 @@
                     <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
                     <?php isset($com->last_comment[0])?($u_id=$com->last_comment[0]->user_id):("") ?>
                     <div class="span8">
-                        <span> Last comment:<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("No Comment") ?></span>
-                        <small> <br/> created by:
+                        <span> Last comment : <?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("No Comment") ?></span>
+                        <small> <br/> created by : 
                           <?php  
                           if($guest===0)
                           { 
@@ -53,7 +53,7 @@
                           <?php }else{ ?>
                           <a class="create-user" href="#"> <?php echo isset($com->last_comment[0])?($com->last_comment[0]->username):("") ?></a>
                           <?php } ?>
-                          | time:
+                          | time : 
                           <?php 
                             if(isset($com->last_comment[0]->comment_date))
                              {  
@@ -109,7 +109,7 @@
                                       echo"";
                                     } 
                           ?>
-                          <span><br/>on:<a class="overtext"href="<?php echo base_url();?>entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
+                          <span><br/>on:<a href="<?php echo base_url();?>entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
                           </small>
                       </div>
                       </form>
