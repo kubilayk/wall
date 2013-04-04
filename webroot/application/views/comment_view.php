@@ -7,9 +7,7 @@
          
               <div class="row" <?php if ($com->last_comment===0){?>style="display:none"<?php } ?>>
                  <?php $e_id=$com->question_id; ?>
-                    
-                   
-                      <div class="span1" < style="text-align: right;">
+                  <div class="span1" < style="text-align: right;">
                          <?php if (! $boolean == false): ?>   
                          <span>
                            <form action="<?php echo base_url();?>home/rate" id="rate_form_<?php echo $e_id; ?>" method="POST">
@@ -28,27 +26,24 @@
                                    echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
                                   }
                               ?>
-                            <?php endif; ?>
-                            <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
-                            <small class="label label-info">
-                             Like : <?php echo isset($com->title_like)?($com->title_like):(0) ?>
-                            </small>
-                            </form> 
-                           </span>
-                      </div>
+                              <?php endif; ?>
+                              <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
+                              <small class="label label-info">
+                              Like : <?php echo isset($com->title_like)?($com->title_like):(0) ?>
+                              </small>
+                          </form> 
+                          </span>
+                    </div>
           
                           
-<form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>" method="POST">
-<input type="hidden" name="comment_id" value="<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>">               
-<input type="hidden" name="view" value="last_comment">                           
-                
-                     <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
-                     <?php isset($com->last_comment[0])?($u_id=$com->last_comment[0]->user_id):("") ?>
-                     <div class="span8">
-                          
-                         
-                              
-                         <span> Last comment:<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("No Comment") ?></span>
+                    <form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>" method="POST">
+                    <input type="hidden" name="comment_id" value="<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>">               
+                    <input type="hidden" name="view" value="last_comment">                           
+                                    
+                    <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
+                    <?php isset($com->last_comment[0])?($u_id=$com->last_comment[0]->user_id):("") ?>
+                    <div class="span8">
+                        <span> Last comment:<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("No Comment") ?></span>
                         <small> <br/> created by:
                           <?php  
                           if($guest===0)
@@ -58,47 +53,48 @@
                           <?php }else{ ?>
                           <a class="create-user" href="#"> <?php echo isset($com->last_comment[0])?($com->last_comment[0]->username):("") ?></a>
                           <?php } ?>
-                          | time:<?php 
-                                 if(isset($com->last_comment[0]->comment_date))
-                                 {  
-                                        $seconds = strtotime("now") - strtotime($com->last_comment[0]->comment_date)+3600;
-                                        //echo $seconds;
+                          | time:
+                          <?php 
+                            if(isset($com->last_comment[0]->comment_date))
+                             {  
+                                    $seconds = strtotime("now") - strtotime($com->last_comment[0]->comment_date)+3600;
+                                    //echo $seconds;
 
-                                        $minutes = (int)($seconds / 60);
-                                        $hours = (int)($minutes / 60);
-                                        $days = (int)($hours / 24);
-                                        if($seconds <60 && $minutes<60)
-                                          {
-                                            
-                                            echo $seconds  . " seconds ago";
-                                          }
-                                        else if ( $seconds >= 60 && $minutes< 60 )
-                                          {
-                                                   
-                                                    $seconds = $seconds % 60;
-                                                    echo $minutes  . " minutes ";
-                                                    echo $seconds  . " seconds ago";
-                                          }
-                                        else if ( $minutes >= 60 && $hours<24)
-                                         {
-                                                   
-                                                    $minutes = $minutes % 60;
-                                                    echo $hours . " hour ";
-                                                    echo $minutes  . " minutes ago";
-                                          }         
-                                        else if ( $hours >= 24 && $days<30 )
-                                         {
-                                                    
-                                                    $hours = $hours % 60;
-                                                    echo $days . " days ";
-                                                    echo $hours . " hours ago";
-                                         }   
-                                  }
-                                  else
-                                  {
-                                    echo "not yet";                                  
-                                  }                            
-                                ?> 
+                                    $minutes = (int)($seconds / 60);
+                                    $hours = (int)($minutes / 60);
+                                    $days = (int)($hours / 24);
+                                    if($seconds <60 && $minutes<60)
+                                      {
+                                        
+                                        echo $seconds  . " seconds ago";
+                                      }
+                                    else if ( $seconds >= 60 && $minutes< 60 )
+                                      {
+                                               
+                                                $seconds = $seconds % 60;
+                                                echo $minutes  . " minutes ";
+                                                echo $seconds  . " seconds ago";
+                                      }
+                                    else if ( $minutes >= 60 && $hours<24)
+                                     {
+                                               
+                                                $minutes = $minutes % 60;
+                                                echo $hours . " hour ";
+                                                echo $minutes  . " minutes ago";
+                                      }         
+                                    else if ( $hours >= 24 && $days<30 )
+                                     {
+                                                
+                                                $hours = $hours % 60;
+                                                echo $days . " days ";
+                                                echo $hours . " hours ago";
+                                     }   
+                              }
+                              else
+                              {
+                                echo "not yet";                                  
+                              }                            
+                          ?> 
 
                           <?php   
 
@@ -112,23 +108,12 @@
                                     {
                                       echo"";
                                     } 
-                             ?>
-                          
-                               
-                         
+                          ?>
                           <span><br/>on:<a class="overtext"href="<?php echo base_url();?>entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
-
-                        </small>
-
-                     </div>
-               
-                     
-                            
-                 
-                      
-          
-           </form>
-    </div>
+                          </small>
+                      </div>
+                      </form>
+              </div>
 
     <?php } ?>
   <?php include_once('footer.php'); ?>
