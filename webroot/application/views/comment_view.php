@@ -4,7 +4,7 @@
       <?php $e_id=0; ?>
       <?php $i=0 ?>
       <?php foreach($comment as $com){ ?>
-         <?php if ($com->last_comment===0){?>
+         <?php if ($com->last_comment!=0){?>
               <div class="row">
                  <?php $e_id=$com->question_id; ?>
                   <div class="span1" < style="text-align: right;">
@@ -41,7 +41,7 @@
                                       
                       <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
                       <?php isset($com->last_comment[0])?($u_id=$com->last_comment[0]->user_id):("") ?>
-                        <span> Last comment : <?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("No Comment") ?></span>
+                        <span> Last comment : <?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("") ?></span>
                         <small> <br/> created by : 
                           <?php  
                           if($guest===0)
@@ -113,8 +113,8 @@
                         </form>
                       </div>
               </div>
-
+<?php } ?>
               <?php } ?>
 
-    <?php } ?>
+    
   <?php include_once('footer.php'); ?>

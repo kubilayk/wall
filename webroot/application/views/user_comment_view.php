@@ -3,8 +3,8 @@
       <?php $i=0 ?>
       <?php $e_id=0; ?>
       <?php  foreach($user_comment as $com){ ?>
-        
-                <div class="row" <?php if ($com->last_comment===0){?>style="display:none"<?php } ?> >
+        <?php if ($com->last_comment!=0){?>
+         <div class="row" >
             <?php $e_id=$com->question_id;
                   $u_id =$com->user_id; 
             ?>
@@ -105,6 +105,6 @@
                 </div>
                 <?php } ?>
         </div>
-
+<?php } ?>
 
   <?php include_once('footer.php'); ?>
