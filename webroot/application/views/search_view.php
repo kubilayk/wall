@@ -68,9 +68,9 @@
                           <a class="create-user" href="#"><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a>
                           <?php } ?>
                           | time:<?php 
-                                 if(isset($quest->last_vote[0]->time))
+                                 if(isset($quest->question_date))
                                  {  
-                                        $seconds = strtotime("now") - strtotime($quest->last_vote[0]->time)+3600;
+                                        $seconds = strtotime("now") - strtotime($quest->question_date)+3600;
                                         //echo $seconds;
 
                                        $minutes = (int)($seconds / 60);
@@ -108,14 +108,14 @@
                                     echo "";                                  
                                   }                            
                                 ?> </span>
-
+                                 | <a href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>"><?php echo isset($quest->total_comment)?($quest->total_comment):(0) ?> comment</a> 
                                 <?php   
 
                                     $session_data = $this->session->userdata('logged_in');
                                     
                                     if($quest->user_info[0]->user_id == $session_data['user_id'])
                                     {
-                                      echo '<a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;">| delete</a>';
+                                      echo '| <a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;"> delete</a>';
                                     }
                                     else
                                     {
@@ -125,45 +125,7 @@
                             </small>
                         </form>
                     </div>
-                    <div class="span3">
-                         <span> <?php 
-                                 
-                                        $seconds = strtotime("now") - strtotime($quest->question_date)+3600;
-                                        //echo $seconds;
-
-                                        $minutes = (int)($seconds / 60);
-                                        $hours = (int)($minutes / 60);
-                                        $days = (int)($hours / 24);
-                                        if($seconds <60 && $minutes<60)
-                                          {
-                                            
-                                            echo $seconds  . " seconds ago";
-                                          }
-                                        else if ( $seconds >= 60 && $minutes< 60 )
-                                          {
-                                                   
-                                                    $seconds = $seconds % 60;
-                                                    echo $minutes  . " minutes ";
-                                                    echo $seconds  . " seconds ago";
-                                          }
-                                        else if ( $minutes >= 60 && $hours<24)
-                                         {
-                                                   
-                                                    $minutes = $minutes % 60;
-                                                    echo $hours . " hour ";
-                                                    echo $minutes  . " minutes ago";
-                                          }         
-                                        else if ( $hours >= 24 && $days<30 )
-                                         {
-                                                    
-                                                    $hours = $hours % 60;
-                                                    echo $days . " days ";
-                                                    echo $hours . " hours ago";
-                                         }   
-                                ?>
-                            </span>
-                               
-                  </div>
+                    
                   
             </div>
 <?php $k++;; ?>

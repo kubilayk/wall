@@ -23,13 +23,13 @@ class Home extends CI_Controller
 				//print_r($session_data['user_id']);
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
-		     	$data['page_title']="Home_view";		
+		     	$data['page_title']="Home";		
 				$data['question']=$this->entry_model->get_all_question();
 				//print_r($data['question']);
 				//foreach($data['question'] as $question)
 					//echo  $question->last_vote[0]->username; 
 				//$data['total_comment'] = $this->comment_model->total_comment($data['question']);
-				
+
 				$this->load->view('home_view',$data);
 
 			}
@@ -39,7 +39,7 @@ class Home extends CI_Controller
 		   		
 		   		$data['guest'] = "Sign up";
 		   		$this->load->model('entry_model');
-				$data['page_title']="Home_view";		
+				$data['page_title']="Home";		
 				$data['question']=$this->entry_model->get_all_question();
 				$this->load->view('home_view',$data);
 
@@ -84,7 +84,7 @@ class Home extends CI_Controller
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
-				$data['page_title']="Comment_view";		
+				$data['page_title']="Last Comments";		
 				
 				$data['comment']=$this->comment_model->last_comments();
 				$this->load->view('comment_view',$data);
@@ -92,7 +92,7 @@ class Home extends CI_Controller
 		else
 
 		   {	$data['guest'] = "Sign up";
-				$data['page_title']="Comment_view";		
+				$data['page_title']="Last Comments";		
 				
 				$data['comment']=$this->comment_model->last_comments();
 				//print_r($data['comment']);
@@ -112,15 +112,18 @@ class Home extends CI_Controller
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
-				$data['page_title']="User_info_view";
+				
 	    		$data['user_info']= $this->user_model->get_user_info(filter_var($id_u, FILTER_VALIDATE_INT));
+	    		
+	    		$data['page_title']="".$data['user_info'][0]->username."'s info";
 	    		$this->load->view('user_info_view', $data);
 	    	}
 	    else
 	    {
 	    		$data['guest'] = "Sign up";
-				$data['page_title']="User_info_view";
+				$data['page_title']="User info";
 				$data['user_info']= $this->user_model->get_user_info(filter_var($id_u, FILTER_VALIDATE_INT));
+				
 	    		$this->load->view('user_info_view', $data);
 
 	    }
@@ -134,14 +137,14 @@ class Home extends CI_Controller
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
-				$data['page_title']="User_info_view";
 				$data['user_info']= $this->user_model->get_user_info(filter_var($session_data['user_id'], FILTER_VALIDATE_INT));
+				$data['page_title']="".$data['user_info'][0]->username."'s info";
 	    		$this->load->view('user_info_view', $data);
 	    	}
 	    else
 	    {
 	    		$data['guest'] = "Sign up";
-				$data['page_title']="User_info_view";
+				$data['page_title']="User info";
 				$data['user_info']= $this->user_model->get_user_info(filter_var($session_data['user_id'], FILTER_VALIDATE_INT));
 	    		$this->load->view('user_info_view', $data);
 
@@ -157,14 +160,14 @@ class Home extends CI_Controller
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
-				$data['page_title']="User_comment_view";		
-	    		$data['user_comment']= $this->user_model->get_user_comment(filter_var($id_u, FILTER_VALIDATE_INT));
+				$data['user_comment']= $this->user_model->get_user_comment(filter_var($id_u, FILTER_VALIDATE_INT));
+	    		$data['page_title']="".$data['user_comment'][0]->user_info[0]->username."'s question";
 	   			$this->load->view('user_comment_view', $data);
 	   		}
 	   		else
 		   	{		
 	   	 		$data['guest'] = "Sign up";
-				$data['page_title']="User_comment_view";
+				$data['page_title']="User comment";
 				$data['user_comment']= $this->user_model->get_user_comment(filter_var($id_u, FILTER_VALIDATE_INT));
 	   			$this->load->view('user_comment_view', $data);
 	   		}
@@ -179,15 +182,17 @@ class Home extends CI_Controller
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
-				$data['page_title']="User_question_view";		
+						
 	    		$data['user_question']= $this->user_model->get_user_question(filter_var($id_u, FILTER_VALIDATE_INT));
+	    		$data['page_title']="".$data['user_question'][0]->user_info[0]->username."'s question";
 	   			$this->load->view('user_question_view', $data);
 	   		}
 	   		else
 	   		{		
 	   	 		$data['guest'] = "Sign up";
-				$data['page_title']="User_question_view";
+				$data['page_title']="User question view";
 				$data['user_question']= $this->user_model->get_user_question(filter_var($id_u, FILTER_VALIDATE_INT));
+
 	   			$this->load->view('user_question_view', $data);
 	   		}
 	}

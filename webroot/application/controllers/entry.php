@@ -21,7 +21,7 @@ class Entry extends CI_Controller
             $data['username'] = $session_data['username'];
             $data['guest'] =0;
             
-            $data['page_title']="Entry";
+            
             $data['comment']=$this->comment_model->get_all_comments($id_q);
             $data['question']=$this->entry_model->get_id_question($id_q);
             $data['page_title']="Questions";
@@ -30,7 +30,7 @@ class Entry extends CI_Controller
           else
           {
             $data['guest'] = "Sign up";
-            $data['page_title']="Entry";
+            
             $data['comment']=$this->comment_model->get_all_comments($id_q);
             $data['question']=$this->entry_model->get_id_question($id_q);
             $data['page_title']="Questions";
@@ -68,7 +68,7 @@ class Entry extends CI_Controller
             $data['username'] = $session_data['username'];
             $data['guest'] =0;
             
-            $data['page_title']="New Entry";
+            $data['page_title']="Save new question";
             if(filter_var($data['link'], FILTER_VALIDATE_URL) || $data['link']=="" ) 
             {
             
