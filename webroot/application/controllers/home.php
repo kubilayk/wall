@@ -59,15 +59,16 @@ class Home extends CI_Controller
 		$this->entry_model->user_rate($this->input->post());
 		$data['rate_count']= $this->entry_model->rate_count($this->input->post());
 	   	$this->entry_model->rate_insert($data);
+	   	print_r($this->input->post());
 	   
 		if($this->input->post('view')=="entry"){
 				redirect(base_url().'entry/'.$data['entry_id'], 'location');
 		}else if($this->input->post('view')=="comment"){
 				redirect(base_url().'home/last_comments', 'location');
 		}else if($this->input->post('view')=="user_question"){
-				redirect(base_url().'home/user_question/'.$data['user'], 'location');
+				redirect(base_url().'home/user_question/'.$this->input->post('user'), 'location');
 		}else if($this->input->post('view')=="user_comment"){
-				redirect(base_url().'home/user_comment/'.$data['user'], 'location');
+				redirect(base_url().'home/user_comment/'.$this->input->post('user'), 'location');
 		}else{
 				redirect(base_url().'home', 'location');
 		}
@@ -165,7 +166,7 @@ class Home extends CI_Controller
 				$data['user_comment']= $this->user_model->get_user_comment(filter_var($id_u, FILTER_VALIDATE_INT));
 	    		$data['page_title']="".isset($data['user_comment'][0]->user_info[0])?($data['user_comment'][0]->user_info[0]->username):("User")."'s question";
 	   			$this->load->view('user_comment_view', $data);
-	   			
+
 	   		}
 	   		else
 		   	{		

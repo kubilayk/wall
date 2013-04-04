@@ -72,7 +72,7 @@
                    <div class="span3" <?php if ($com->last_comment===0){?>style="display:none"<?php } ?>>
                           <span> at: <span> <?php 
                                  
-                                        $seconds = strtotime("now") - strtotime($com->last_comment[0]->comment_date)+3600;
+                                        $seconds = strtotime("now") - strtotime($com->last_comment[0]->comment_date);
                                         $minutes = (int)($seconds / 60);
                                         $hours = (int)($minutes / 60);
                                         $days = (int)($hours / 24);

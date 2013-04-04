@@ -57,7 +57,7 @@
                           <?php 
                             if(isset($com->last_comment[0]->comment_date))
                              {  
-                                    $seconds = strtotime("now") - strtotime($com->last_comment[0]->comment_date)+3600;
+                                    $seconds = strtotime("now") - strtotime($com->last_comment[0]->comment_date);
                                     //echo $seconds;
 
                                     $minutes = (int)($seconds / 60);

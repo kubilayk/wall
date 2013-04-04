@@ -49,51 +49,11 @@
                      <a class="overtext" href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>"><?php echo $quest->title;?></a><small>created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
                     
                          
-                        last like by:<a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):("") ?>" ><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a> time:<?php 
-                                 if(isset($quest->last_vote[0]->time))
-                                 {  
-                                        $seconds = strtotime("now") - strtotime($quest->last_vote[0]->time)+3600;
-                                        //echo $seconds;
-
-                                       $minutes = (int)($seconds / 60);
-                                        $hours = (int)($minutes / 60);
-                                        $days = (int)($hours / 24);
-                                        if($seconds <60 && $minutes<60)
-                                          {
-                                            
-                                            echo $seconds  . " seconds ago";
-                                          }
-                                        else if ( $seconds >= 60 && $minutes< 60 )
-                                          {
-                                                   
-                                                    $seconds = $seconds % 60;
-                                                    echo $minutes  . " minutes ";
-                                                    echo $seconds  . " seconds ago";
-                                          }
-                                        else if ( $minutes >= 60 && $hours<24)
-                                         {
-                                                   
-                                                    $minutes = $minutes % 60;
-                                                    echo $hours . " hour ";
-                                                    echo $minutes  . " minutes ago";
-                                          }         
-                                        else if ( $hours >= 24 && $days<30 )
-                                         {
-                                                    
-                                                    $hours = $hours % 60;
-                                                    echo $days . " days ";
-                                                    echo $hours . " hours ago";
-                                         }   
-                                  }
-                                  else
-                                  {
-                                    echo "";                                  
-                                  }                            
-                                ?> 
+                        last like by:<a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):("") ?>" ><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a> 
                                 | time:<?php 
                                  if(isset($quest->question_date))
                                  {  
-                                        $seconds = strtotime("now") - strtotime($quest->question_date)+3600;
+                                        $seconds = strtotime("now") - strtotime($quest->question_date);
                                         //echo $seconds;
 
                                         $minutes = (int)($seconds / 60);
