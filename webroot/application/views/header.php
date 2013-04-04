@@ -2,7 +2,7 @@
 <html>
   <head>
     <title><?php echo (isset($page_title)) ? $page_title : 'Default title text'; ?></title>
-    
+    <link rel="SHORTCUT ICON" href="<?php echo base_url();?>bootstrap/img/wall.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="<?php echo base_url();?>bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
