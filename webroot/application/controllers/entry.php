@@ -42,24 +42,18 @@ class Entry extends CI_Controller
       function new_entry()
       {
           $data['boolean']=$this->entry_model->is_logged_in();
-          if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
-          {
+          if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN)):
+          
             
             $session_data = $this->session->userdata('logged_in');
             //print_r($session_data['user_id']);
             $data['username'] = $session_data['username'];
             $data['guest'] =0;
-            
+            $data['msg']="";
             $data['page_title']="Create Questions";
             $this->load->view('new_entry_view',$data);
-          }
-          else
-          {
-            $data['guest'] = "Sign up";
-            $this->load->model('entry_model');
-            $data['page_title']="Registration";
-            $this->load->view('new_entry_view',$data);
-          }
+          endif;
+         
       }
 
       function save_question()
@@ -75,17 +69,18 @@ class Entry extends CI_Controller
             $data['guest'] =0;
             
             $data['page_title']="New Entry";
-          if(filter_var($data['link'], FILTER_VALIDATE_URL) || $data['link']=="" ) 
-          {
+            if(filter_var($data['link'], FILTER_VALIDATE_URL) || $data['link']=="" ) 
+            {
             
-            
-            $this->entry_model->title_insert($this->input->post());
-            redirect(base_url().'home','location');
+                
+                $this->entry_model->title_insert($this->input->post());
+                redirect(base_url().'home','location');
            }
           else 
             {
+              
+              $data['msg']='<font color=red>URL is not a properly formatted. Please enter a properly formatted URL.</font><br/>';              
 
-              $data['bool']=false;
               $this->load->view('new_entry_view',$data);
             } 
           }

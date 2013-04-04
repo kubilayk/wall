@@ -43,6 +43,10 @@
                  <div class="span11">
                         <p><strong><?php echo $quest->title; ?></strong></p>
                         <p><?php echo $quest->description; ?></p>
+                        <?php if($quest->link): ?>
+                        <p><a href="<?php echo $quest->link?>"><?php echo $quest->link; ?></a></p>
+                        <?php endif;?>
+
                    
                         <small>
                         created by:
@@ -114,7 +118,7 @@
                                     
                                     if($quest->user_info[0]->user_id == $session_data['user_id'])
                                     {
-                                      echo '<a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;">| delete</a>';
+                                      echo '| <a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;"> delete</a>';
                                     }
                                     else
                                     {
@@ -144,10 +148,8 @@
             <input type="hidden" name="view" value="entry_comment">
             <input type="hidden" name="entry_id" value="<?php echo $e_id; ?>">
            
-                Time:
-                  <?php echo $com->comment_date; ?>
-                 <br/>
-                Comment:
+              
+                <strong>Comment:</strong>
                   <?php echo $com->comment; ?><br/><small>
                                   by: 
                                   <?php  
@@ -158,20 +160,7 @@
                                   <?php }else{ ?>
                                   <a class="create-user" href="#"><?php echo isset($com->user_comment[0]->username)?($com->user_comment[0]->username):("") ?></a> 
                                   <?php } ?>
-                                  <?php   
-
-                                    $session_data = $this->session->userdata('logged_in');
-                                    
-                                    if($com->user_id == $session_data['user_id'])
-                                    {
-                                      echo '<a href="#" onclick="$(\'#comment_delete_'.$com->comment_id.'\').submit();return false;">  delete</a>';
-                                    }
-                                    else
-                                    {
-                                      echo"";
-                                    } 
-                                 ?>
-
+                                  
                                    | time:
                                     <?php 
                                      if(isset($com->comment_date))
@@ -210,7 +199,20 @@
                                                          }   
                                                   }
                                                                           
-                                  ?> 
+                                  ?>
+                                  <?php   
+
+                                    $session_data = $this->session->userdata('logged_in');
+                                    
+                                    if($com->user_id == $session_data['user_id'])
+                                    {
+                                      echo '| <a href="#" onclick="$(\'#comment_delete_'.$com->comment_id.'\').submit();return false;">  delete</a>';
+                                    }
+                                    else
+                                    {
+                                      echo"";
+                                    } 
+                                 ?> 
                         </small>
                                         <hr>
                  

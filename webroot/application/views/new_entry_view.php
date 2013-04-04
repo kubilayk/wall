@@ -14,10 +14,22 @@
           </div>
         </div>
         <div class="row">
+          <div class="span9">
+            <textarea name="link" class="span8" rows="1" placeholder="link" ></textarea>
+          </div>
+        </div>
+        
+        <div class="span12" >  
+         <?php if(! is_null($msg)) echo $msg ?>
+        </div>  
+             
+        
+        <div class="row">
           <div class="span3">
             <button type="submit" class="btn btn-primary">Write on wall</button>
-        </div>          
+        </div>   
         </div>
+
     </form>
 
    

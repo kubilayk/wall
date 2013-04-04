@@ -2,8 +2,7 @@
 
       <?php $e_id=0;?>
       <?php $i=0 ?>
-      <?php foreach 
-      ($question as $quest){ ?>
+      <?php foreach($question as $quest){ ?>
 
            <div class="row">
               <?php $e_id=$quest->question_id; ?>
@@ -51,7 +50,7 @@
                     <div class="span11" style="text-align: left;">
                       
                         <a class="overtext" href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>" style="display:block;"><?php echo $quest->title;?></a>
-                        created by:<small> 
+                       <small>  created by:
                         <?php  
                           if($guest===0)
                           { 
@@ -72,9 +71,9 @@
                               <?php } ?>
 
                                | time:<?php 
-                                 if(isset($quest->last_vote[0]->time))
+                                 if(isset($quest->question_date))
                                  {  
-                                        $seconds = strtotime("now") - strtotime($quest->last_vote[0]->time)+3600;
+                                        $seconds = strtotime("now") - strtotime($quest->question_date)+3600;
                                         //echo $seconds;
 
                                         $minutes = (int)($seconds / 60);
@@ -113,13 +112,14 @@
                                   }                            
                                 ?> 
                               </span>
+                              | <a href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>"><?php echo isset($quest->total_comment)?($quest->total_comment):(0) ?> comment</a> 
                               <?php   
 
                                     $session_data = $this->session->userdata('logged_in');
                                     
                                     if($quest->user_info[0]->user_id == $session_data['user_id'])
                                     {
-                                      echo '<a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;">| delete</a>';
+                                      echo '| <a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;"> delete</a>';
                                     }
                                     else
                                     {
@@ -138,7 +138,7 @@
                   </div>  
                   
             </div>
-            <br/>
+            
       <?php } ?>
 
 

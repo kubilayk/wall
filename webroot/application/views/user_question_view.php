@@ -30,7 +30,7 @@
                        
                   <?php endif; ?>
                   <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
-                  <small class="label label-info"> Like:<?php echo $quest->title_like; ?>  
+                  <small class="label label-info"> Like : <?php echo ( $quest->title_like ? $quest->title_like : 0 ); ?> 
                   </small>
                 </form>
                 </span>              
@@ -90,62 +90,71 @@
                                     echo "";                                  
                                   }                            
                                 ?> 
+                                | time:<?php 
+                                 if(isset($quest->question_date))
+                                 {  
+                                        $seconds = strtotime("now") - strtotime($quest->question_date)+3600;
+                                        //echo $seconds;
+
+                                        $minutes = (int)($seconds / 60);
+                                        $hours = (int)($minutes / 60);
+                                        $days = (int)($hours / 24);
+                                        if($seconds <60 && $minutes<60)
+                                          {
+                                            
+                                            echo $seconds  . " seconds ago";
+                                          }
+                                        else if ( $seconds >= 60 && $minutes< 60 )
+                                          {
+                                                   
+                                                    $seconds = $seconds % 60;
+                                                    echo $minutes  . " minutes ";
+                                                    echo $seconds  . " seconds ago";
+                                          }
+                                        else if ( $minutes >= 60 && $hours<24)
+                                         {
+                                                   
+                                                    $minutes = $minutes % 60;
+                                                    echo $hours . " hour ";
+                                                    echo $minutes  . " minutes ago";
+                                          }         
+                                        else if ( $hours >= 24 && $days<30 )
+                                         {
+                                                    
+                                                    $hours = $hours % 60;
+                                                    echo $days . " days ";
+                                                    echo $hours . " hours ago";
+                                         }   
+                                  }
+                                  else
+                                  {
+                                    echo "not yet";                                  
+                                  }                            
+                                ?> 
+                              
+                              | <a href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>"><?php echo isset($quest->total_comment)?($quest->total_comment):(0) ?> comment</a> 
                              <?php   
 
                                     $session_data = $this->session->userdata('logged_in');
                                     
                                     if($quest->user_info[0]->user_id == $session_data['user_id'])
                                     {
-                                      echo '<a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;">| delete</a>';
+                                      echo '| <a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;"> delete</a>';
                                     }
                                     else
                                     {
                                       echo"";
                                     } 
                              ?>
+
                              </small>
 
                      
                  </div>
-                 <div class="span3">
-                      <span> 
-                        <?php 
-                                  $seconds = strtotime("now") - strtotime($quest->question_date)+3600;
-                                  $minutes = (int)($seconds / 60);
-                                  $hours = (int)($minutes / 60);
-                                  $days = (int)($hours / 24);
-                                  if($seconds <60 && $minutes<60)
-                                  {
-                                            
-                                     echo "Seconds:".$seconds;
-                                  }
-                                  else if ( $seconds >= 60 && $minutes< 60 )
-                                  {
-                                                   
-                                      $seconds = $seconds % 60;
-                                      echo "Minutes:".$minutes;
-                                      echo "Seconds:".$seconds;
-                                  }
-                                  else if ( $minutes >= 60 && $hours<24)
-                                  {
-                                                   
-                                        $minutes = $minutes % 60;
-                                        echo "Hour:".$hours;
-                                        echo "Minutes:".$minutes;
-                                  }         
-                                  else if ( $hours >= 24 && $days<30 )
-                                  {
-                                                    
-                                        $hours = $hours % 60;
-                                        echo $days . " days ";
-                                        echo $hours . " hours ago";
-                                  }                                             
-                        ?>     
-                      </span>
-                </div>
+                 
                 </form>
         </div>
-        <br/>
+        
     <?php } ?>
 
 <?php include_once('footer.php'); ?>

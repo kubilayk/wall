@@ -29,6 +29,7 @@ class Home extends CI_Controller
 				//foreach($data['question'] as $question)
 					//echo  $question->last_vote[0]->username; 
 				//$data['total_comment'] = $this->comment_model->total_comment($data['question']);
+				
 				$this->load->view('home_view',$data);
 
 			}

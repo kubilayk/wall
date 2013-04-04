@@ -31,7 +31,7 @@
                             <?php endif; ?>
                             <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
                             <small class="label label-info">
-                             Like:<?php echo isset($com->title_like)?($com->title_like):("") ?>
+                             Like : <?php echo isset($com->title_like)?($com->title_like):(0) ?>
                             </small>
                             </form> 
                            </span>
@@ -58,35 +58,13 @@
                           <?php }else{ ?>
                           <a class="create-user" href="#"> <?php echo isset($com->last_comment[0])?($com->last_comment[0]->username):("") ?></a>
                           <?php } ?>
+                          | time:<?php 
+                                 if(isset($com->last_comment[0]->comment_date))
+                                 {  
+                                        $seconds = strtotime("now") - strtotime($com->last_comment[0]->comment_date)+3600;
+                                        //echo $seconds;
 
-                          <?php   
-
-                                    $session_data = $this->session->userdata('logged_in');
-                                    
-                                    if($com->last_comment[0]->user_id == $session_data['user_id'])
-                                    {
-                                      echo '<a href="#" onclick="$(\'#comment_delete_'.$com->last_comment[0]->comment_id.'\').submit();return false;">| delete</a>';
-                                    }
-                                    else
-                                    {
-                                      echo"";
-                                    } 
-                             ?>
-                          
-                               
-                         
-                          <span><br/>on:<a class="overtext"href="<?php echo base_url();?>entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
-
-                        </small>
-                     </div>
-               
-                     <div class="span3">
-                            <span> at: <span> 
-                              <?php 
-                                    if(isset($com->last_comment[0]))
-                                      {
-                                          $seconds = strtotime("now") - strtotime($com->last_comment[0]->comment_date)+3600;
-                                           $minutes = (int)($seconds / 60);
+                                        $minutes = (int)($seconds / 60);
                                         $hours = (int)($minutes / 60);
                                         $days = (int)($hours / 24);
                                         if($seconds <60 && $minutes<60)
@@ -114,17 +92,40 @@
                                                     $hours = $hours % 60;
                                                     echo $days . " days ";
                                                     echo $hours . " hours ago";
-                                         }    
-                                      }
-                                      
+                                         }   
+                                  }
+                                  else
+                                  {
+                                    echo "not yet";                                  
+                                  }                            
+                                ?> 
+
+                          <?php   
+
+                                    $session_data = $this->session->userdata('logged_in');
+                                    
+                                    if($com->last_comment[0]->user_id == $session_data['user_id'])
+                                    {
+                                      echo '| <a href="#" onclick="$(\'#comment_delete_'.$com->last_comment[0]->comment_id.'\').submit();return false;"> delete</a>';
+                                    }
                                     else
-                                      {
-                                        echo "No comment";
-                                      }                        
-                              ?>
-                            </span> </span>
+                                    {
+                                      echo"";
+                                    } 
+                             ?>
+                          
+                               
+                         
+                          <span><br/>on:<a class="overtext"href="<?php echo base_url();?>entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
+
+                        </small>
+
+                     </div>
+               
+                     
+                            
                  
-                      </div>
+                      
           
            </form>
     </div>
