@@ -34,15 +34,13 @@
                           </form> 
                           </span>
                     </div>
-          
-                          
-                    <form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>" method="POST">
-                    <input type="hidden" name="comment_id" value="<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>">               
-                    <input type="hidden" name="view" value="last_comment">                           
-                                    
-                    <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
-                    <?php isset($com->last_comment[0])?($u_id=$com->last_comment[0]->user_id):("") ?>
                     <div class="span8">
+                      <form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>" method="POST">
+                      <input type="hidden" name="comment_id" value="<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>">               
+                      <input type="hidden" name="view" value="last_comment">                           
+                                      
+                      <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
+                      <?php isset($com->last_comment[0])?($u_id=$com->last_comment[0]->user_id):("") ?>
                         <span> Last comment : <?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("No Comment") ?></span>
                         <small> <br/> created by : 
                           <?php  
@@ -111,8 +109,9 @@
                           ?>
                           <span><br/>on:<a href="<?php echo base_url();?>entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
                           </small>
+
+                        </form>
                       </div>
-                      </form>
               </div>
 
     <?php } ?>
