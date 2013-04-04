@@ -44,33 +44,12 @@
                   
                    <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
                    <?php isset($com->user_info[0])?($u_id=$com->user_info[0]->user_id):("") ?>
-                   <div class="span8">
+                   <div class="span11">
                         
                         
                       <small><span> Last comment:<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("") ?> </span>
                         <br/> created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($com->user_info[0])?($com->user_info[0]->username):("") ?></a>
-                        
-                          <?php   
-
-                                    $session_data = $this->session->userdata('logged_in');
-                                    
-                                    if($com->user_info[0]->user_id == $session_data['user_id'])
-                                    {
-                                      echo '<a href="#" onclick="$(\'#comment_delete_'.$com->last_comment[0]->comment_id.'\').submit();return false;">| delete</a>';
-                                    }
-                                    else
-                                    {
-                                      echo"";
-                                    } 
-                             ?>
-                          
-                              
-                        <span>on:<a class="overtext"href="<?php echo base_url();?>entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
-                        </small>
-                   </div>
-                
-                   <div class="span3" <?php if ($com->last_comment===0){?>style="display:none"<?php } ?>>
-                          <span> at: <span> <?php 
+                        | time: <span> <?php 
                                  
                                         $seconds = strtotime("now") - strtotime($com->last_comment[0]->comment_date);
                                         $minutes = (int)($seconds / 60);
@@ -102,9 +81,27 @@
                                                     echo $days . " days ";
                                                     echo $hours . " hours ago";
                                          }             
-                                          ?></span> </span>
+                                          ?>
+                          <?php   
 
-                       </div>
+                                    $session_data = $this->session->userdata('logged_in');
+                                    
+                                    if($com->user_info[0]->user_id == $session_data['user_id'])
+                                    {
+                                      echo '<a href="#" onclick="$(\'#comment_delete_'.$com->last_comment[0]->comment_id.'\').submit();return false;">| delete</a>';
+                                    }
+                                    else
+                                    {
+                                      echo"";
+                                    } 
+                             ?>
+                          
+                              
+                        <span><br/>on:<a class="overtext"href="<?php echo base_url();?>entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
+                        </small>
+                   </div>
+                
+                   
                 </div>
                 <?php } ?>
         </div>

@@ -15,7 +15,7 @@ class Entry_model extends CI_Model
 		$last= null;
 		foreach ($questions as $question)
 		 {
-			$sql="SELECT * from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.`time` DESC LIMIT 1"; 
+			$sql="SELECT * from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.user_rate_date DESC LIMIT 1"; 
 			$query2 = $this->db->query($sql,array((int)$question->question_id));
 			$question->last_vote= $query2->result();
 			$session_data = $this->session->userdata('logged_in');
@@ -50,7 +50,7 @@ class Entry_model extends CI_Model
 		$last= null;
 		foreach ($questions as $question) 
 		{
-			$sql="SELECT * from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.`time` DESC LIMIT 1"; 
+			$sql="SELECT u.username,u.user_id,ur.user_id,ur.entry_id,ur.user_rate_date,ur.user_entry from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.user_rate_date DESC LIMIT 1"; 
 			$query2 = $this->db->query($sql,array((int)$question->question_id));
 			$question->last_vote= $query2->result();
 			$session_data = $this->session->userdata('logged_in');
@@ -164,7 +164,7 @@ public function set_title_rate($data)
 		$last= null;
 		foreach ($questions as $question)
 		 {
-			$sql="SELECT * from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.`time` DESC LIMIT 1"; 
+			$sql="SELECT u.username,u.user_id,ur.user_id,ur.entry_id,ur.user_rate_date,ur.user_entry from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.user_rate_date DESC LIMIT 1"; 
 			$query2 = $this->db->query($sql,array((int)$question->question_id));
 			$question->last_vote= $query2->result();
 			$session_data = $this->session->userdata('logged_in');
@@ -207,7 +207,7 @@ public function set_title_rate($data)
 		
 		foreach ($questions as $question)
 		 {
-			$sql="SELECT * from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.`time` DESC LIMIT 1"; 
+			$sql="SELECT u.username,u.user_id,ur.user_id,ur.entry_id,ur.user_rate_date,ur.user_entry from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.user_rate_date DESC LIMIT 1"; 
 			$query2 = $this->db->query($sql,array((int)$question->question_id));
 			$question->last_vote= $query2->result();
 			$session_data = $this->session->userdata('logged_in');
