@@ -93,6 +93,7 @@ class Comment_model extends CI_Model
 	{
 		if($data):
 			$data = array(
+				'entry_id' => (int)$data['entry_id'],
 				'comment_id' => (int)$data['comment_id'],
 				'user_id' => (int)$data['user_id']
 
@@ -100,6 +101,8 @@ class Comment_model extends CI_Model
 		endif;
 		$sql="DELETE FROM comment WHERE user_id = ? AND comment_id = ?";
 		$this->db->query($sql, array((int)$data['user_id'], (int)$data['comment_id']));
+		$sql2 = "UPDATE question SET total_comment=total_comment - 1 WHERE question_id= ?"; 
+		$this->db->query($sql2, array((int)$data['entry_id']));
 
 
 
