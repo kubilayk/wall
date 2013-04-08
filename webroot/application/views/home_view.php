@@ -141,5 +141,6 @@
             
       <?php } ?>
 
+<p><?php echo $links; ?></p>
 
 <?php include_once('footer.php'); ?>

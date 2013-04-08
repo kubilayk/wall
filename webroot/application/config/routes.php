@@ -42,6 +42,7 @@ $route['default_controller'] = 'home';
 $route['entry/:num'] = 'entry/index/$1/$1';
 $route['home/:num'] = 'home/user_info/$1';
 $route['home/:num'] = 'home/user_quesiton/$1';
+$route['home/:num'] = 'home/index/$1';
 
 
 /* End of file routes.php */

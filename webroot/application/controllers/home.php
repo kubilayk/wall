@@ -19,22 +19,20 @@ class Home extends CI_Controller
 			
 			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{
-				/*$config = array();
+				$config = array();
 		        $config["base_url"] = base_url() . "/home";
 		        $config["total_rows"] = $this->entry_model->record_count();
-		        $config["per_page"] = 15;
+		        $config["per_page"] = 12;
 		        $config["uri_segment"] = 2;
 		        $this->pagination->initialize($config);
 		        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
-		        $data["links"] = $this->pagination->create_links();
-
-				*/
-				$session_data = $this->session->userdata('logged_in');
+		        $session_data = $this->session->userdata('logged_in');
 				//print_r($session_data['user_id']);
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 		     	$data['page_title']="Home";		
-				$data['question']=$this->entry_model->get_all_question();
+				$data['question']=$this->entry_model->get_all_question($config["per_page"],$page);
+				$data["links"] = $this->pagination->create_links();
 				//print_r($data['question']);
 				//foreach($data['question'] as $question)
 					//echo  $question->last_vote[0]->username; 

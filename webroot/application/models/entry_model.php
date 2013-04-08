@@ -6,12 +6,15 @@ class Entry_model extends CI_Model
          parent::__construct();
      }
  
-	public function get_all_question()
+	public function get_all_question($limit, $start)
 	{
+		$this->db->limit($limit, $start);
 		$this->db->from("question");
 		$this->db->order_by("question_date", "desc");
 		$query = $this->db->get();
+		   
 		$questions = $query->result();
+		//print_r($questions);
 		$last= null;
 		foreach ($questions as $question)
 		 {
@@ -39,8 +42,15 @@ class Entry_model extends CI_Model
   			//$question->total=$query3->result();
 			//print_r($last);//print_r($query2->result());
 		}
+		
+        
 		return $questions;//sonucu return ediyoruz.
 
+	}
+
+	public function record_count()
+	{
+		return $this->db->count_all("question");
 	}
 	public function get_id_question($id)
 	{
