@@ -17,6 +17,8 @@
                           <input type="hidden" name="like" id="rate_input_<?php echo $e_id; ?>" value="">
                           <input type="hidden" name="entry_id" id="entry_id_<?php echo $e_id; ?>" value="<?php echo $e_id; ?>">
                           <input type="hidden" name="view" value="search">
+
+                         <input type="hidden" name="search" value="<?php echo isset($search)?($search):(""); ?>">
                           <?php if ($quest->is_vote===0)
                           {
 

@@ -84,6 +84,8 @@ class Home extends CI_Controller
 				redirect(base_url().'home/user_question/'.$this->input->post('user'), 'location');
 		}else if($this->input->post('view')=="user_comment"){
 				redirect(base_url().'home/user_comment/'.$this->input->post('user'), 'location');
+		}else if($this->input->post('view')=="search"){
+				redirect(base_url().'home/search?search='.$this->input->post('search'), 'location');		
 		}else{
 				redirect(base_url().'home', 'location');
 		}
