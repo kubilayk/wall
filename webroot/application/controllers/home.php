@@ -31,7 +31,7 @@ class Home extends CI_Controller
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 		     	$data['page_title']="Home";		
-				$data['question']=$this->entry_model->get_all_question($config["per_page"],$page);
+				$data['question']=$this->entry_model->get_all_question($config['per_page'],$page);
 				$data['links'] = $this->pagination->create_links();
 				//print_r($data['question']);
 				//foreach($data['question'] as $question)
