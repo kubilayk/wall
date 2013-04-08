@@ -8,7 +8,7 @@ class Home extends CI_Controller
 		$this->load->model('entry_model');
 		$this->load->model('comment_model');
 		$this->load->model('user_model');
-		$this->load->library("pagination");
+		$this->load->library('pagination');
 		
 	}
 
@@ -20,10 +20,10 @@ class Home extends CI_Controller
 			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{
 				$config = array();
-		        $config["base_url"] = base_url() . "/home";
-		        $config["total_rows"] = $this->entry_model->record_count();
-		        $config["per_page"] = 12;
-		        $config["uri_segment"] = 2;
+		        $config['base_url'] = base_url() . "/home";
+		        $config['total_rows'] = $this->entry_model->record_count();
+		        $config['per_page'] = 12;
+		        $config['uri_segment'] = 2;
 		        $this->pagination->initialize($config);
 		        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
 		        $session_data = $this->session->userdata('logged_in');
@@ -32,7 +32,7 @@ class Home extends CI_Controller
 				$data['guest'] =0;
 		     	$data['page_title']="Home";		
 				$data['question']=$this->entry_model->get_all_question($config["per_page"],$page);
-				$data["links"] = $this->pagination->create_links();
+				$data['links'] = $this->pagination->create_links();
 				//print_r($data['question']);
 				//foreach($data['question'] as $question)
 					//echo  $question->last_vote[0]->username; 
