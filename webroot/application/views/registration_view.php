@@ -30,7 +30,7 @@
 					<input type="password" id="con_password" name="con_password" value="<?php echo set_value('con_password'); ?>" />
 				</div>
 				<div class="span12">
-					<input type="submit" value="Submit" class="btn btn-primary"/> &nbsp; &nbsp; &nbsp; <a href="<?php echo base_url();?>account/login" class="btn btn-success">Login</a>&nbsp; &nbsp; &nbsp;
+					<input type="submit" value="Submit" class="btn btn-primary"/> &nbsp; &nbsp; &nbsp;
 				</div>
 				<div class="span12">
 
