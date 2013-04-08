@@ -55,7 +55,7 @@ $(document).ready(function(){
           }
         },
        Signup: function() {
-           window.location = "../wall/webroot/account";
+           window.location = "../account";
         }
       },
       close: function() {
