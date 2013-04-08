@@ -44,11 +44,18 @@ class Home extends CI_Controller
 			  else
 
 		    {
-		   		
+		   		$config = array();
+		        $config['base_url'] = base_url() . "/home";
+		        $config['total_rows'] = $this->entry_model->record_count();
+		        $config['per_page'] = 12;
+		        $config['uri_segment'] = 2;
+		        $this->pagination->initialize($config);
+		        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
 		   		$data['guest'] = "Sign up";
 		   		$this->load->model('entry_model');
 				$data['page_title']="Home";		
-				$data['question']=$this->entry_model->get_all_question();
+				$data['question']=$this->entry_model->get_all_question($config['per_page'],$page);
+				$data['links'] = $this->pagination->create_links();
 				$this->load->view('home_view',$data);
 
    			}
