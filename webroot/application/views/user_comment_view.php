@@ -10,9 +10,10 @@
             ?>
            
                  <div class="span1" style="text-align: right;">
-                    <span>
+                   <?php if (! $boolean == false): ?>   
+                   <span>
                      <form action="<?php echo base_url();?>home/rate" id="rate_form_<?php echo $e_id; ?>" method="POST">
-                     <?php if (! $boolean == false): ?>  
+                     
                          <input type="hidden" name="like" id="rate_input_<?php echo $e_id; ?>" value="">
                          <input type="hidden" name="entry_id" id="entry_id_<?php echo $e_id; ?>" value="<?php echo $e_id; ?>">
                          <input type="hidden" name="view" value="user_comment">
@@ -31,12 +32,12 @@
                     <?php endif; ?>
                          <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
                          <small class="label label-info"> 
-                         Like:<?php echo isset($com->title_like)?($com->title_like):("") ?>
+                         Like : <?php echo isset($com->title_like)?($com->title_like):("") ?>
                          </small> 
                       </form>
                     </span>
                  </div>
-        
+                   <div class="span11">
 <form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>" method="POST">
 <input type="hidden" name="comment_id" value="<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>">
 <input type="hidden" name="view" value="user_comment">
@@ -44,12 +45,13 @@
                   
                    <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
                    <?php isset($com->user_info[0])?($u_id=$com->user_info[0]->user_id):("") ?>
-                   <div class="span11">
+                   
                         
                         
-                      <small><span> Last comment:<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("") ?> </span>
-                        <br/> created by:<a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($com->user_info[0])?($com->user_info[0]->username):("") ?></a>
-                        | time: <span> <?php 
+                      <span> Last comment:<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("") ?> </span>
+                       <small> <br/> created by : 
+                        <a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($com->user_info[0])?($com->user_info[0]->username):("") ?></a>
+                        | time : <?php 
                                  
                                         $seconds = strtotime("now") - strtotime($com->last_comment[0]->comment_date);
                                         $minutes = (int)($seconds / 60);
@@ -99,12 +101,13 @@
                               
                         <span><br/>on:<a class="overtext"href="<?php echo base_url();?>entry/<?php echo $com->question_id;?>"><?php echo $com->title;?></a></span>
                         </small>
+                      </form>
                    </div>
                 
                    
                 </div>
                 <?php } ?>
-        </div>
+        
 <?php } ?>
 
   <?php include_once('footer.php'); ?>

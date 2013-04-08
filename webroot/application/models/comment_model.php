@@ -52,6 +52,7 @@ class Comment_model extends CI_Model
   }
   public function last_comments()
   {
+  		//$this->db->limit(3);
   		$this->db->from("question");
 		$this->db->order_by("question_date", "desc");
 		$query = $this->db->get();
