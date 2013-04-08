@@ -55,7 +55,7 @@ $(document).ready(function(){
           }
         },
        Signup: function() {
-           window.location = "<?php echo base_url();?>/wall/webroot/account";
+           window.location = "../wall/webroot/account";
         }
       },
       close: function() {
