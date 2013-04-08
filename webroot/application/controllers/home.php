@@ -215,7 +215,7 @@ class Home extends CI_Controller
 	{
 		
 		$q = $this->input->get('search');
-
+		
 		$data['boolean']=$this->entry_model->is_logged_in();
 		if (trim($q) != ''){
 		 
@@ -224,15 +224,18 @@ class Home extends CI_Controller
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
+				$data['search']=$q;
 				$data['page_title']="Search";		
 	    		$data['question_info']= $this->entry_model->search($q);
+	    		print_r($data);
 	   			$this->load->view('search_view', $data);
 	   		}
 	   		else
 	   		{		
 	   	 		$data['guest'] = "Sign up";
-				$data['page_title']="Search";		
-	    		$data['question_info']= $this->entry_model->search($q);
+				$data['page_title']="Search";
+				$data['search']=$q;
+				$data['question_info']= $this->entry_model->search($q);
 	   			$this->load->view('search_view', $data);
 	   		}
 	   	}else{

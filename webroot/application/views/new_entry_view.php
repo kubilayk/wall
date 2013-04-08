@@ -15,7 +15,7 @@
         </div>
         <div class="row">
           <div class="span9">
-            <textarea name="link" class="span8" rows="1" placeholder="link" ></textarea>
+            <input type="text" class="span8" name="link" placeholder="link"/>
           </div>
         </div>
         
