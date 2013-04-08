@@ -6,7 +6,7 @@ class Entry_model extends CI_Model
          parent::__construct();
      }
  
-	public function get_all_question($limit, $start)
+	public function get_all_question($limit= null, $start=null)
 	{
 		$this->db->limit($limit, $start);
 		$this->db->from("question");
