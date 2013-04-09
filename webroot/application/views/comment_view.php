@@ -4,9 +4,9 @@
       <?php $e_id=0; ?>
       <?php $i=0 ?>
       <?php foreach($comment as $com){ ?>
-         <?php if ($com->last_comment!=0){?>
+         <?php $u_id=$com->user_id ?>
               <div class="row">
-                 <?php $e_id=$com->question_id; ?>
+                 <?php $e_id = $com->question_id; ?>
                   <div class="span1" < style="text-align: right;">
                          <?php if (! $boolean == false): ?>   
                          <span>
@@ -15,7 +15,7 @@
                                <input type="hidden" name="like" id="rate_input_<?php echo $e_id; ?>" value="">
                                <input type="hidden" name="view" id="rate_input_<?php echo $e_id; ?>" value="comment">
                                <input type="hidden" name="entry_id" id="entry_id_<?php echo $e_id; ?>" value="<?php echo $e_id; ?>">
-                               <?php if ($com->is_vote===0)
+                               <?php if ($com->is_vote == 0)
                                   {
 
                                     echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'1\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-up"> </i> </a>';
@@ -35,27 +35,25 @@
                           </span>
                     </div>
                     <div class="span11">
-                      <form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>" method="POST">
-                      <input type="hidden" name="comment_id" value="<?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment_id):("") ?>">               
+                      <form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo $com->comment_id ?>" method="POST">
+                      <input type="hidden" name="comment_id" value="<?php echo $com->comment_id ?>">               
                       <input type="hidden" name="view" value="last_comment">                           
                                       
-                      <?php isset($com->last_comment[0])?($user_id=$com->last_comment[0]->user_id):("") ?>
-                      <?php isset($com->last_comment[0])?($u_id=$com->last_comment[0]->user_id):("") ?>
-                        <span> Last comment : <?php echo isset($com->last_comment[0])?($com->last_comment[0]->comment):("") ?></span>
+                        <span> Last comment : <?php echo $com->comment ?></span>
                         <small> <br/> created by : 
                           <?php  
                           if($guest===0)
                           { 
                           ?> 
-                          <a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($com->last_comment[0])?($com->last_comment[0]->username):("") ?></a>
+                          <a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo $com->username ?></a>
                           <?php }else{ ?>
-                          <a class="create-user" href="#"> <?php echo isset($com->last_comment[0])?($com->last_comment[0]->username):("") ?></a>
+                          <a class="create-user" href="#"> <?php echo $com->username ?></a>
                           <?php } ?>
                           | time : 
                           <?php 
-                            if(isset($com->last_comment[0]->comment_date))
+                            if(isset($com->comment_date))
                              {  
-                                    $seconds = strtotime("now") - strtotime($com->last_comment[0]->comment_date);
+                                    $seconds = strtotime("now") - strtotime($com->comment_date);
                                     //echo $seconds;
 
                                     $minutes = (int)($seconds / 60);
@@ -88,16 +86,16 @@
                                                 echo $hours . " hours ago";
                                      }   
                               }
-                                                         
+                          
                           ?> 
 
                           <?php   
 
                                     $session_data = $this->session->userdata('logged_in');
                                     
-                                    if($com->last_comment[0]->user_id == $session_data['user_id'])
+                                    if($u_id == $session_data['user_id'])
                                     {
-                                      echo '| <a href="#" onclick="$(\'#comment_delete_'.$com->last_comment[0]->comment_id.'\').submit();return false;"> delete</a>';
+                                      echo '| <a href="#" onclick="$(\'#comment_delete_'.$com->comment_id.'\').submit();return false;"> delete</a>';
                                     }
                                     else
                                     {
@@ -111,7 +109,6 @@
                       </div>
               </div>
 <?php } ?>
-              <?php } ?>
 
     
   <?php include_once('footer.php'); ?>
