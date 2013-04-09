@@ -10,12 +10,14 @@
         </div>
         <div class="row">
           <div class="span9">
-            <textarea name="description" class="span8" rows="7" placeholder="write description" ></textarea>
+            <textarea name="content_2" id="content_2" placeholder="write description"></textarea>
+            <?php echo display_ckeditor($ckeditor_2); ?>
+            </textarea>
           </div>
         </div>
         <div class="row">
           <div class="span9">
-            <textarea name="link" class="span8" rows="1" placeholder="link" ></textarea>
+            <input type="text" class="span8" name="link" placeholder="link"/>
           </div>
         </div>
         
@@ -29,6 +31,7 @@
             <button type="submit" class="btn btn-primary">Write on wall</button>
         </div>   
         </div>
+
 
     </form>
 

@@ -20,13 +20,13 @@
 				<div class="span7">
 					
                             
-                            <a href="<?php echo base_url();?>home/user_question/<?php echo $user->user_id; ?>">Question</a>
+                            <a href="<?php echo base_url();?>home/user_question/<?php echo $user->user_id; ?>">Questions</a>
                     
 				</div>
 
 				<div class="span7">
 				    
-                            <a href="<?php echo base_url();?>home/user_comment/<?php echo $user->user_id; ?>">Comment</a>
+                            <a href="<?php echo base_url();?>home/user_comment/<?php echo $user->user_id; ?>">Comments</a>
                    
 				</div>
 				

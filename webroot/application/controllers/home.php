@@ -8,6 +8,7 @@ class Home extends CI_Controller
 		$this->load->model('entry_model');
 		$this->load->model('comment_model');
 		$this->load->model('user_model');
+		$this->load->library('pagination');
 		
 	}
 
@@ -18,13 +19,20 @@ class Home extends CI_Controller
 			
 			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{
-				
-				$session_data = $this->session->userdata('logged_in');
+				$config = array();
+		        $config['base_url'] = base_url() . "/home";
+		        $config['total_rows'] = $this->entry_model->record_count();
+		        $config['per_page'] = 12;
+		        $config['uri_segment'] = 2;
+		        $this->pagination->initialize($config);
+		        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+		        $session_data = $this->session->userdata('logged_in');
 				//print_r($session_data['user_id']);
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 		     	$data['page_title']="Home";		
-				$data['question']=$this->entry_model->get_all_question();
+				$data['question']=$this->entry_model->get_all_question($config['per_page'],$page);
+				$data['links'] = $this->pagination->create_links();
 				//print_r($data['question']);
 				//foreach($data['question'] as $question)
 					//echo  $question->last_vote[0]->username; 
@@ -36,11 +44,18 @@ class Home extends CI_Controller
 			  else
 
 		    {
-		   		
+		   		$config = array();
+		        $config['base_url'] = base_url() . "/home";
+		        $config['total_rows'] = $this->entry_model->record_count();
+		        $config['per_page'] = 12;
+		        $config['uri_segment'] = 2;
+		        $this->pagination->initialize($config);
+		        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
 		   		$data['guest'] = "Sign up";
 		   		$this->load->model('entry_model');
 				$data['page_title']="Home";		
-				$data['question']=$this->entry_model->get_all_question();
+				$data['question']=$this->entry_model->get_all_question($config['per_page'],$page);
+				$data['links'] = $this->pagination->create_links();
 				$this->load->view('home_view',$data);
 
    			}
@@ -69,6 +84,8 @@ class Home extends CI_Controller
 				redirect(base_url().'home/user_question/'.$this->input->post('user'), 'location');
 		}else if($this->input->post('view')=="user_comment"){
 				redirect(base_url().'home/user_comment/'.$this->input->post('user'), 'location');
+		}else if($this->input->post('view')=="search"){
+				redirect(base_url().'home/search?search='.$this->input->post('search'), 'location');		
 		}else{
 				redirect(base_url().'home', 'location');
 		}
@@ -215,7 +232,7 @@ class Home extends CI_Controller
 	{
 		
 		$q = $this->input->get('search');
-
+		
 		$data['boolean']=$this->entry_model->is_logged_in();
 		if (trim($q) != ''){
 		 
@@ -224,6 +241,7 @@ class Home extends CI_Controller
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
+				$data['search']=$q;
 				$data['page_title']="Search";		
 	    		$data['question_info']= $this->entry_model->search($q);
 	   			$this->load->view('search_view', $data);
@@ -231,8 +249,9 @@ class Home extends CI_Controller
 	   		else
 	   		{		
 	   	 		$data['guest'] = "Sign up";
-				$data['page_title']="Search";		
-	    		$data['question_info']= $this->entry_model->search($q);
+				$data['page_title']="Search";
+				$data['search']=$q;
+				$data['question_info']= $this->entry_model->search($q);
 	   			$this->load->view('search_view', $data);
 	   		}
 	   	}else{

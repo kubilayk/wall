@@ -12,6 +12,7 @@
     <script type="text/javascript" src="<?php echo base_url();?>bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>bootstrap/js/jquery-ui.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>bootstrap/js/custom.js"></script>
+    <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
   </head>
   <body>
     <br>
@@ -41,7 +42,7 @@
     </ul>
     <div class="input-append"> 
         <form class="navbar-search pull-left" action="<?php echo base_url();?>home/search" method="GET">  
-             <input class="span2" name="search" id="appendedInputButtons" type="text">
+             <input class="span2" name="search" id="appendedInputButtons" type="text" value="<?php echo isset($search)?($search):("");?>">
              <button class="btn" type="submit">Search</button>
              <a href="<?php echo base_url();?>home/advanced_search" class="btn">Advance Search</a>
         </form>

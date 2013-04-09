@@ -6,12 +6,15 @@ class Entry_model extends CI_Model
          parent::__construct();
      }
  
-	public function get_all_question()
+	public function get_all_question($limit= null, $start=null)
 	{
+		$this->db->limit($limit, $start);
 		$this->db->from("question");
 		$this->db->order_by("question_date", "desc");
 		$query = $this->db->get();
+		   
 		$questions = $query->result();
+		//print_r($questions);
 		$last= null;
 		foreach ($questions as $question)
 		 {
@@ -39,8 +42,15 @@ class Entry_model extends CI_Model
   			//$question->total=$query3->result();
 			//print_r($last);//print_r($query2->result());
 		}
+		
+        
 		return $questions;//sonucu return ediyoruz.
 
+	}
+
+	public function record_count()
+	{
+		return $this->db->count_all("question");
 	}
 	public function get_id_question($id)
 	{
@@ -79,7 +89,7 @@ class Entry_model extends CI_Model
 	}
 	public function title_insert($data = array())
 	{
-		//print_r($data);
+		
 		$session_data = $this->session->userdata('logged_in');
 		$data['user_id'] = $session_data['user_id'];
 		if ($data):
@@ -87,16 +97,19 @@ class Entry_model extends CI_Model
 	    	$data = array(
 
 	    		'title' => $data['title'],
-	            'description'=>$data['description'],
+	            'content_2'=>$data['content_2'],
 	            'user_id'=>$data['user_id'],
 	            'link'=>$data['link']
 
 	            );
-	    	$data['title']=strip_tags($data['title']);
-	    	$data['description']=strip_tags($data['description']);
-	    	$data['link']=strip_tags($data['link']);
 
-	    	$this->db->insert('question',$data);
+	    	$data['title']=strip_tags($data['title'],'<p><a><br />');
+	    	$data['content_2']=strip_tags($data['content_2'],'<p><a><br />');
+	    	//$data['link']=strip_tags($data['link']);
+	    	print_r($data);
+	    	$sql = "INSERT IGNORE INTO question(title,description,user_id,link) VALUES (?,?,?,?);";
+			$this->db->query($sql, array($data['title'], $data['content_2'], (int)$data['user_id'], $data['link']) );
+	    	
 
     	endif; 
     

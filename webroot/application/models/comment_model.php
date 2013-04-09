@@ -67,6 +67,7 @@ class Comment_model extends CI_Model
   		$query = $this->db->query($sql);
 
 		return $query->result();
+
   }
   public function comment_drop($data)
 	{

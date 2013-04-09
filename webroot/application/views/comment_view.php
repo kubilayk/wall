@@ -34,7 +34,7 @@
                           </form> 
                           </span>
                     </div>
-                    <div class="span8">
+                    <div class="span11">
                       <form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo $com->comment_id ?>" method="POST">
                       <input type="hidden" name="comment_id" value="<?php echo $com->comment_id ?>">               
                       <input type="hidden" name="view" value="last_comment">                           
@@ -86,10 +86,7 @@
                                                 echo $hours . " hours ago";
                                      }   
                               }
-                              else
-                              {
-                                echo "not yet";                                  
-                              }                            
+                          
                           ?> 
 
                           <?php   
