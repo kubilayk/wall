@@ -52,42 +52,21 @@ class Comment_model extends CI_Model
   }
   public function last_comments()
   {
-  		$this->db->from("question");
-		$this->db->order_by("question_date", "desc");
-		$query = $this->db->get();
-		$questions = $query->result();
-		$last= null;
-		foreach ($questions as $question) {
-			
-			$sql="SELECT * from comment c, question q, users u WHERE c.entry_id = ? and c.user_id = u.user_id ORDER BY c.comment_date DESC LIMIT 1"; 
-			$query2 = $this->db->query($sql,array((int)$question->question_id));
-			$question->last_comment= $query2->result();
-			if(empty($question->last_comment)):
-				$question->last_comment=0;
-			endif;
-			$session_data = $this->session->userdata('logged_in');
-			$data['user_id'] = $session_data['user_id'];
-			$sql2="SELECT * from user_rate WHERE user_id= ? and entry_id=?";
-			$query3 = $this->db->query($sql2,array($data['user_id'],(int)$question->question_id));
-			$sql3="SELECT user_id,username,email FROM users WHERE user_id=? ";
-			$query4 = $this->db->query($sql3,array((int)$question->user_id));
-			$question->user_info= $query4->result();
-			if((int)$query3->num_rows == 0)
-			{
-				
-				$question->is_vote= 0;
-			}
-		
-			else 
-			{
-				$question->is_vote=1;
-			}
-			//$sql="SELECT q.question_id, COUNT(c.entry_id) AS total FROM question q JOIN comment c ON c.entry_id = q.question_id GROUP BY c.entry_id ORDER BY total asc";
-  		//$query3 = $this->db->query($sql);
-  		//$question->total=$query3->result();
-			//print_r($last);//print_r($query2->result());
-		}
-		return $questions;
+
+		$session_data = $this->session->userdata('logged_in');
+		$user_id = $session_data['user_id'];
+
+  		$sql = "SELECT DISTINCT c1.comment_id, c1.comment, c1.comment_date, c1.entry_id, q1.title, q1.question_id, q1.title_like, u1.username, u1.user_id, 
+  				IF( ".(int)$user_id." IN ( SELECT rn.user_id FROM user_rate rn WHERE rn.entry_id = c1.entry_id), 1, 0) as is_vote
+				FROM comment c1
+				LEFT JOIN question q1 ON q1.question_id = c1.entry_id
+				LEFT JOIN users u1 ON u1.user_id = c1.user_id
+				ORDER BY c1.comment_date DESC
+				LIMIT 15";
+
+  		$query = $this->db->query($sql);
+
+		return $query->result();
   }
   public function comment_drop($data)
 	{
