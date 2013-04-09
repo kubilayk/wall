@@ -89,7 +89,7 @@ class Entry_model extends CI_Model
 	}
 	public function title_insert($data = array())
 	{
-		//print_r($data);
+		
 		$session_data = $this->session->userdata('logged_in');
 		$data['user_id'] = $session_data['user_id'];
 		if ($data):
@@ -97,16 +97,19 @@ class Entry_model extends CI_Model
 	    	$data = array(
 
 	    		'title' => $data['title'],
-	            'description'=>$data['description'],
+	            'content_2'=>$data['content_2'],
 	            'user_id'=>$data['user_id'],
 	            'link'=>$data['link']
 
 	            );
-	    	$data['title']=strip_tags($data['title']);
-	    	$data['description']=strip_tags($data['description']);
-	    	$data['link']=strip_tags($data['link']);
 
-	    	$this->db->insert('question',$data);
+	    	$data['title']=strip_tags($data['title'],'<p><a><br />');
+	    	$data['content_2']=strip_tags($data['content_2'],'<p><a><br />');
+	    	//$data['link']=strip_tags($data['link']);
+	    	print_r($data);
+	    	$sql = "INSERT IGNORE INTO question(title,description,user_id,link) VALUES (?,?,?,?);";
+			$this->db->query($sql, array($data['title'], $data['content_2'], (int)$data['user_id'], $data['link']) );
+	    	
 
     	endif; 
     

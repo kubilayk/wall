@@ -12,6 +12,7 @@
     <script type="text/javascript" src="<?php echo base_url();?>bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>bootstrap/js/jquery-ui.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>bootstrap/js/custom.js"></script>
+    <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
   </head>
   <body>
     <br>

@@ -2,11 +2,91 @@
  
 class Entry extends CI_Controller 
 {
+      public $data     =     array();
       function __construct()
       {
           parent::__construct();
           $this->load->model('entry_model');
           $this->load->model('comment_model');
+         $this->load->helper('url'); //You should autoload this one ;)
+    $this->load->helper('ckeditor');
+ 
+ 
+    //Ckeditor's configuration
+    $this->data['ckeditor'] = array(
+ 
+      //ID of the textarea that will be replaced
+      'id'  =>  'content',
+      'path'  =>  'js/ckeditor',
+ 
+      //Optionnal values
+      'config' => array(
+        'toolbar'   =>  "Full",   //Using the Full toolbar
+        'width'   =>  "550px",  //Setting a custom width
+        'height'  =>  '100px',  //Setting a custom height
+ 
+      ),
+ 
+      //Replacing styles from the "Styles tool"
+      'styles' => array(
+ 
+        //Creating a new style named "style 1"
+        'style 1' => array (
+          'name'    =>  'Blue Title',
+          'element'   =>  'h2',
+          'styles' => array(
+            'color'   =>  'Blue',
+            'font-weight'   =>  'bold'
+          )
+        ),
+ 
+        //Creating a new style named "style 2"
+        'style 2' => array (
+          'name'  =>  'Red Title',
+          'element'   =>  'h2',
+          'styles' => array(
+            'color'     =>  'Red',
+            'font-weight'     =>  'bold',
+            'text-decoration' =>  'underline'
+          )
+        )       
+      )
+    );
+ 
+    $this->data['ckeditor_2'] = array(
+ 
+      //ID of the textarea that will be replaced
+      'id'  =>  'content_2',
+      'path'  =>  'js/ckeditor',
+ 
+      //Optionnal values
+      'config' => array(
+        'width'   =>  "550px",  //Setting a custom width
+        'height'  =>  '100px',  //Setting a custom height
+        'toolbar'   =>  array(  //Setting a custom toolbar
+          array('Bold', 'Italic'),
+          array('Underline', 'Strike', 'FontSize'),
+          array('Smiley'),
+          '/'
+        )
+      ),
+ 
+      //Replacing styles from the "Styles tool"
+      'styles' => array(
+ 
+        //Creating a new style named "style 1"
+        'style 3' => array (
+          'name'    =>  'Green Title',
+          'element'   =>  'h3',
+          'styles' => array(
+            'color'   =>  'Green',
+            'font-weight'   =>  'bold'
+          )
+        )
+ 
+      )
+    );
+
       }
 
       function index()
@@ -51,6 +131,7 @@ class Entry extends CI_Controller
             $data['guest'] =0;
             $data['msg']="";
             $data['page_title']="Create Questions";
+            $data = array_merge($data, $this->data);
             $this->load->view('new_entry_view',$data);
           endif;
          
