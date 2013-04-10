@@ -9,6 +9,15 @@ class Home extends CI_Controller
 		$this->load->model('comment_model');
 		$this->load->model('user_model');
 		$this->load->library('pagination');
+		if (isset($_SERVER['HTTP_REFERER']))
+ {
+ $this->session->set_userdata('previous_page', $_SERVER['HTTP_REFERER']);
+ }
+ else
+ {
+ $this->session->set_userdata('previous_page', base_url());
+ }
+  
 		
 	}
 
@@ -74,9 +83,9 @@ class Home extends CI_Controller
 		$this->entry_model->user_rate($this->input->post());
 		$data['rate_count']= $this->entry_model->rate_count($this->input->post());
 	   	$this->entry_model->rate_insert($data);
-	   	print_r($this->input->post());
-	   
-		if($this->input->post('view')=="entry"){
+	   	//print_r($this->input->post());
+	  	 redirect($this->session->userdata('previous_page'));
+		/*if($this->input->post('view')=="entry"){
 				redirect(base_url().'entry/'.$data['entry_id'], 'location');
 		}else if($this->input->post('view')=="comment"){
 				redirect(base_url().'home/last_comments', 'location');
@@ -88,7 +97,7 @@ class Home extends CI_Controller
 				redirect(base_url().'home/search?search='.$this->input->post('search'), 'location');		
 		}else{
 				redirect(base_url().'home', 'location');
-		}
+		}*/
 	}	 
 
 			  	 

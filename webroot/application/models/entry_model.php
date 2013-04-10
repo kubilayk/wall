@@ -47,6 +47,89 @@ class Entry_model extends CI_Model
 		return $questions;//sonucu return ediyoruz.
 
 	}
+	public function get_question_rate($limit= null, $start=null)
+	{
+		$this->db->limit($limit, $start);
+		$this->db->from("question");
+		$this->db->order_by("title_like", "desc");
+		$query = $this->db->get();
+		   
+		$questions = $query->result();
+		//print_r($questions);
+		$last= null;
+		foreach ($questions as $question)
+		 {
+			$sql="SELECT * from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.user_rate_date DESC LIMIT 1"; 
+			$query2 = $this->db->query($sql,array((int)$question->question_id));
+			$question->last_vote= $query2->result();
+			$session_data = $this->session->userdata('logged_in');
+			$data['user_id'] = $session_data['user_id'];
+			$sql2="SELECT * from user_rate WHERE user_id= ? and entry_id=?";
+			$query3 = $this->db->query($sql2,array($data['user_id'],(int)$question->question_id));
+			$sql3="SELECT user_id,username,email FROM users WHERE user_id=? ";
+			$query4 = $this->db->query($sql3,array((int)$question->user_id));
+			$question->user_info= $query4->result();
+			//print_r($query3->num_rows);
+			if((int)$query3->num_rows == 0)
+			{
+				$question->is_vote= 0;
+			}
+			else 
+			{
+				$question->is_vote=1;
+			}
+			//$sql="SELECT q.question_id, COUNT(c.entry_id) AS total FROM question q JOIN comment c ON c.entry_id = q.question_id GROUP BY c.entry_id ORDER BY total asc";
+  			//$query3 = $this->db->query($sql);
+  			//$question->total=$query3->result();
+			//print_r($last);//print_r($query2->result());
+		}
+		
+        
+		return $questions;//sonucu return ediyoruz.
+
+	}
+	public function get_question_total_comment($limit= null, $start=null)
+	{
+		$this->db->limit($limit, $start);
+		$this->db->from("question");
+		$this->db->order_by("total_comment", "desc");
+		$query = $this->db->get();
+		   
+		$questions = $query->result();
+		//print_r($questions);
+		$last= null;
+		foreach ($questions as $question)
+		 {
+			$sql="SELECT * from user_rate ur, users u WHERE ur.entry_id = ? and ur.user_id = u.user_id ORDER BY ur.user_rate_date DESC LIMIT 1"; 
+			$query2 = $this->db->query($sql,array((int)$question->question_id));
+			$question->last_vote= $query2->result();
+			$session_data = $this->session->userdata('logged_in');
+			$data['user_id'] = $session_data['user_id'];
+			$sql2="SELECT * from user_rate WHERE user_id= ? and entry_id=?";
+			$query3 = $this->db->query($sql2,array($data['user_id'],(int)$question->question_id));
+			$sql3="SELECT user_id,username,email FROM users WHERE user_id=? ";
+			$query4 = $this->db->query($sql3,array((int)$question->user_id));
+			$question->user_info= $query4->result();
+			//print_r($query3->num_rows);
+			if((int)$query3->num_rows == 0)
+			{
+				$question->is_vote= 0;
+			}
+			else 
+			{
+				$question->is_vote=1;
+			}
+			//$sql="SELECT q.question_id, COUNT(c.entry_id) AS total FROM question q JOIN comment c ON c.entry_id = q.question_id GROUP BY c.entry_id ORDER BY total asc";
+  			//$query3 = $this->db->query($sql);
+  			//$question->total=$query3->result();
+			//print_r($last);//print_r($query2->result());
+		}
+		
+        
+		return $questions;//sonucu return ediyoruz.
+
+	}
+
 
 	public function record_count()
 	{

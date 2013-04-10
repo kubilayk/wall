@@ -13,6 +13,13 @@
     <script type="text/javascript" src="<?php echo base_url();?>bootstrap/js/jquery-ui.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>bootstrap/js/custom.js"></script>
     <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
+   <script type="text/javascript" src="/twitter-bootstrap/twitter-bootstrap-v2/docs/assets/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown();
+        });
+   </script>
+ </script>
   </head>
   <body>
     <br>
@@ -39,6 +46,17 @@
         <li><a href="<?php echo base_url();?>home/logout">logout</a></li>
 
       <?php endif; ?>
+      <li class="dropdown" id="accountmenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">sort by<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo base_url();?>entry/sort_question_rates">question rates</a></li>
+                            <li><a href="<?php echo base_url();?>entry/sort_last_questions">last questions</a></li>
+                            <li><a href="<?php echo base_url();?>entry/sort_total_comments">total comments</a></li>
+                            
+              
+                        </ul>
+                    </li>
+                
     </ul>
     <div class="input-append"> 
         <form class="navbar-search pull-left" action="<?php echo base_url();?>home/search" method="GET">  
@@ -46,6 +64,8 @@
              <button class="btn" type="submit">search</button>
              <a href="<?php echo base_url();?>home/advanced_search" class="btn">advance search</a>
         </form>
+
+
   <div id="dialog-form" title="Login">
       <p class="validateTips">All form fields are required.</p>
     <form action='<?php echo base_url();?>account/user_login' method='post' id="login_form" 
@@ -61,9 +81,15 @@
     </form>
    </div>
    
+                  
     </div>
+
   </div>
 </div>
+ 
+  
+ 
+
 <div class="wrapper">
  
             

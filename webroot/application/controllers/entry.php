@@ -8,7 +8,8 @@ class Entry extends CI_Controller
           parent::__construct();
           $this->load->model('entry_model');
           $this->load->model('comment_model');
-         $this->load->helper('url'); //You should autoload this one ;)
+         $this->load->helper('url');
+         $this->load->library('pagination'); //You should autoload this one ;)
     $this->load->helper('ckeditor');
  
  
@@ -86,6 +87,7 @@ class Entry extends CI_Controller
  
       )
     );
+    
 
     
       }
@@ -276,6 +278,152 @@ class Entry extends CI_Controller
             } 
           }
 
+  }
+
+  function sort_last_questions()
+  {
+      
+      $data['boolean']=$this->entry_model->is_logged_in();
+      
+      if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+      {
+        $config = array();
+            $config['base_url'] = base_url() . "/entry/last_question";
+            $config['total_rows'] = $this->entry_model->record_count();
+            $config['per_page'] = 15;
+            $config['uri_segment'] = 2;
+            $this->pagination->initialize($config);
+            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+            $session_data = $this->session->userdata('logged_in');
+        //print_r($session_data['user_id']);
+        $data['username'] = $session_data['username'];
+        $data['guest'] =0;
+        $data['page_title']="Last questions";   
+        $data['question']=$this->entry_model->get_all_question($config['per_page'],$page);
+        $data['links'] = $this->pagination->create_links();
+        //print_r($data['question']);
+        //foreach($data['question'] as $question)
+          //echo  $question->last_vote[0]->username; 
+        //$data['total_comment'] = $this->comment_model->total_comment($data['question']);
+
+        $this->load->view('last_question_view',$data);
+
+      }
+      else
+
+        {
+          $config = array();
+            $config['base_url'] = base_url() . "/entry/last_question";
+            $config['total_rows'] = $this->entry_model->record_count();
+            $config['per_page'] = 12;
+            $config['uri_segment'] = 2;
+            $this->pagination->initialize($config);
+            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+          $data['guest'] = "Sign up";
+          $this->load->model('entry_model');
+        $data['page_title']="Last questions";   
+        $data['question']=$this->entry_model->get_all_question($config['per_page'],$page);
+        $data['links'] = $this->pagination->create_links();
+        $this->load->view('last_question_view',$data);
+
+        }
+  }
+
+  function sort_question_rates()
+  {
+      
+      $data['boolean']=$this->entry_model->is_logged_in();
+      
+      if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+      {
+        $config = array();
+            $config['base_url'] = base_url() . "/entry/question_rate";
+            $config['total_rows'] = $this->entry_model->record_count();
+            $config['per_page'] = 15;
+            $config['uri_segment'] = 2;
+            $this->pagination->initialize($config);
+            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+            $session_data = $this->session->userdata('logged_in');
+        //print_r($session_data['user_id']);
+        $data['username'] = $session_data['username'];
+        $data['guest'] =0;
+        $data['page_title']="Last questions";   
+        $data['question']=$this->entry_model->get_question_rate($config['per_page'],$page);
+        $data['links'] = $this->pagination->create_links();
+        //print_r($data['question']);
+        //foreach($data['question'] as $question)
+          //echo  $question->last_vote[0]->username; 
+        //$data['total_comment'] = $this->comment_model->total_comment($data['question']);
+
+        $this->load->view('question_rate_view',$data);
+
+      }
+      else
+
+        {
+          $config = array();
+            $config['base_url'] = base_url() . "/entry/question_rate";
+            $config['total_rows'] = $this->entry_model->record_count();
+            $config['per_page'] = 12;
+            $config['uri_segment'] = 2;
+            $this->pagination->initialize($config);
+            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+          $data['guest'] = "Sign up";
+          $this->load->model('entry_model');
+        $data['page_title']="Last questions";   
+        $data['question']=$this->entry_model->get_question_rate($config['per_page'],$page);
+        $data['links'] = $this->pagination->create_links();
+        $this->load->view('question_rate_view',$data);
+
+        }
+  }
+  function sort_total_comments()
+  {
+      
+      $data['boolean']=$this->entry_model->is_logged_in();
+      
+      if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+      {
+        $config = array();
+            $config['base_url'] = base_url() . "/entry/question_rate";
+            $config['total_rows'] = $this->entry_model->record_count();
+            $config['per_page'] = 15;
+            $config['uri_segment'] = 2;
+            $this->pagination->initialize($config);
+            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+            $session_data = $this->session->userdata('logged_in');
+        //print_r($session_data['user_id']);
+        $data['username'] = $session_data['username'];
+        $data['guest'] =0;
+        $data['page_title']="Last questions";   
+        $data['question']=$this->entry_model->get_question_total_comment($config['per_page'],$page);
+        $data['links'] = $this->pagination->create_links();
+        //print_r($data['question']);
+        //foreach($data['question'] as $question)
+          //echo  $question->last_vote[0]->username; 
+        //$data['total_comment'] = $this->comment_model->total_comment($data['question']);
+
+        $this->load->view('question_total_comment_view',$data);
+
+      }
+      else
+
+        {
+          $config = array();
+            $config['base_url'] = base_url() . "/entry/question_rate";
+            $config['total_rows'] = $this->entry_model->record_count();
+            $config['per_page'] = 12;
+            $config['uri_segment'] = 2;
+            $this->pagination->initialize($config);
+            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+          $data['guest'] = "Sign up";
+          $this->load->model('entry_model');
+        $data['page_title']="Last questions";   
+        $data['question']=$this->entry_model->get_question_total_comment($config['per_page'],$page);
+        $data['links'] = $this->pagination->create_links();
+        $this->load->view('question_total_comment_view',$data);
+
+        }
   }
 }
 
