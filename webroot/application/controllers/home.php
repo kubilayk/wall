@@ -22,7 +22,7 @@ class Home extends CI_Controller
 				$config = array();
 		        $config['base_url'] = base_url() . "/home";
 		        $config['total_rows'] = $this->entry_model->record_count();
-		        $config['per_page'] = 12;
+		        $config['per_page'] = 15;
 		        $config['uri_segment'] = 2;
 		        $this->pagination->initialize($config);
 		        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;

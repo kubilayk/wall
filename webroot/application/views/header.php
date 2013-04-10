@@ -56,11 +56,15 @@
         
         <label for="password">Password</label>
         <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
-
+        <input type="hidden" name="uri" id="uri" value="<?php echo $this->uri->segment(1);?>">
       </fieldset>
     </form>
    </div>
- 
+ <?php 
+$uri = $_SERVER['REQUEST_URI'];
+$segment = explode("/", $uri);
+$uri_3 = $segment[3];
+echo $uri_3;?>
 
     </div>
   </div>
