@@ -119,6 +119,7 @@
                                     
                                     if($quest->user_info[0]->user_id == $session_data['user_id'])
                                     {
+                                      echo '| <a href="'.base_url().'entry/edit/'.$e_id.'"> edit </a>';
                                       echo '| <a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;"> delete</a>';
                                     }
                                     else

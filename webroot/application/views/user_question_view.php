@@ -5,7 +5,8 @@
     <?php foreach($user_question as $quest){ ?>
        <div class="row">
             <?php $e_id=$quest->question_id;
-                  $u_id=$quest->user_id; 
+                  $u_id=$quest->user_id;
+
             ?>
             
               <div class="span1"style="text-align: right;">
@@ -40,7 +41,9 @@
 <form action="<?php echo base_url();?>entry/delete_entry" id="question_delete_<?php echo isset($quest->question_id)?($quest->question_id):("") ?>" method="POST">
 <input type="hidden" name="question_id" value="<?php echo isset($quest->question_id)?($quest->question_id):("") ?>">
 <input type="hidden" name="view" value="user_question">
-<input type="hidden" name="user_id" value="<?php echo $u_id; ?>">             
+<input type="hidden" name="user_id" value="<?php echo $u_id; ?>"> 
+
+             
       
               <?php isset($quest->last_vote[0])?($user_id=$quest->last_vote[0]->user_id):("") ?>
               <?php isset($quest->user_info[0])?($u_id=$quest->user_info[0]->user_id):("") ?>
@@ -100,7 +103,9 @@
                                     
                                     if($quest->user_info[0]->user_id == $session_data['user_id'])
                                     {
-                                      echo '| <a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;"> delete</a>';
+                                      
+                                      echo '| <a href="'.base_url().'entry/edit/'.$e_id.'"> edit </a>';
+                                      echo ' | <a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;"> delete</a>';
                                     }
                                     else
                                     {

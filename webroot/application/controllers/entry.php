@@ -61,7 +61,7 @@ class Entry extends CI_Controller
  
       //Optionnal values
       'config' => array(
-        'width'   =>  "550px",  //Setting a custom width
+        'width'   =>  "610px",  //Setting a custom width
         'height'  =>  '100px',  //Setting a custom height
         'toolbar'   =>  array(  //Setting a custom toolbar
           array('Bold', 'Italic'),
@@ -87,6 +87,7 @@ class Entry extends CI_Controller
       )
     );
 
+    
       }
 
       function index()
@@ -155,7 +156,7 @@ class Entry extends CI_Controller
             
                 
                 $this->entry_model->title_insert($this->input->post());
-                redirect(base_url().'home','location');
+                redirect(base_url().'home', 'location');
            }
           else 
             {
@@ -197,7 +198,85 @@ class Entry extends CI_Controller
           redirect(base_url().'home','location');
        } 
       }
-  
+
+      function edit()
+      {
+        $id_q= $this->uri->segment(3);
+        
+        
+        $session_data = $this->session->userdata('logged_in');
+        $data['user_id'] = $session_data['user_id'];
+        //print_r($data);
+        $data['boolean']=$this->entry_model->is_logged_in();
+          if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+          {
+            $session_data = $this->session->userdata('logged_in');
+            //print_r($session_data['user_id']);
+            $data['username'] = $session_data['username'];
+            $data['guest'] =0;
+            
+            
+            $data['msg']="";
+            $data['question']=$this->entry_model->get_id_question($id_q);
+           $question = array(
+          'question_id' => $data['question'][0]->question_id,
+          'title' => $data['question'][0]->title,
+          'description' => $data['question'][0]->description,
+          'link' =>  $data['question'][0]->link,
+          );
+      
+      $this->session->set_userdata('question',$question);
+            $data['page_title']="Edit Entry";
+            $data = array_merge($data, $this->data);
+            
+          $this->load->view('edit_entry_view',$data);
+          }
+         
+
+      }
+
+      function edit_entry()
+      {
+          
+          $data['link']=$this->input->post('link');
+          $data['boolean']=$this->entry_model->is_logged_in();
+          //print_r($this->input->post());
+          if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+          {
+            $session_data = $this->session->userdata('logged_in');
+            //print_r($session_data['user_id']);
+            $data['username'] = $session_data['username'];
+            $data['guest'] =0;
+            $this->session->unset_userdata('question');
+            $question = array(
+            'question_id' => $this->input->post('question_id'),
+            'title' => $this->input->post('title'),
+            'description' => $this->input->post('description'),
+            'link' =>  $this->input->post('link')
+            );
+      
+            $this->session->set_userdata('question',$question);
+           
+            $data['page_title']="Edit new question";
+            if(filter_var($data['link'], FILTER_VALIDATE_URL) || $data['link']=="" ) 
+            {
+            
+                
+                $this->entry_model->title_edit($this->input->post());
+                redirect(base_url().'home/user_question/'.$session_data['user_id'], 'location');
+           }
+            else 
+            {
+              
+              $data['msg']='<font color=red>URL is not a properly formatted. Please enter a properly formatted URL.</font><br/>';              
+              
+              
+              $data = array_merge($data, $this->data);
+              $this->load->view('edit_entry_view',$data);
+            } 
+          }
+
+  }
 }
 
 ?>

@@ -288,7 +288,7 @@ public function user_rate($data)
 	}
 	public function rate_count($data)
 	{
-		print_r($data);
+		//print_r($data);
 		if ($data):
 
 	    	$data = array(
@@ -302,7 +302,7 @@ public function user_rate($data)
 	    $query = $this->db->query($sql, array((int)$data['entry_id']));
 		
 		$rate_count = $query->result();
-		print_r($rate_count[0]->count);
+		//print_r($rate_count[0]->count);
 		return $rate_count[0]->count;
 	}
 public function title_drop($data)
@@ -318,6 +318,50 @@ public function title_drop($data)
 		$this->db->query($sql, array((int)$data['user_id'], (int)$data['question_id']));
 
 
+
+	}
+public function title_edit($data)
+	{
+		$session_data = $this->session->userdata('logged_in');
+		$data['user_id'] = $session_data['user_id'];
+		if ($data):
+
+	    	$data = array(
+
+	    		'question_id' => $data['question_id'],
+	    		'title' => $data['title'],
+	            'content_2'=>$data['content_2'],
+	            'user_id'=>$data['user_id'],
+	            'link'=>$data['link']
+
+	            );
+//print_r($data);
+	    	$data['title']=strip_tags($data['title'],'<p><a><br />');
+	    	$data['content_2']=strip_tags($data['content_2'],'<p><a><br />');
+	    	//$data['link']=strip_tags($data['link']);
+	    	
+	    	$sql="UPDATE question SET title = ?, description = ?, link = ? WHERE user_id = ? and question_id = ?";
+			$this->db->query($sql, array($data['title'], $data['content_2'],  $data['link'], (int)$data['user_id'], (int)$data['question_id']));
+	    
+
+    	endif; 
+
+/*
+
+		if($data):
+			$data = array(
+				'question_id' => (int)$data['question_id'],
+				'description' => $data['description'],
+				'title' => $data['title'],
+				'user_id' => (int)$data['user_id']
+
+				);
+		endif;
+		
+		$sql="UPDATE question SET title = ?, description = ? WHERE user_id = ? and question_id = ?";
+		$this->db->query($sql, array((int)$data['user_id'], (int)$data['question_id']));
+
+*/
 
 	}
 	

@@ -1,7 +1,7 @@
 <?php include_once('header.php'); ?>
 
 
-     <form action="../entry/save_question" method="POST">
+     <form action="<?php echo base_url();?>entry/save_question" method="POST">
         <div class="row">
           <div class="span9">
             <input type="text" class="span8" name="title" placeholder="title"/>
