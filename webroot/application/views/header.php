@@ -60,12 +60,7 @@
       </fieldset>
     </form>
    </div>
- <?php 
-$uri = $_SERVER['REQUEST_URI'];
-$segment = explode("/", $uri);
-$uri_3 = $segment[3];
-echo $uri_3;?>
-
+   
     </div>
   </div>
 </div>
