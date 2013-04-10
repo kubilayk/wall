@@ -87,7 +87,7 @@ class Entry extends CI_Controller
  
       )
     );
-    
+
 
     
       }
@@ -288,7 +288,7 @@ class Entry extends CI_Controller
       if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
       {
         $config = array();
-            $config['base_url'] = base_url() . "/entry/last_question";
+            $config['base_url'] = base_url() . "/entry/sort_last_questions";
             $config['total_rows'] = $this->entry_model->record_count();
             $config['per_page'] = 15;
             $config['uri_segment'] = 2;
@@ -313,7 +313,7 @@ class Entry extends CI_Controller
 
         {
           $config = array();
-            $config['base_url'] = base_url() . "/entry/last_question";
+            $config['base_url'] = base_url() . "/entry/sort_last_questions";
             $config['total_rows'] = $this->entry_model->record_count();
             $config['per_page'] = 12;
             $config['uri_segment'] = 2;
@@ -337,7 +337,7 @@ class Entry extends CI_Controller
       if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
       {
         $config = array();
-            $config['base_url'] = base_url() . "/entry/question_rate";
+            $config['base_url'] = base_url() . "/entry/sort_question_rates";
             $config['total_rows'] = $this->entry_model->record_count();
             $config['per_page'] = 15;
             $config['uri_segment'] = 2;
@@ -362,7 +362,7 @@ class Entry extends CI_Controller
 
         {
           $config = array();
-            $config['base_url'] = base_url() . "/entry/question_rate";
+            $config['base_url'] = base_url() . "/entry/sort_question_rates";
             $config['total_rows'] = $this->entry_model->record_count();
             $config['per_page'] = 12;
             $config['uri_segment'] = 2;
@@ -385,7 +385,7 @@ class Entry extends CI_Controller
       if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
       {
         $config = array();
-            $config['base_url'] = base_url() . "/entry/question_rate";
+            $config['base_url'] = base_url() . "/entry/sort_total_comments";
             $config['total_rows'] = $this->entry_model->record_count();
             $config['per_page'] = 15;
             $config['uri_segment'] = 2;
@@ -410,7 +410,7 @@ class Entry extends CI_Controller
 
         {
           $config = array();
-            $config['base_url'] = base_url() . "/entry/question_rate";
+            $config['base_url'] = base_url() . "/entry/sort_total_comments";
             $config['total_rows'] = $this->entry_model->record_count();
             $config['per_page'] = 12;
             $config['uri_segment'] = 2;
