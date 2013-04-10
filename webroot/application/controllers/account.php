@@ -91,8 +91,13 @@ class Account extends CI_Controller{
 				{
 					redirect(base_url().'home');
 				}
+				else if($_SERVER['HTTP_REFERER'] == base_url().'account/user_login')
+				{
+					redirect(base_url().'home');
+				}
 				else
 				{
+				
 				redirect($this->session->userdata('previous_page'));
 				}
 			}
