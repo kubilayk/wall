@@ -189,17 +189,17 @@ class Home extends CI_Controller
 			    $session_data = $this->session->userdata('logged_in');
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
-				$data['user_comment']= $this->user_model->get_user_comment(filter_var($id_u, FILTER_VALIDATE_INT));
+				$data['comment']= $data['comment'] = $this->comment_model->last_comments((int)$id_u);
 	    		$data['page_title']="".isset($data['user_comment'][0]->user_info[0])?($data['user_comment'][0]->user_info[0]->username):("User")."'s question";
-	   			$this->load->view('user_comment_view', $data);
+	   			$this->load->view('comment_view', $data);
 
 	   		}
 	   		else
 		   	{		
 	   	 		$data['guest'] = "Sign up";
 				$data['page_title']="User comment";
-				$data['user_comment']= $this->user_model->get_user_comment(filter_var($id_u, FILTER_VALIDATE_INT));
-	   			$this->load->view('user_comment_view', $data);
+				$data['comment'] = $this->comment_model->last_comments((int)$id_u);
+	   			$this->load->view('comment_view', $data);
 	   		}
 	}
 	function user_question()

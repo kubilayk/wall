@@ -50,7 +50,7 @@ class Comment_model extends CI_Model
   		$query = $this->db->query($sql);
   		return $query->result();
   }
-  public function last_comments()
+  public function last_comments( $u_id = 0 )
   {
 
 		$session_data = $this->session->userdata('logged_in');
@@ -61,6 +61,7 @@ class Comment_model extends CI_Model
 				FROM comment c1
 				LEFT JOIN question q1 ON q1.question_id = c1.entry_id
 				LEFT JOIN users u1 ON u1.user_id = c1.user_id
+				".( $u_id ? "WHERE c1.user_id = '".$u_id."' " : "" )."
 				ORDER BY c1.comment_date DESC
 				LIMIT 15";
 
