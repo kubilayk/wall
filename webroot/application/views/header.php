@@ -12,14 +12,14 @@
     <script type="text/javascript" src="<?php echo base_url();?>bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>bootstrap/js/jquery-ui.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>bootstrap/js/custom.js"></script>
-    <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
+    
    <script type="text/javascript" src="/twitter-bootstrap/twitter-bootstrap-v2/docs/assets/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.dropdown-toggle').dropdown();
         });
    </script>
- </script>
+  
   </head>
   <body>
     <br>
@@ -40,7 +40,7 @@
         <li><a href="<?php echo base_url();?>home/user_info/<?php echo $session_data['user_id']; ?>"><?php echo ''.$username.'';?></a></li>
       <?php }else{ ?></li>
         <li><a style="display: block;  text-align: right;" href="<?php echo base_url(); ?>account" style="float:right;"><?php echo $guest; ?></a></li>
-        <li><a class="create-user" href="#">Login</a></li>
+        <li><a data-toggle="modal" data-backdrop="true" data-keyboard="true" href="#modal">Login</a></li>
       <?php } ?>
       <?php if (! $boolean == false): ?> 
         <li><a href="<?php echo base_url();?>home/logout">logout</a></li>
@@ -68,7 +68,7 @@
 
   <div id="dialog-form" title="Login">
       <p class="validateTips">All form fields are required.</p>
-    <form action='<?php echo base_url();?>account/user_login' method='post' id="login_form" 
+    <form action='<?php echo base_url();?>account/user_login' method='post' id="login_form" >
       
       <fieldset>
         <label for="name">Name</label>
@@ -86,9 +86,35 @@
 
   </div>
 </div>
- 
-  
- 
+ <div class="container">
+
+<div id="modal" class="modal hide fade in" style="display: none; ">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3>Login</h3>
+            </div>
+            <div class="modal-body">
+    <form action="<?php echo base_url();?>account/user_login" method="POST" id="login_form" >
+      
+      <fieldset>
+        <label for="name">Name</label>
+        <input type="text" name="username" id="username" class="text ui-widget-content ui-corner-all" />
+        
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
+        <input type="hidden" name="uri" id="uri" value="<?php echo $this->uri->segment(1);?>">
+      </fieldset>
+    </form>         
+            </div>
+            <div class="modal-footer">
+              <a href="<?php echo base_url();?>account" class="btn" >Sign up</a>
+              <a href="#" id="submitFollow" class="btn btn-success" onclick="$('#login_form').submit(); return false;">Login</a>
+            </div>
+          </div>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
+<script src="/twitter-bootstrap/twitter-bootstrap-v2/docs/assets/js/jquery.js"></script>
+<script src="/twitter-bootstrap/twitter-bootstrap-v2/js/bootstrap-modal.js"></script>
 
 <div class="wrapper">
  
