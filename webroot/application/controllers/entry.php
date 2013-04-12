@@ -208,6 +208,7 @@ class Entry extends CI_Controller
         
         $session_data = $this->session->userdata('logged_in');
         $data['user_id'] = $session_data['user_id'];
+
         //print_r($data);
         $data['boolean']=$this->entry_model->is_logged_in();
           if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
@@ -219,8 +220,11 @@ class Entry extends CI_Controller
             
             
             $data['msg']="";
-            $data['question']=$this->entry_model->get_id_question($id_q);
-           $question = array(
+            $data['question']=$this->entry_model->get_id_question($id_q,$data['user_id']);
+            if($data['question']==NULL):
+              redirect(base_url().'home');
+            endif;
+          $question = array(
           'question_id' => $data['question'][0]->question_id,
           'title' => $data['question'][0]->title,
           'description' => $data['question'][0]->description,

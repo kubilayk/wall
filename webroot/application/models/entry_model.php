@@ -135,10 +135,18 @@ class Entry_model extends CI_Model
 	{
 		return $this->db->count_all("question");
 	}
-	public function get_id_question($id)
+	public function get_id_question($id_q,$id_u=NULL)
 	{
 		
-		$query = $this->db->get_where('question',array('question_id'=>$id));
+		if(empty($id_u))
+		{
+			$query = $this->db->get_where('question',array('question_id'=>$id_q));
+		}
+		else
+		{
+			$query = $this->db->get_where('question',array('question_id'=>$id_q, 'user_id'=>$id_u));
+		}
+		
 		$questions = $query->result();
 		$last= null;
 		foreach ($questions as $question) 
