@@ -83,3 +83,12 @@ overflow:hidden;
 display:inline-block;
 text-overflow: ellipsis;
 }
+
+ #push,
+      #footer {
+        height: 20px;
+        width: 940px ;
+        margin: 0 auto 60px;
+        text-align: right;
+      }
+      

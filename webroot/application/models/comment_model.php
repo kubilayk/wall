@@ -20,6 +20,15 @@ class Comment_model extends CI_Model
 		}
 		return $comments;//sonucu return ediyoruz.
 	}
+	function get_comment($comment_id = 0)
+	{
+		
+		$sql= "SELECT c.*, q.title,q.description,q.question_id FROM comment c, question q WHERE c.comment_id = ? and q.question_id = c.entry_id ";
+		$query = $this->db->query($sql,array((int)$comment_id));
+		
+		$comments = $query->result();
+		return $comments;//sonucu return ediyoruz.
+	}
 	
 	function comment_insert($data = array()){
 
