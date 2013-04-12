@@ -455,6 +455,19 @@ public function title_edit($data)
 */
 
 	}
+
+	public function get_question_rss()
+	{
+		
+		$query = $this->db->get('question');
+		   
+		$questions = $query->result();
+		
+		
+        
+		return $questions;//sonucu return ediyoruz.
+
+	}
 	
 
 }
