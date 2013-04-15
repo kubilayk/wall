@@ -20,10 +20,10 @@ class Comment_model extends CI_Model
 		}
 		return $comments;//sonucu return ediyoruz.
 	}
-	function get_comment($comment_id = 0)
+	function get_comment()
 	{
 		
-		$sql= "SELECT c.*, q.title,q.description,q.question_id FROM comment c, question q WHERE c.comment_id = ? and q.question_id = c.entry_id ";
+		$sql= "SELECT c.*, q.title,q.description,q.question_id FROM comment c, question q WHERE q.question_id = c.entry_id ORDER BY c.comment_date DESC";
 		$query = $this->db->query($sql,array((int)$comment_id));
 		
 		$comments = $query->result();
@@ -65,7 +65,7 @@ class Comment_model extends CI_Model
 		$session_data = $this->session->userdata('logged_in');
 		$user_id = $session_data['user_id'];
 
-  		$sql = "SELECT DISTINCT c1.comment_id, c1.comment, c1.comment_date, c1.entry_id, q1.title, q1.question_id, q1.title_like, u1.username, u1.user_id, 
+  		$sql = "SELECT DISTINCT c1.comment_id, c1.comment, c1.comment_date, c1.entry_id, q1.title, q1.question_id, q1.title, q1.description, q1.title_like, u1.username, u1.user_id, 
   				IF( ".(int)$user_id." IN ( SELECT rn.user_id FROM user_rate rn WHERE rn.entry_id = c1.entry_id), 1, 0) as is_vote
 				FROM comment c1
 				LEFT JOIN question q1 ON q1.question_id = c1.entry_id

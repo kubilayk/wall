@@ -54,44 +54,66 @@ class Rss extends CI_Controller
        function entries()
       {
         
-
+        $id_q= $this->uri->segment(3);
+        if($id_q==null)
+        {
         $data['posts']=$this->entry_model->get_question_rss();
-      // print_r($data['posts']);
+        $data['feed_url'] = base_url();
+        //echo "id_q is null";
         $data['encoding'] = 'utf-8';
         $data['feed_name'] = 'entries';
-        $data['feed_url'] = base_url();
+        
         $data['page_description'] = 'wall question rss';
         $data['page_language'] = 'en-ca';
         $data['creator_email'] = '';
         //$data[''] = $this->posts_model->getRecentPosts();    
         header("Content-Type: application/atom+xml");
         //print_r($data);
-       $this->load->view('question_rss', $data);
+        $this->load->view('question_rss', $data);
+        }
+        else {
+         $data['posts']= $this->entry_model->get_id_question($id_q);
+          $data['comments']=$this->comment_model->get_all_comments($id_q);
+         $data['feed_url'] = base_url()."entry/".$id_q;
+         //echo "id_q is not null";
+         $data['encoding'] = 'utf-8';
+        $data['feed_name'] = 'entries';
+        
+        $data['page_description'] = 'wall question rss';
+        $data['page_language'] = 'en-ca';
+        $data['creator_email'] = '';
+        //$data[''] = $this->posts_model->getRecentPosts();    
+        header("Content-Type: application/atom+xml");
+        //print_r($data);
+        $this->load->view('question_comment_rss', $data);
+        }
+      // print_r($data['posts']);
+        
 
         
 
       }
 
-    /* function comments()
+    function comments()
       {
-        $id_c = $this->uri->segment(3);
+        
 
-        $data['posts']=$this->comment_model->get_comment($id_c);
+        $data['posts']=$this->comment_model->last_comments();
         //print_r($data['posts']);
         $data['encoding'] = 'utf-8';
         $data['feed_name'] = 'comments';
-        $data['feed_url'] = base_url().'entry/'.$id_c;
+        $data['feed_url'] = base_url().'home/last_comments';
         $data['page_description'] = 'wall comment rss';
         $data['page_language'] = 'en-ca';
         $data['creator_email'] = '';
         //$data[''] = $this->posts_model->getRecentPosts();    
         header("Content-Type: application/atom+xml");
         //print_r($data);
-        $this->load->view('comment_rss', $data);
+       $this->load->view('comment_rss', $data);
 
         
 
-      }*/
+      }
 
       
 }

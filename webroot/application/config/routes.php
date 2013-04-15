@@ -44,6 +44,7 @@ $route['home/:num'] = 'home/user_info/$1';
 $route['home/:num'] = 'account/profile_info/$1';
 $route['home/:num'] = 'home/user_quesiton/$1';
 $route['home/:num'] = 'home/index/$1';
+$route['rss/:num'] = 'rss/entries/$1';
 //$route['entry/:num'] = 'entry/edit_entry/$1';
 
 /* End of file routes.php */

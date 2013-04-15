@@ -13,16 +13,22 @@ xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <dc:creator><?php echo $creator_email; ?></dc:creator>
 <dc:rights>Copyright <?php echo gmdate("Y", time()); ?></dc:rights>
 <admin:generatorAgent rdf:resource="http://www.vivekalab.com/" />
-<?php foreach($posts as $com): ?>
+<?php foreach($posts as $entry): ?>
+<item>
+<title><?php echo xml_convert($entry->title); ?></title>
+<link><?php echo base_url().'entry/'.$entry->question_id; ?></link>
+<guid><?php echo base_url().'entry/'.$entry->question_id; ?></guid>
+<description>
+<?php echo $entry->description; ?>
+</description>
+<pubDate><?php echo $entry->question_date;?></pubDate>
+</item>
+<?php endforeach; ?>
+<?php foreach($comments as $com): ?>
 <item>
 <comment><?php echo xml_convert($com->comment); ?></comment>
 <pubDate><?php echo $com->comment_date;?></pubDate>
-<link><?php echo base_url().'entry/'.$com->question_id; ?></link>
-<guid><?php echo base_url().'entry/'.$com->question_id; ?></guid>
-<title><?php echo xml_convert($com->title); ?></title>
-<description>
-<?php echo $com->description; ?></description>
-</item>
+<by><?php echo $com->user_comment[0]->username;?></by>
 <?php endforeach; ?>
 </channel>
 </rss>

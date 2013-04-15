@@ -9,6 +9,9 @@
               <div class="span11" style="text-align: left;">
               <a class="overtext" href="<?php echo base_url();?>rss/entries" style="display:block;">Question RSS Feed</a>
               </div>
+              <div class="span11" style="text-align: left;">
+              <a class="overtext" href="<?php echo base_url();?>rss/comments" style="display:block;">Comment RSS Feed</a>
+              </div>
            </div>
                  
                

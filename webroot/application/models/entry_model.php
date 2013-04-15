@@ -458,7 +458,7 @@ public function title_edit($data)
 
 	public function get_question_rss()
 	{
-		
+		$this->db->order_by("question_date", "desc");
 		$query = $this->db->get('question');
 		   
 		$questions = $query->result();
