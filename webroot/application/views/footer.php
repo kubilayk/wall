@@ -14,7 +14,7 @@ function getUriSegment($n) {
       <div class="container">
         <a class="muted credit" href="<?php echo base_url();?>rss/entries">RSS questions</a>
         <a class="muted credit" href="<?php echo base_url();?>rss/comments"> | RSS comments</a>
-      <?php $entry_segment=getUriSegment(3);
+      <?php $entry_segment=getUriSegment(1);
      // print_r($entry_segment);//$e_id_segment = getUriSegment(4);
       if($entry_segment=="entry"): ?>
       
