@@ -407,16 +407,9 @@ public function title_drop($data)
 		endif;
 		$sql="DELETE FROM question WHERE user_id = ? AND question_id = ?";
 		$this->db->query($sql, array((int)$data['user_id'], (int)$data['question_id']));
-		$sql2="SELECT COUNT(*) FROM comment WHERE  entry_id = ?";
-
-		$com_nb=$this->db->query($sql2, array((int)$data['question_id']));
-		$sql3="DELETE FROM comment WHERE entry_id = ?";
-		$this->db->query($sql3, array((int)$data['question_id']));
-		
-		$sql4 = "UPDATE question SET total_comment=total_comment - ? WHERE question_id= ?"; 
-		$this->db->query($sql4, array((int)$com_nb, (int)$data['entry_id']));
-
-
+		$sql2="DELETE FROM comment WHERE entry_id = ?";
+		$this->db->query($sql2, array((int)$data['question_id']));
+	
 	}
 public function title_edit($data)
 	{
