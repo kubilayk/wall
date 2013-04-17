@@ -61,8 +61,8 @@ class Rss extends CI_Controller
         $data['feed_url'] = base_url();
         //echo "id_q is null";
         $data['encoding'] = 'utf-8';
-        $data['feed_name'] = 'entries';
-        
+        $data['feed_name'] = 'Entries';
+        //print_r($data['posts']);
         $data['page_description'] = 'wall question rss';
         $data['page_language'] = 'en-ca';
         $data['creator_email'] = '';
@@ -72,13 +72,13 @@ class Rss extends CI_Controller
         $this->load->view('question_rss', $data);
         }
         else {
-         $data['posts']= $this->entry_model->get_id_question($id_q);
-          $data['comments']=$this->comment_model->get_all_comments($id_q);
-         $data['feed_url'] = base_url()."entry/".$id_q;
-         //echo "id_q is not null";
-         $data['encoding'] = 'utf-8';
-        $data['feed_name'] = 'entries';
-        
+        $data['posts']= $this->entry_model->get_id_question($id_q);
+        $data['comments']=$this->comment_model->get_all_comments($id_q);
+        $data['feed_url'] = base_url()."entry/".$id_q;
+        //echo "id_q is not null";
+        $data['encoding'] = 'utf-8';
+        $data['feed_name'] = 'Entr';
+        //print_r($data['posts']);
         $data['page_description'] = 'wall question rss';
         $data['page_language'] = 'en-ca';
         $data['creator_email'] = '';
