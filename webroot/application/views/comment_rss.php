@@ -15,13 +15,16 @@ xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <admin:generatorAgent rdf:resource="http://www.vivekalab.com/" />
 <?php foreach($posts as $com): ?>
 <item>
-<comment><?php echo xml_convert($com->comment); ?></comment>
-<pubDate><?php echo $com->comment_date;?></pubDate>
+
+
+<title><?php echo $com->comment; ?></title>
+<pubDate><?php echo gmdate(DATE_RSS, strtotime($com->comment_date)); ?></pubDate>
+
 <link><?php echo base_url().'entry/'.$com->question_id; ?></link>
 <guid><?php echo base_url().'entry/'.$com->question_id; ?></guid>
-<title><?php echo xml_convert($com->title); ?></title>
 <description>
-<?php echo $com->description; ?></description>
+<![CDATA[ <?php echo $com->title; ?> ]]></description>
+
 </item>
 <?php endforeach; ?>
 </channel>

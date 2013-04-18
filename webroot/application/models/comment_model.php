@@ -24,7 +24,7 @@ class Comment_model extends CI_Model
 	{
 		
 		$sql= "SELECT c.*, q.title,q.description,q.question_id FROM comment c, question q WHERE q.question_id = c.entry_id ORDER BY c.comment_date DESC";
-		$query = $this->db->query($sql,array((int)$comment_id));
+		$query = $this->db->query($sql);
 		
 		$comments = $query->result();
 		return $comments;//sonucu return ediyoruz.

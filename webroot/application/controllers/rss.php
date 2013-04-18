@@ -12,7 +12,7 @@ class Rss extends CI_Controller
           $this->load->helper('xml');
       }
 
-      function index()
+     /* function index()
       {
           $data['boolean']=$this->entry_model->is_logged_in();
           if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
@@ -20,13 +20,13 @@ class Rss extends CI_Controller
             $session_data = $this->session->userdata('logged_in');
             //print_r($session_data['user_id']);
             $data['username'] = $session_data['username'];
-           /* $config = array();
+            $config = array();
             $config['base_url'] = base_url() . "/home";
             $config['total_rows'] = $this->entry_model->record_count();
             $config['per_page'] = 15;
             $config['uri_segment'] = 2;
             $this->pagination->initialize($config);
-            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;*/
+            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
             $data['guest'] =0;
             
             
@@ -49,7 +49,7 @@ class Rss extends CI_Controller
 
         
 
-      }
+      }*/
 
        function entries()
       {
@@ -63,7 +63,7 @@ class Rss extends CI_Controller
         $data['encoding'] = 'utf-8';
         $data['feed_name'] = 'Entries';
         //print_r($data['posts']);
-        $data['page_description'] = 'wall question rss';
+        $data['page_description'] = 'Wall Question Rss';
         $data['page_language'] = 'en-ca';
         $data['creator_email'] = '';
         //$data[''] = $this->posts_model->getRecentPosts();    
@@ -73,19 +73,18 @@ class Rss extends CI_Controller
         }
         else {
         $data['posts']= $this->entry_model->get_id_question($id_q);
-        $data['comments']=$this->comment_model->get_all_comments($id_q);
         $data['feed_url'] = base_url()."entry/".$id_q;
         //echo "id_q is not null";
         $data['encoding'] = 'utf-8';
-        $data['feed_name'] = 'Entr';
+        $data['feed_name'] = 'Entry';
         //print_r($data['posts']);
-        $data['page_description'] = 'wall question rss';
+        $data['page_description'] = 'Wall Question Rss';
         $data['page_language'] = 'en-ca';
         $data['creator_email'] = '';
         //$data[''] = $this->posts_model->getRecentPosts();    
         header("Content-Type: application/atom+xml");
         //print_r($data);
-        $this->load->view('question_comment_rss', $data);
+        $this->load->view('question_rss', $data);
         }
       // print_r($data['posts']);
         
@@ -98,12 +97,12 @@ class Rss extends CI_Controller
       {
         
 
-        $data['posts']=$this->comment_model->last_comments();
+        $data['posts']=$this->comment_model->get_comment();
         //print_r($data['posts']);
         $data['encoding'] = 'utf-8';
-        $data['feed_name'] = 'comments';
+        $data['feed_name'] = 'Comments';
         $data['feed_url'] = base_url().'home/last_comments';
-        $data['page_description'] = 'wall comment rss';
+        $data['page_description'] = 'Wall Comment Rss';
         $data['page_language'] = 'en-ca';
         $data['creator_email'] = '';
         //$data[''] = $this->posts_model->getRecentPosts();    

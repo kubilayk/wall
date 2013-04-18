@@ -1,10 +1,10 @@
 <?php echo '<?xml version="1.0" encoding="utf-8"?>' . "\n";?>
 <rss version="2.0"
-xmlns:dc="http://purl.org/dc/elements/1.1/"
-xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-xmlns:admin="http://webns.net/mvcb/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+    xmlns:admin="http://webns.net/mvcb/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/">  
 <channel>
 <title><?php echo $feed_name; ?></title>
 <link><?php echo $feed_url; ?></link>
@@ -13,16 +13,17 @@ xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <dc:creator><?php echo $creator_email; ?></dc:creator>
 <dc:rights>Copyright <?php echo gmdate("Y", time()); ?></dc:rights>
 <admin:generatorAgent rdf:resource="http://www.vivekalab.com/" />
-<?php foreach($posts as $entry): ?>
+<?php foreach($posts as $entry){?>
 <item>
-<title><?php echo xml_convert($entry->title); ?></title>
+<title><?php echo $entry->title; ?></title>
+<pubDate><?php echo gmdate(DATE_RSS, strtotime($entry->question_date)); ?></pubDate>
 <link><?php echo base_url().'entry/'.$entry->question_id; ?></link>
 <guid><?php echo base_url().'entry/'.$entry->question_id; ?></guid>
 <description>
-<?php echo $entry->description; ?>
+<![CDATA[ <?php echo $entry->description; ?> ]]>
 </description>
-<pubDate><?php echo $entry->question_date;?></pubDate>
+
 </item>
-<?php endforeach; ?>
+<?php } ?>
 </channel>
 </rss>
