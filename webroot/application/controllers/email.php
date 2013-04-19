@@ -53,7 +53,8 @@ class Email extends CI_Controller
 		$this->email->message("Username=".$user_session[0]->username." Email=".$user_session[0]->email." Password=".$user_password." Please change your password after login");
 		 if($this->email->send())
         {
-            echo 'your email was sent, fool';
+           print "<script type=\"text/javascript\">alert('E-mail was sent succesfully.');</script>";
+           redirect(base_url().'account/user_login');
         }
         else {
         show_error($this->email->print_debugger());
