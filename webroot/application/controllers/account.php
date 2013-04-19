@@ -258,7 +258,7 @@ class Account extends CI_Controller{
 		
 		
 		$tags =$this->input->post('email');
-		print_r($tags);
+		//print_r($tags);
 		
 		if(empty($tags))
 			{
