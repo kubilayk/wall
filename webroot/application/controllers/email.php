@@ -27,7 +27,7 @@ class Email extends CI_Controller
 		$this->email->set_newline("\r\n");
 
 		$this->email->from("wall.vivekalab@gmail.com", "Ali Mert Çelik");
-		$this->email->to("celik_alimert@hotmail.com");
+		$this->email->to("celik.alimert@gmail.com");
 		$this->email->subject("Viveka Wall Parola Hatırlatma");
 		//$pass = $this->user_model->login($this->input->post());
 		$this->email->message("Parolanız");
