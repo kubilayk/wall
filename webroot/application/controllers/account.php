@@ -224,5 +224,66 @@ class Account extends CI_Controller{
 				$this->load->view('update_user_info_view', $data);
 			}
 	}
+	public function forget_password($msg = NULL)
+	{			
+		$data['boolean']=$this->entry_model->is_logged_in();
+			
+			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+			{
+				
+				$session_data = $this->session->userdata('logged_in');
+				//print_r($session_data['user_id']);
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+		     	$data['page_title']="User Login";	
+				$data['msg'] = $msg;
+				$data['page_title']="User Login";
+				$this->load->view('forget_password_view', $data);
+			}
+			else
+			{
+				$data['guest'] = "Sign up";
+		   		$this->load->model('entry_model');
+		   		$data['msg'] = $msg;
+				$data['page_title']="User Login";
+				$this->load->view('forget_password_view', $data);
+			}
+
+
+			
+	}
+
+	public function send_email()
+	{
+		
+		
+		$tags =$this->input->post('email');
+		print_r($tags);
+		
+		if(empty($tags))
+			{
+				$msg = '<font color=red>Fill email field.</font><br />';
+				$this->forget_password($msg);
+			}
+		else{
+			$result = $this->user_model->get_user_email($this->input->post('email'));
+			if(!$result)
+			{	
+				
+				$msg = '<font color=red>Invalid e-mail.</font><br />';
+				$this->forget_password($msg);
+			}
+		
+			else
+			{
+				//$uri= $this->input->post('uri');
+				//print_r($_SERVER['HTTP_REFERER']);
+				//print_r($result);
+				$this->session->set_userdata('email',$result);
+				redirect(base_url().'email');
+				
+			}
+		}	
+	}
 }
 ?>

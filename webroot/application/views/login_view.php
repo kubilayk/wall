@@ -26,6 +26,9 @@
 				<div class="span12">
 					<input type='Submit' class="btn btn-success" value='Login' />
 				</div>
+				<div class="span12">
+					<a href="<?php echo base_url();?>account/forget_password">Parolamı unuttum</a>
+				</div>
 		</form>
 
 

@@ -82,7 +82,7 @@ class User_model extends CI_Model
 		$session_data = $this->session->userdata('logged_in');
 		
 		$user_id = $session_data['user_id'];
-		print_r($email);
+		//print_r($email);
 		if($query->num_rows == 0)
 
 		{
@@ -112,6 +112,35 @@ class User_model extends CI_Model
 		}
 
 	}
+	public function update_user_password($user_password)
+	{
+		
+		$user_session = $this->session->userdata('email');
+		//$user_session[0]->email;
+		
+		
+	
+		$query = $this->db->get_where('users',array('username'=>$user_session[0]->username));
+		
+		
+		
+		
+		
+		
+		if($query->num_rows != 0):
+
+		
+			$data=array(
+				'user_id'=>$user_session[0]->user_id,
+				'password' =>md5($user_password)
+				
+				);
+			//print_r($data);
+			$sql= "UPDATE users SET password = ? WHERE user_id= ?";
+			$this->db->query($sql, array($data['password'],(int)$data['user_id']));
+		endif;
+	}
+	
 
 	public function get_user($user_info = array())
 	{
@@ -126,6 +155,28 @@ class User_model extends CI_Model
 		}
 		
 		return true;
+	}
+	public function get_user_email($user_email)
+	{
+		
+		if(!empty($user_email))
+		{
+			$sql="SELECT user_id,username,email from users WHERE email = ?";
+			$query= $this->db->query($sql, array($user_email));
+			if($query->num_rows == 1)
+			{
+				
+				return $query->result();
+			}
+			else{
+			return false;
+			}
+		}
+		
+		else
+		{
+			return false;
+		}
 	}
 
 	public function get_user_info($user_id)
