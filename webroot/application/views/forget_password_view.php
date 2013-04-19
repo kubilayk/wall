@@ -6,7 +6,7 @@
 			<div class="container">
 		 	<div class="row">
 				<div class="span12">
-					<h2>Forget Password</h2>
+					<h2>Forgot Password</h2>
 				</div>
 				<div id="msg"class="span12">	
 					<?php if(! is_null($msg)) echo $msg;?>	
