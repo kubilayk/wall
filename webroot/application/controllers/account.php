@@ -278,31 +278,32 @@ class Account extends CI_Controller{
 		$data['user_id'] = $session_data['user_id'];
 		if($data['username'] == $this->input->post('user_name') && $data['email']==$this->input->post('email_address') )
 		{
-			
+			//echo "ayni";
 			redirect(base_url().'home');
 		}
 		else
 		{
 			$result = $this->user_model->get_user_update($this->input->post());
-			//print_r($this->input->post('user_name'));
+			
 			if(!$result)
-			{	echo "if1";
+			{	//echo "if1";
 				$msg = '<font color=red> Username and/or email is taken.</font><br />';
 				$this->update_profile($msg);
 			}
 			else
 			{
 
-				echo "else1";
+				//echo "else1";
 				if(empty($tags))
 				{
-					echo "if2";
+					//echo "if2";
 					$msg = '<font color=red>Fill username and/or email.</font><br />';
 					$this->update_profile($msg);
 				}
 				else
 				{
-					echo "else";
+					//echo "else";
+					//print_r($this->input->post());
 					$this->user_model->update_user($this->input->post());
 					redirect(base_url().'home/user_info/'.$data['user_id'],'location');
 					
@@ -327,7 +328,7 @@ class Account extends CI_Controller{
 		     	$data['page_title']="User Profile Update";	
 				$data['msg'] = $msg;
 				
-				$this->load->view('update_user_info_view', $data);
+				//$this->load->view('update_user_info_view', $data);
 			}
 			else
 			{

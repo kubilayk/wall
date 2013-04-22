@@ -73,6 +73,7 @@ class User_model extends CI_Model
 	}
 	public function update_user($data = array())
 	{
+		
 		$username = $this->security->xss_clean($data['user_name']);
 		$email = $this->security->xss_clean($data['email_address']);
 		
