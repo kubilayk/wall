@@ -19,10 +19,9 @@
 				</div>			
 				<div class="span12">
 					<input type='Submit' class="btn btn-success" value='Send' />
+
 				</div>
 				
 		</form>
 
-
-	</div>
 <?php include_once('footer.php'); ?>

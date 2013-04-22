@@ -9,11 +9,11 @@ class User_model extends CI_Model
 	
 	public function login($user_info = array())
 	{
-
 		$username = $this->security->xss_clean($user_info['username']);
 		$password = $this->security->xss_clean($user_info['password']);
 		$md5_password = md5($password);
 		$query = $this->db->get_where('users',array('username'=>$username, 'password'=>$md5_password));
+		//print_r($query->result());
 		if($query->num_rows == 1)
 		{
 			
@@ -116,17 +116,7 @@ class User_model extends CI_Model
 	{
 		
 		$user_session = $this->session->userdata('email');
-		//$user_session[0]->email;
-		
-		
-	
 		$query = $this->db->get_where('users',array('username'=>$user_session[0]->username));
-		
-		
-		
-		
-		
-		
 		if($query->num_rows != 0):
 
 		
@@ -135,12 +125,29 @@ class User_model extends CI_Model
 				'password' =>md5($user_password)
 				
 				);
-			//print_r($data);
+			
 			$sql= "UPDATE users SET password = ? WHERE user_id= ?";
 			$this->db->query($sql, array($data['password'],(int)$data['user_id']));
 		endif;
 	}
 	
+	public function change_user_password($user_password)
+	{
+
+		$user_session = $this->session->userdata('logged_in');
+		$query = $this->db->get_where('users',array('username'=>$user_session['username']));
+		if($query->num_rows != 0):
+
+		
+			$data=array(
+				'user_id'=>$user_session['user_id'],
+				'password' =>md5($user_password)
+				
+				);
+			$sql= "UPDATE users SET password = ? WHERE user_id= ?";
+			$this->db->query($sql, array($data['password'],(int)$data['user_id']));
+		endif;
+	}
 
 	public function get_user($user_info = array())
 	{

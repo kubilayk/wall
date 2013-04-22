@@ -22,13 +22,15 @@
 				</div>
 				<div class="span12">
 					<input type='password' name='password' id='password' size='25' value="" />
+				</div>
+				<div class="span12">
+					<a href="<?php echo base_url();?>account/forget_password">Forgot password</a>
 				</div>							
 				<div class="span12">
+					<br>
 					<input type='Submit' class="btn btn-success" value='Login' />
 				</div>
-				<div class="span12">
-					<a href="<?php echo base_url();?>account/forget_password">Parolamı unuttum</a>
-				</div>
+				
 		</form>
 
 

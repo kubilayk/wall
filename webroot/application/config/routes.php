@@ -42,6 +42,7 @@ $route['default_controller'] = 'home';
 $route['entry/:num'] = 'entry/index/$1/$1';
 $route['home/:num'] = 'home/index/$1';
 $route['rss/:num'] = 'rss/entries/$1';
+$route['account/:num'] = 'account/change_password/$1';
 //$route['entry/:num'] = 'entry/edit_entry/$1';
 
 /* End of file routes.php */

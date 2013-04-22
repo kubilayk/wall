@@ -42,7 +42,17 @@
       if($guest===0)
       { $session_data = $this->session->userdata('logged_in');
     ?>
-        <li><a href="<?php echo base_url();?>home/user_info/<?php echo $session_data['user_id']; ?>"><?php echo ''.$username.'';?></a></li>
+        <li class="dropdown" id="accountmenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo ''.$username.'';?><b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo base_url();?>home/user_question/<?php echo $session_data['user_id'] ?>">questions</a></li>
+                            <li><a href="<?php echo base_url();?>home/user_comment/<?php echo $session_data['user_id'] ?>">comments</a></li>
+                            <li><a href="<?php echo base_url();?>account/profile_info/<?php echo $session_data['user_id'] ?>">update profile</a></li>
+                            <li><a href="<?php echo base_url();?>account/change_password/<?php echo $session_data['user_id'] ?>">change password</a></li>
+              
+                        </ul>
+      </li>
+        
       <?php }else{ ?></li>
         <li><a style="display: block;  text-align: right;" href="<?php echo base_url(); ?>account" style="float:right;"><?php echo $guest; ?></a></li>
         <li><a data-toggle="modal" data-backdrop="true" data-keyboard="true" href="#modal">Login</a></li>
@@ -60,7 +70,7 @@
                             
               
                         </ul>
-                    </li>
+      </li>
                 
     </ul>
     <div class="input-append"> 

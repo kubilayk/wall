@@ -66,8 +66,6 @@ class Account extends CI_Controller{
 	
 	public function user_login()
 	{
-		
-		
 		$tags =$this->input->post('username');
 		$result = $this->user_model->login($this->input->post());
 		if(! $result)
@@ -124,6 +122,124 @@ class Account extends CI_Controller{
 
 
 	}
+	public function change_password($msg = NULL)
+	{
+		$id_u= $this->uri->segment(3);
+		$data['boolean']=$this->entry_model->is_logged_in();
+			
+			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+			{
+				
+				$session_data = $this->session->userdata('logged_in');
+				//print_r($msg);
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+				$data['user_info']=$this->user_model->get_user_info($id_u);
+		     	$data['page_title']="User Profile Information";	
+				$data['msg'] = $msg;
+				$data['page_title']="User Login";
+				//print_r($data['msg']);
+				//print_r($session_data['user_id']);
+				if($session_data['user_id'] == $data['user_info'][0]->user_id)
+				{
+					$this->load->view('update_user_pass_view', $data);
+				}
+				else
+				{
+					redirect(base_url().'home');
+				}
+				
+			}
+			
+	}
+	public function change_password_validate()
+	{
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]xss_clean');
+		$this->form_validation->set_rules('con_password', 'Password Confirmation', 'trim|required|matches[password]');
+		$result = $this->user_model->login($this->input->post());
+		//print_r($this->input->post());
+		//print_r($result);
+		if($this->form_validation->run() == FALSE || !$result)
+		{
+			//echo "false";
+			$msg = 'Invalid password.<br />';
+			$this->change_password($msg);
+		}
+		else
+		{
+			$id_u= $this->uri->segment(3);
+		$data['boolean']=$this->entry_model->is_logged_in();
+			
+			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+			{
+				
+				$session_data = $this->session->userdata('logged_in');
+				//print_r($msg);
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+				$data['user_info']=$this->user_model->get_user_info($id_u);
+		     	$data['page_title']="User Profile Information";	
+				$data['msg'] = "";
+				$data['page_title']="Change Password";
+				//print_r($data['msg']);
+				//print_r($session_data['user_id']);
+				if($session_data['user_id'] == $data['user_info'][0]->user_id)
+				{
+					$this->load->view('change_user_pass_view', $data);
+				}
+				else
+				{
+					redirect(base_url().'home');
+				}
+				
+			}
+		}
+
+
+	}
+	public function change_password_user()
+	{
+		$id_u= $this->uri->segment(3);
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]xss_clean');
+		$this->form_validation->set_rules('con_password', 'Password Confirmation', 'trim|required|matches[password]');
+		
+		//print_r($this->input->post());
+		//print_r($result);
+		if($this->form_validation->run() == FALSE )
+		{
+			//echo "false";
+			
+			$this->change_password_user_validate();
+		}
+		else
+		{
+			$user_password = $this->input->post('password');
+			$this->user_model->change_user_password($user_password);
+			//redirect(base_url().'home');
+			//$this->user_model->update_user_password($user_password);
+			//$this->login();
+		}
+
+
+	}
+	public function change_password_user_validate()
+	{
+		$data['boolean']=$this->entry_model->is_logged_in();
+			
+			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+			{
+				
+				$session_data = $this->session->userdata('logged_in');
+				//print_r($session_data['user_id']);
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+		     	$data['page_title']="Change Password";	
+				$this->load->view('change_user_pass_view', $data);
+			}
+	}
+
 	public function profile_info()
 	{
 		$id_u= $this->uri->segment(3);
@@ -139,18 +255,16 @@ class Account extends CI_Controller{
 				$data['user_info']=$this->user_model->get_user_info($id_u);
 		     	$data['page_title']="User Profile Information";	
 				$data['msg'] = "";
-				$data['page_title']="User Login";
-				//print_r($data);
-				$this->load->view('update_user_info_view', $data);
+				if($session_data['user_id'] == $data['user_info'][0]->user_id)
+				{
+					$this->load->view('update_user_info_view', $data);
+				}
+				else
+				{
+					redirect(base_url().'home');
+				}
 			}
-			else
-			{
-				$data['guest'] = "Sign up";
-		   		$this->load->model('entry_model');
-		   		$data['msg'] = $msg;
-				$data['page_title']="User Login";
-				$this->load->view('login_view', $data);
-			}
+			
 	}
 
 	public function update_profile_validate()
