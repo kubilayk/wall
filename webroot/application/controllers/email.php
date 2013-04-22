@@ -46,7 +46,7 @@ class Email extends CI_Controller
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
 
-		$this->email->from("wall.vivekalab@gmail.com", "Ali Mert Çelik");
+		$this->email->from("wall.vivekalab@gmail.com", "Wall Viveka");
 		$this->email->to($user_session[0]->email);
 		$this->email->subject("Viveka Wall Kullanici Bilgileri");
 		//$pass = $this->user_model->login($this->input->post());

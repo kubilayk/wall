@@ -137,7 +137,7 @@ class User_model extends CI_Model
 		$email = $this->security->xss_clean($user_info['email_address']);
 		$user_session = $this->session->userdata('logged_in');
 		//$password = $this->security->xss_clean($user_info['password']);
-		print_r($user_info);
+		//print_r($user_info);
 		if($username == $user_session['username'])
 		{
 			$sql="SELECT * from users WHERE email = ?";

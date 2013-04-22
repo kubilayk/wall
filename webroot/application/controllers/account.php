@@ -155,6 +155,8 @@ class Account extends CI_Controller{
 	public function change_password_validate()
 	{
 		$this->load->library('form_validation');
+		$this->form_validation->set_rules('user_name', 'User Name', 'trim|required|min_length[4]|xss_clean|is_unique[users.username]');
+		$this->form_validation->set_rules('email_address', 'Your Email', 'trim|required|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]xss_clean');
 		$this->form_validation->set_rules('con_password', 'Password Confirmation', 'trim|required|matches[password]');
 		$result = $this->user_model->login($this->input->post());
@@ -293,7 +295,7 @@ class Account extends CI_Controller{
 			}
 		else{
 			$result = $this->user_model->get_user($this->input->post());
-			var_dump($result);
+			//var_dump($result);
 			if($result)
 			{		
 				//echo "!result";
