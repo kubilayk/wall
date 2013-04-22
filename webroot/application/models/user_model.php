@@ -31,20 +31,7 @@ class User_model extends CI_Model
 		
 		return false;
 	}
-	public function get_user_update($user_info = array())
-	{
 
-		$username = $this->security->xss_clean($user_info['user_name']);
-		$email = $this->security->xss_clean($user_info['email_address']);
-		
-		$query = $this->db->get_where('users',array('username'=>$username, 'email'=>$email));
-		if($query->num_rows == 1)
-		{
-			return false;
-		}
-		
-		return true;
-	}
 
 	public function add_user($data = array())
 	{
@@ -77,42 +64,34 @@ class User_model extends CI_Model
 		$username = $this->security->xss_clean($data['user_name']);
 		$email = $this->security->xss_clean($data['email_address']);
 		
-		$query = $this->db->get_where('users',array('username'=>$username));
-		
-		//print_r($data);
+		//print_r($query->result());
 		$session_data = $this->session->userdata('logged_in');
 		
 		$user_id = $session_data['user_id'];
 		//print_r($email);
-		if($query->num_rows == 0)
 
-		{
-			$data=array(
-				'username'=>$username,
-				'email'=>$email
-				
+		$data=array(
+			'username'=>$username,
+			'email'=>$email
+			
+			);
+		$sql= "UPDATE users SET username = ?, email = ? WHERE user_id= ?";
+		$this->db->query($sql, array($username, $email, $user_id));
+		$query = $this->db->get_where('users',array('username'=>$username));
+		$data=$query->result();
+		
+			$data = array(
+				'user_id' => $data[0]->user_id,
+				'username' => $data[0]->username,
+				'validated' => true,
+				'email' => $data[0]->email
 				);
-			$sql= "UPDATE users SET username = ?, email = ? WHERE user_id= ?";
-			$this->db->query($sql, array($username, $email, $user_id));
-			$query = $this->db->get_where('users',array('username'=>$username));
-			$data=$query->result();
-			
-				$data = array(
-					'user_id' => $data[0]->user_id,
-					'username' => $data[0]->username,
-					'validated' => true,
-					'email' => $data[0]->email
-					);
-			
-			$this->session->set_userdata('logged_in',$data);
-			//$this->session->set_userdata('email',$data['email']);
+		
+		$this->session->set_userdata('logged_in',$data);
+		//$this->session->set_userdata('email',$data['email']);
 
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return true;
+	
 
 	}
 	public function update_user_password($user_password)
@@ -154,18 +133,55 @@ class User_model extends CI_Model
 
 	public function get_user($user_info = array())
 	{
-		$username = $this->security->xss_clean($user_info['username']);
-		$email = $this->security->xss_clean($this->input->post('email_address'));
-		$password = $this->security->xss_clean($user_info['password']);
-		$query = $this->db->get_where('users',array('username'=>$username));
+		$username = $this->security->xss_clean($user_info['user_name']);
+		$email = $this->security->xss_clean($user_info['email_address']);
+		$user_session = $this->session->userdata('logged_in');
+		//$password = $this->security->xss_clean($user_info['password']);
+		print_r($user_info);
+		if($username == $user_session['username'])
+		{
+			$sql="SELECT * from users WHERE email = ?";
+			$query= $this->db->query($sql, array($email));
+			if($query->num_rows != 0)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			$sql="SELECT * from users WHERE username = ? ";
+			$query= $this->db->query($sql, array($username));
+			
+			if($query->num_rows != 0):
+				return true;
+			endif;
+			$sql="SELECT * from users WHERE email = ?";
+			$query= $this->db->query($sql, array($email));
+			if($query->num_rows != 0):
+				return true;
+			endif;	
+				
+		}
+
+		
+		return false;
+	}
+	/*public function get_user_update($user_info = array())
+	{
+
+		$username = $this->security->xss_clean($user_info['user_name']);
+		$email = $this->security->xss_clean($user_info['email_address']);
+		//print_r($username);
+		
+		$query = $this->db->get_where('users',array('username'=>$username, 'email'=>$email));
+		print_r($query->result());
 		if($query->num_rows == 1)
 		{
-			
-			false;
+			return true;
 		}
 		
-		return true;
-	}
+		return false;
+	}*/
 	public function get_user_email($user_email)
 	{
 		

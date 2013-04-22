@@ -292,7 +292,8 @@ class Account extends CI_Controller{
 				$this->update_profile($msg);
 			}
 		else{
-			$result = $this->user_model->get_user_update($this->input->post());
+			$result = $this->user_model->get_user($this->input->post());
+			var_dump($result);
 			if($result)
 			{		
 				//echo "!result";
