@@ -217,7 +217,7 @@ class Account extends CI_Controller{
 		{
 			$user_password = $this->input->post('password');
 			$this->user_model->change_user_password($user_password);
-			//redirect(base_url().'home');
+			redirect(base_url().'home');
 			//$this->user_model->update_user_password($user_password);
 			//$this->login();
 		}
