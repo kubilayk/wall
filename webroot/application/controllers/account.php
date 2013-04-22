@@ -274,8 +274,10 @@ class Account extends CI_Controller{
 		$tags =$this->input->post('user_name');
 		$session_data = $this->session->userdata('logged_in');
 		$data['username'] = $session_data['username'];
+		//print_r($session_data);
 		$data['email'] = $session_data['email'];
 		$data['user_id'] = $session_data['user_id'];
+		
 		if($data['username'] == $this->input->post('user_name') && $data['email']==$this->input->post('email_address') )
 		{
 			//echo "ayni";
@@ -283,61 +285,56 @@ class Account extends CI_Controller{
 		}
 		else
 		{
-			$result = $this->user_model->get_user_update($this->input->post());
-			
-			if(!$result)
-			{	//echo "if1";
-				$msg = '<font color=red> Username and/or email is taken.</font><br />';
+			if(empty($tags))
+			{
+				//echo "tags boş";
+				$msg = '<font color=red>Fill username and/or email.</font><br />';
 				$this->update_profile($msg);
 			}
+		else{
+			$result = $this->user_model->get_user_update($this->input->post());
+			if($result)
+			{		
+				//echo "!result";
+				$msg = '<font color=red> Username and/or email is taken.</font><br />';
+				$this->update_profile($msg);;
+			}
+		
 			else
 			{
+				//echo "result";
+				//$uri= $this->input->post('uri');
+				//print_r($_SERVER['HTTP_REFERER']);
+				//print_r($result);
+				$this->user_model->update_user($this->input->post());
+				redirect(base_url().'home/user_info/'.$data['user_id'],'location');
+				
+			}
+		}
+			}
 
-				//echo "else1";
-				if(empty($tags))
-				{
-					//echo "if2";
-					$msg = '<font color=red>Fill username and/or email.</font><br />';
-					$this->update_profile($msg);
-				}
-				else
-				{
-					//echo "else";
-					//print_r($this->input->post());
-					$this->user_model->update_user($this->input->post());
-					redirect(base_url().'home/user_info/'.$data['user_id'],'location');
-					
-				}	
-			}
-			}
+			
 		
 		
 	}
 
 	public function update_profile($msg = NULL)
 	{
-		$data['boolean']=$this->entry_model->is_logged_in();
-			
+			$data['boolean']=$this->entry_model->is_logged_in();
+			//echo "update_profile";
 			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{
 				
 				$session_data = $this->session->userdata('logged_in');
-				//print_r($session_data['user_id']);
+				//print_r($session_data);
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 		     	$data['page_title']="User Profile Update";	
 				$data['msg'] = $msg;
 				
-				//$this->load->view('update_user_info_view', $data);
-			}
-			else
-			{
-				$data['guest'] = "Sign up";
-		   		$this->load->model('entry_model');
-		   		$data['msg'] = $msg;
-				$data['page_title']="User Profile Update";
 				$this->load->view('update_user_info_view', $data);
 			}
+			
 	}
 	public function forget_password($msg = NULL)
 	{			

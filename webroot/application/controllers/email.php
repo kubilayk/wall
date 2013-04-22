@@ -48,7 +48,7 @@ class Email extends CI_Controller
 
 		$this->email->from("wall.vivekalab@gmail.com", "Ali Mert Çelik");
 		$this->email->to($user_session[0]->email);
-		$this->email->subject("Viveka Wall Kullanıcı Bilgileri");
+		$this->email->subject("Viveka Wall Kullanici Bilgileri");
 		//$pass = $this->user_model->login($this->input->post());
 		$this->email->message("Username=".$user_session[0]->username." Email=".$user_session[0]->email." Password=".$user_password." Please change your password after login");
 		 if($this->email->send())

@@ -25,12 +25,7 @@
 				<div class="span12">
 					<input type="submit" value="Update" class="btn btn-primary"/> &nbsp; &nbsp; &nbsp;
 				</div>
-				<div class="span12">
-					<br/>
- 					<p class="text-error" style="text-indent: 20px;">Don't forget to login again after updating your profile.</p>
-					
-				
-				</div>
+			
 			</div>
 		
 	<?php echo form_close(); ?>
