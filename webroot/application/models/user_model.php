@@ -95,11 +95,13 @@ class User_model extends CI_Model
 			$sql= "UPDATE users SET username = ?, email = ? WHERE user_id= ?";
 			$this->db->query($sql, array($username, $email, $user_id));
 			$query = $this->db->get_where('users',array('username'=>$username));
+			$data=$query->result();
+			
 				$data = array(
-					'user_id' => $row->user_id,
-					'username' => $row->username,
+					'user_id' => $data[0]->user_id,
+					'username' => $data[0]->username,
 					'validated' => true,
-					'email' => $row->email
+					'email' => $data[0]->email
 					);
 			
 			$this->session->set_userdata('logged_in',$data);
