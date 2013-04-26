@@ -6,6 +6,7 @@ class Account extends CI_Controller{
 		parent::__construct();
 		$this->load->model('user_model');
 		$this->load->model('entry_model');
+		$this->load->model('notification_model');
 		if (isset($_SERVER['HTTP_REFERER']))
  {
  $this->session->set_userdata('previous_page', $_SERVER['HTTP_REFERER']);
@@ -138,6 +139,7 @@ class Account extends CI_Controller{
 		     	$data['page_title']="User Profile Information";	
 				$data['msg'] = $msg;
 				$data['page_title']="User Login";
+				$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 				//print_r($data['msg']);
 				//print_r($session_data['user_id']);
 				if($session_data['user_id'] == $data['user_info'][0]->user_id)
@@ -184,6 +186,7 @@ class Account extends CI_Controller{
 		     	$data['page_title']="User Profile Information";	
 				$data['msg'] = "";
 				$data['page_title']="Change Password";
+				$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 				//print_r($data['msg']);
 				//print_r($session_data['user_id']);
 				if($session_data['user_id'] == $data['user_info'][0]->user_id)
@@ -238,6 +241,7 @@ class Account extends CI_Controller{
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 		     	$data['page_title']="Change Password";	
+		     	$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 				$this->load->view('change_user_pass_view', $data);
 			}
 	}
@@ -257,6 +261,7 @@ class Account extends CI_Controller{
 				$data['user_info']=$this->user_model->get_user_info($id_u);
 		     	$data['page_title']="User Profile Information";	
 				$data['msg'] = "";
+				$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 				if($session_data['user_id'] == $data['user_info'][0]->user_id)
 				{
 					$this->load->view('update_user_info_view', $data);
@@ -334,7 +339,7 @@ class Account extends CI_Controller{
 				$data['guest'] =0;
 		     	$data['page_title']="User Profile Update";	
 				$data['msg'] = $msg;
-				
+				$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 				$this->load->view('update_user_info_view', $data);
 			}
 			
@@ -353,6 +358,7 @@ class Account extends CI_Controller{
 		     	$data['page_title']="User Login";	
 				$data['msg'] = $msg;
 				$data['page_title']="User Login";
+				$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 				$this->load->view('forget_password_view', $data);
 			}
 			else

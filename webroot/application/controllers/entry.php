@@ -8,6 +8,7 @@ class Entry extends CI_Controller
           parent::__construct();
           $this->load->model('entry_model');
           $this->load->model('comment_model');
+          $this->load->model('notification_model');
          $this->load->helper('url');
          $this->load->library('pagination'); //You should autoload this one ;)
     $this->load->helper('ckeditor');
@@ -108,6 +109,7 @@ class Entry extends CI_Controller
             $data['comment']=$this->comment_model->get_all_comments($id_q);
             $data['question']=$this->entry_model->get_id_question($id_q);
             $data['page_title']="Questions";
+            $data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
             $this->load->view('entry_view',$data);
           }
           else
@@ -134,6 +136,7 @@ class Entry extends CI_Controller
             $data['guest'] =0;
             $data['msg']="";
             $data['page_title']="Create Questions";
+            $data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
             $data = array_merge($data, $this->data);
             $this->load->view('new_entry_view',$data);
           endif;
@@ -305,6 +308,7 @@ class Entry extends CI_Controller
         $data['page_title']="Last questions";   
         $data['question']=$this->entry_model->get_all_question($config['per_page'],$page);
         $data['links'] = $this->pagination->create_links();
+        $data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
         //print_r($data['question']);
         //foreach($data['question'] as $question)
           //echo  $question->last_vote[0]->username; 
@@ -354,6 +358,7 @@ class Entry extends CI_Controller
         $data['page_title']="Last questions";   
         $data['question']=$this->entry_model->get_question_rate($config['per_page'],$page);
         $data['links'] = $this->pagination->create_links();
+        $data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
         //print_r($data['question']);
         //foreach($data['question'] as $question)
           //echo  $question->last_vote[0]->username; 
@@ -402,6 +407,7 @@ class Entry extends CI_Controller
         $data['page_title']="Last questions";   
         $data['question']=$this->entry_model->get_question_total_comment($config['per_page'],$page);
         $data['links'] = $this->pagination->create_links();
+        $data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
         //print_r($data['question']);
         //foreach($data['question'] as $question)
           //echo  $question->last_vote[0]->username; 

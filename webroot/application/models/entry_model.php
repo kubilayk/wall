@@ -200,8 +200,14 @@ class Entry_model extends CI_Model
 	    	print_r($data);
 	    	$sql = "INSERT IGNORE INTO question(title,description,user_id,link) VALUES (?,?,?,?);";
 			$this->db->query($sql, array($data['title'], $data['content_2'], (int)$data['user_id'], $data['link']) );
-	    	
-
+			/*$sql = "SELECT question_id FROM question WHERE user_id= ? ORDER BY question_date DESC LIMIT 1 ";
+			$query=$this->db->query($sql, array((int)$data['user_id']));
+			$entry_id=$query->result();
+			//print_r($entry_id);
+	    	$sql = "INSERT IGNORE INTO notification(type,`from`,ref_id) VALUES (?,?,?);";
+	    	$this->db->query($sql, array("entry",(int)$data['user_id'],$entry_id[0]->question_id) );*/
+	    	//$sql = "INSERT IGNORE INTO user_notification(status) VALUES (?);";
+	    	//$this->db->query($sql, array(0));
     	endif; 
     
     }
@@ -231,6 +237,7 @@ class Entry_model extends CI_Model
 	    
     	$sql= "UPDATE question SET title_like = ? WHERE question_id= ?";
 		$this->db->query($sql, array((int)$data['rate_count'],(int)$data['entry_id']));
+		
 		}
 		
 
@@ -369,12 +376,23 @@ public function user_rate($data)
 		$user_info= $this->session->userdata('logged_in');
 		$sql = "INSERT IGNORE INTO user_rate(entry_id, user_id,user_entry) VALUES (?,?,?);";
 		$this->db->query($sql, array((int)$data['entry_id'], (int)$user_info['user_id'],"".(int)$data['entry_id']."".(int)$user_info['user_id']) );
+		$sql = "SELECT u.user_id FROM users u, question q WHERE q.user_id=u.user_id and q.question_id= ?";
+		$query = $this->db->query($sql, array((int)$data['entry_id']) );
+		$to=$query->result();
+		//print_r($query->result()[0]->user_id);
+		if($user_info['user_id']!=$to[0]->user_id):
+		$sql = "INSERT IGNORE INTO notification(type,`from`,`to`,ref_id) VALUES (?,?,?,?);";
+	    $this->db->query($sql, array("like",(int)$user_info['user_id'],(int)$to[0]->user_id,(int)$data['entry_id']));
+	    endif;
 		}
 		else
 		{
 			$user_info= $this->session->userdata('logged_in');
 			$sql = "DELETE FROM user_rate WHERE user_entry = (?);";
 			$this->db->query($sql, array("".(int)$data['entry_id']."".(int)$user_info['user_id']));
+			$sql = "DELETE FROM notification WHERE `from` = (?) and type = ?;";
+			$this->db->query($sql, array((int)$user_info['user_id'], "like"));
+
 		}	
 	}
 	public function rate_count($data)
@@ -409,6 +427,8 @@ public function title_drop($data)
 		$this->db->query($sql, array((int)$data['user_id'], (int)$data['question_id']));
 		$sql2="DELETE FROM comment WHERE entry_id = ?";
 		$this->db->query($sql2, array((int)$data['question_id']));
+		//$sql = "DELETE FROM notification WHERE `from` = (?) and type = ?;";
+		//$this->db->query($sql, array((int)$data['user_id'], "entry"));
 	
 	}
 public function title_edit($data)

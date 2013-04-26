@@ -47,7 +47,13 @@ class Comment_model extends CI_Model
 	    $sql = "INSERT INTO comment(entry_id, comment, user_id) VALUES (?,?,?)"; 
 		$this->db->query($sql, array((int)$data['entry_id'], $data['comment'], $session_data['user_id']));
 		$sql = "UPDATE question SET total_comment=total_comment + 1 WHERE question_id= ?"; 
-		$this->db->query($sql, array((int)$data['entry_id'])); 
+		$this->db->query($sql, array((int)$data['entry_id']));
+		$sql = "SELECT u.user_id FROM users u, question q WHERE q.user_id=u.user_id and q.question_id= ?";
+		$query = $this->db->query($sql, array((int)$data['entry_id']) );
+		$to=$query->result(); 
+		//print_r($to);
+		$sql = "INSERT IGNORE INTO notification(type,`from`,`to`,ref_id) VALUES (?,?,?,?);";
+	    $this->db->query($sql, array("comment",(int)$session_data['user_id'],(int)$to[0]->user_id,(int)$data['entry_id']));
 	 
 
     	endif; 

@@ -8,6 +8,7 @@ class Home extends CI_Controller
 		$this->load->model('entry_model');
 		$this->load->model('comment_model');
 		$this->load->model('user_model');
+		$this->load->model('notification_model');
 		$this->load->library('pagination');
 		if (isset($_SERVER['HTTP_REFERER']))
  {
@@ -42,6 +43,8 @@ class Home extends CI_Controller
 		     	$data['page_title']="Home";		
 				$data['question']=$this->entry_model->get_all_question($config['per_page'],$page);
 				$data['links'] = $this->pagination->create_links();
+				$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
+				//print_r($data['notification'][0]->total_not);
 				//print_r($data['question']);
 				//foreach($data['question'] as $question)
 					//echo  $question->last_vote[0]->username; 
@@ -112,7 +115,7 @@ class Home extends CI_Controller
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['page_title']="Last Comments";		
-				
+				$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 				$data['comment']=$this->comment_model->last_comments();
 				$this->load->view('comment_view',$data);
 			}
@@ -141,7 +144,7 @@ class Home extends CI_Controller
 				$data['guest'] =0;
 				
 	    		$data['user_info']= $this->user_model->get_user_info(filter_var($id_u, FILTER_VALIDATE_INT));
-	    		
+	    		$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 	    		$data['page_title']="".$data['user_info'][0]->username."'s info";
 	    		$this->load->view('user_info_view', $data);
 	    	}
@@ -155,6 +158,36 @@ class Home extends CI_Controller
 
 	    }
 	}
+	function notification()
+	{	
+		$id_u = $this->uri->segment(3);
+		$data['boolean']=$this->entry_model->is_logged_in();
+		$session_data = $this->session->userdata('logged_in');
+		if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
+			{ 
+			    $config = array();
+		        $config['base_url'] = base_url() . "/home";
+		        $config['total_rows'] = $this->notification_model->record_count($session_data['user_id']);
+		        //print_r($config['total_rows']);
+		        $config['per_page'] = 15;
+		        $config['uri_segment'] = 2;
+		        $this->pagination->initialize($config);
+		        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+			    $session_data = $this->session->userdata('logged_in');
+				$data['username'] = $session_data['username'];
+				$data['guest'] =0;
+				$data['user_notification']= $this->notification_model->notification($config['per_page'],$page,$session_data['user_id']);
+
+				$data['links'] = $this->pagination->create_links();
+				//print_r($data['user_notification']);
+				//$data['page_title']="".$data['user_info'][0]->username."'s info";
+				$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
+	    		$this->load->view('user_notification_view', $data);
+	    		$this->notification_model->change_user_status(filter_var($session_data['user_id'], FILTER_VALIDATE_INT));
+	    		
+	    	}
+
+	}
 	function my_info()
 	{
 		$data['boolean']=$this->entry_model->is_logged_in();
@@ -165,7 +198,7 @@ class Home extends CI_Controller
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
 				$data['user_info']= $this->user_model->get_user_info(filter_var($session_data['user_id'], FILTER_VALIDATE_INT));
-				
+				$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 				$data['page_title']="".$data['user_info'][0]->username."'s info";
 
 	    		$this->load->view('user_info_view', $data);
@@ -191,6 +224,7 @@ class Home extends CI_Controller
 				$data['guest'] =0;
 				$data['comment']= $data['comment'] = $this->comment_model->last_comments((int)$id_u);
 	    		$data['page_title']="".isset($data['user_comment'][0]->user_info[0])?($data['user_comment'][0]->user_info[0]->username):("User")."'s question";
+	    		$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 	   			$this->load->view('comment_view', $data);
 
 	   		}
@@ -215,7 +249,7 @@ class Home extends CI_Controller
 						
 	    		$data['user_question']= $this->user_model->get_user_question(filter_var($id_u, FILTER_VALIDATE_INT));
 	    		$data['page_title']="".isset($data['user_question'][0]->user_info[0])?($data['user_question'][0]->user_info[0]->username):("User")."'s question";
-	    		
+	    		$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 	   			$this->load->view('user_question_view', $data);
 	   		}
 	   		else
@@ -252,6 +286,7 @@ class Home extends CI_Controller
 				$data['guest'] =0;
 				$data['search']=$q;
 				$data['page_title']="Search";		
+				$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
 	    		$data['question_info']= $this->entry_model->search($q);
 	   			$this->load->view('search_view', $data);
 	   		}
@@ -280,7 +315,8 @@ class Home extends CI_Controller
 				//print_r($session_data['user_id']);
 				$data['username'] = $session_data['username'];
 				$data['guest'] =0;
-		     	$data['page_title']="Advanced Search";		
+		     	$data['page_title']="Advanced Search";
+		     	$data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);		
 				$this->load->view('advanced_search', $data);
 
 			}

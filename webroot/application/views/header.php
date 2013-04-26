@@ -43,12 +43,14 @@
       { $session_data = $this->session->userdata('logged_in');
     ?>
         <li class="dropdown" id="accountmenu">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo ''.$username.'';?><b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo ''.$username.'';?>(<?php echo ''.$notification[0]->total_not.''; ?>)<b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <li><a href="<?php echo base_url();?>home/notification/<?php echo $session_data['user_id'] ?>">notification(<?php echo ''.$notification[0]->total_not.''; ?>)</a></li>
                             <li><a href="<?php echo base_url();?>home/user_question/<?php echo $session_data['user_id'] ?>">questions</a></li>
                             <li><a href="<?php echo base_url();?>home/user_comment/<?php echo $session_data['user_id'] ?>">comments</a></li>
                             <li><a href="<?php echo base_url();?>account/profile_info/<?php echo $session_data['user_id'] ?>">update profile</a></li>
                             <li><a href="<?php echo base_url();?>account/change_password/<?php echo $session_data['user_id'] ?>">change password</a></li>
+                            <li><a href="<?php echo base_url();?>home/logout">logout</a></li>
               
                         </ul>
       </li>
@@ -57,10 +59,8 @@
         <li><a style="display: block;  text-align: right;" href="<?php echo base_url(); ?>account" style="float:right;"><?php echo $guest; ?></a></li>
         <li><a data-toggle="modal" data-backdrop="true" data-keyboard="true" href="#modal">Login</a></li>
       <?php } ?>
-      <?php if (! $boolean == false): ?> 
-        <li><a href="<?php echo base_url();?>home/logout">logout</a></li>
 
-      <?php endif; ?>
+      
       <li class="dropdown" id="accountmenu">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">sort by<b class="caret"></b></a>
                         <ul class="dropdown-menu">
