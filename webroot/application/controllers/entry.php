@@ -182,10 +182,11 @@ class Entry extends CI_Controller
         $session_data = $this->session->userdata('logged_in');
         $data['user_id'] = $session_data['user_id'];
         //print_r($data);
+        
         if($session_data && filter_var($data['user_id'], FILTER_VALIDATE_INT))
         { 
           $this->entry_model->title_drop($data);
-          if($this->input->post('view')=="entry_comment")
+         if($this->input->post('view')=="entry_comment")
             {
               redirect(base_url().'entry/'.$data['question_id'], 'location');
             }

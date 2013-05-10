@@ -427,6 +427,16 @@ public function title_drop($data)
 		$this->db->query($sql, array((int)$data['user_id'], (int)$data['question_id']));
 		$sql2="DELETE FROM comment WHERE entry_id = ?";
 		$this->db->query($sql2, array((int)$data['question_id']));
+		$sql3="SELECT not_id FROM notification WHERE ref_id = ?";
+		$query = $this->db->query($sql3, array((int)$data['question_id']));
+		$notification = $query->result();
+		foreach ($notification as $not)
+		 {
+			$sql5="DELETE FROM user_notification WHERE not_id = ? ";
+			$this->db->query($sql5, array((int)$not->not_id));
+		 }
+		$sql4="DELETE FROM notification WHERE ref_id = ? ";
+		$this->db->query($sql4, array((int)$data['question_id']));
 		//$sql = "DELETE FROM notification WHERE `from` = (?) and type = ?;";
 		//$this->db->query($sql, array((int)$data['user_id'], "entry"));
 	
