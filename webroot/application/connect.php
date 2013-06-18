@@ -2,15 +2,17 @@
 // All code was wrote by Tim Kipp @ TimKippTutorials.com - January 3, 2011
 
 // This code will allow you to connect to a MySQL database using PHP script.
+define("BASEPATH",__DIR__ . "../");
+include __DIR__ . "/config/database.php";
 
 // your host may be "localhost" but some hosts may be different
-$db_host = "localhost";
+$db_host = $db['default']['hostname'];
 // your username will be the one you specify when you create your database on your server
-$db_username = "root";
+$db_username = $db['default']['username'];
 // your password that you specify when you create your database on your server
-$db_pass = ""; 
+$db_pass = $db['default']['password']; 
 // your db_name will be to database name that you used when creating your database
-$db_name = "comment_system"; 
+$db_name = $db['default']['database'];
 
 // ----------------------------DO NOT CHANGE BELOW HERE-----------------------------
 

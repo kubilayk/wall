@@ -22,7 +22,7 @@
                           else 
                           {
                            
-                           echo '<a href="#" onclick="$(\'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
+                           echo '<a href="#" onclick="$(  \'#rate_input_'.$e_id.'\').val(\'0\');$(\'#rate_form_'.$e_id.'\').submit();return false;"><i class="icon-thumbs-down"></i> </a>';
                           }
                           ?>
                          <?php endif; ?>
@@ -42,7 +42,17 @@
              <?php isset($quest->user_info[0])?($u_id=$quest->user_info[0]->user_id):("") ?>
                  <div class="span11">
                         <p><strong><?php echo $quest->title; ?></strong></p>
-                        <p><?php echo $quest->description; ?></p>
+                        <p><?php 
+                        preg_match_all("!https?://[\S]+!", $quest->description, $matches);
+                        
+                        $description = $quest->description;
+                        if (isset($matches[0])):
+                          foreach ($matches[0] as $val) {
+                            $description = str_replace($val, '<a href="'.$val.'">'.$val.'</a>', $description);
+                          }
+                        endif;
+
+                        echo $description; ?></p>
                         <?php if($quest->link): ?>
                         <p><a href="<?php echo $quest->link?>"><?php echo $quest->link; ?></a></p>
                         <?php endif;?>
