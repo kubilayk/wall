@@ -43,12 +43,12 @@
                  <div class="span11">
                         <p><strong><?php echo $quest->title; ?></strong></p>
                         <p><?php 
-                        preg_match_all("!https?://[\S]+!", $quest->description, $matches);
+                        preg_match_all("#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#", $quest->description, $matches);
                         
                         $description = $quest->description;
                         if (isset($matches[0])):
                           foreach ($matches[0] as $val) {
-                            $description = str_replace($val, '<a href="'.$val.'">'.$val.'</a>', $description);
+                            $description = str_replace($val, '<a href="'.$val.'" target="_blank">'.$val.'</a>', $description);
                           }
                         endif;
 
