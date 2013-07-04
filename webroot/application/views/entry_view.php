@@ -161,7 +161,16 @@
            
               
                 <strong>Comment:</strong>
-                  <?php echo $com->comment; ?><br/><small>
+                  <?php 
+
+                      $comment = $com->comment;
+                        if (isset($matches[0])):
+                          foreach ($matches[0] as $val) {
+                            $comment = str_replace($val, '<a href="'.$val.'" target="_blank">'.$val.'</a>', $comment);
+                          }
+                        endif;
+
+                  echo $comment; ?><br/><small>
                                   by: 
                                   <?php  
                                   if($guest===0)
