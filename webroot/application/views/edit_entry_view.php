@@ -9,7 +9,7 @@
       
         <div class="row">
           <div class="span9">
-          <label for="user_name">Title:</label>
+          <label for="user_name"><?php echo  $this->lang->line("title_e")?>:</label>
         </div>
           <div class="span9">
             <input type="text" class="span8" name="title" value="<?php echo isset($session_data['title'])?($session_data['title']):("");?>"/>
@@ -18,7 +18,7 @@
         
         
           <div class="span9">
-          <label for="user_name">Description:</label>
+          <label for="user_name"><?php echo  $this->lang->line("desc")?>:</label>
         </div>
           <div class="span9">
             <textarea name="content_2" id="content_2" ><?php echo isset($session_data['description'])?($session_data['description']):("") ?></textarea>
@@ -42,7 +42,7 @@
         
         
           <div class="span3">
-            <button type="submit" class="btn btn-primary">Edit</button>
+            <button type="submit" class="btn btn-primary"><?php echo  $this->lang->line("edit_e")?></button>
         </div>   
         </div>
 

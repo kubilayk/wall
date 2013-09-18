@@ -28,7 +28,7 @@
         
         <div class="row">
           <div class="span3">
-            <button type="submit" class="btn btn-primary">Write on wall</button>
+            <button type="submit" class="btn btn-primary"><?php echo  $this->lang->line("write_w")?></button>
         </div>   
         </div>
 

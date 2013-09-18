@@ -11,22 +11,21 @@ class Home extends CI_Controller
 		$this->load->model('notification_model');
 		$this->load->library('pagination');
 		if (isset($_SERVER['HTTP_REFERER']))
- {
- $this->session->set_userdata('previous_page', $_SERVER['HTTP_REFERER']);
- }
- else
- {
- $this->session->set_userdata('previous_page', base_url());
- }
+         {
+            $this->session->set_userdata('previous_page', $_SERVER['HTTP_REFERER']);
+         }
+         else
+         {
+            $this->session->set_userdata('previous_page', base_url());
+         }
   
 		
 	}
 
 	function index()
 	{
-			
-			$data['boolean']=$this->entry_model->is_logged_in();
-			
+
+            $data['boolean']=$this->entry_model->is_logged_in();
 			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
 			{
 				$config = array();
@@ -71,6 +70,7 @@ class Home extends CI_Controller
 				$this->load->view('home_view',$data);
 
    			}
+
 
    	}
 

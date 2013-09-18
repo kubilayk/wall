@@ -95,7 +95,9 @@ class Entry extends CI_Controller
 
       function index()
       {
-          
+
+
+
           $id_q= $this->uri->segment(2);
           $data['boolean']=$this->entry_model->is_logged_in();
           if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
@@ -238,6 +240,7 @@ class Entry extends CI_Controller
       $this->session->set_userdata('question',$question);
             $data['page_title']="Edit Entry";
             $data = array_merge($data, $this->data);
+              $data['notification']=$this->notification_model->get_user_notification($session_data['user_id']);
             
           $this->load->view('edit_entry_view',$data);
           }

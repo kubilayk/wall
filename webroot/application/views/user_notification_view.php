@@ -36,7 +36,7 @@
                        
                       <?php endif; ?>
                       <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
-                      <small class="label label-info"> Like : <?php echo ( $user_not->notification[0]->title_like ? $user_not->notification[0]->title_like : 0 ); ?></small>
+                      <small class="label label-info"> <?php echo  $this->lang->line("like_k")?> : <?php echo ( $user_not->notification[0]->title_like ? $user_not->notification[0]->title_like : 0 ); ?></small>
                       </form> 
                     </span>                        
                    </div>

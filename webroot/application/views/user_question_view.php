@@ -31,7 +31,7 @@
                        
                   <?php endif; ?>
                   <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
-                  <small class="label label-info"> Like : <?php echo ( $quest->title_like ? $quest->title_like : 0 ); ?> 
+                  <small class="label label-info"> <?php echo  $this->lang->line("like_k")?> : <?php echo ( $quest->title_like ? $quest->title_like : 0 ); ?>
                   </small>
                 </form>
                 </span>              
@@ -50,10 +50,10 @@
                  <div class="span11">
                      
                      <a class="overtext" href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>"><?php echo $quest->title;?></a>
-                     <small></br>created by : <a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
-                    
-                         
-                        last like by :<a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):("") ?>" ><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a> 
+                     <small></br><?php echo  $this->lang->line("create_B")?> : <a href="<?php echo base_url();?>home/user_info/<?php echo $u_id; ?>"> <?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
+
+
+                         <?php echo  $this->lang->line("laast_like")?> :<a href="<?php echo base_url();?>home/user_info/<?php echo isset($quest->last_vote[0])?($quest->last_vote[0]->user_id):("") ?>" ><?php echo isset($quest->last_vote[0]->username)?($quest->last_vote[0]->username):("") ?></a>
                                 | time :<?php 
                                  if(isset($quest->question_date))
                                  {  
@@ -96,7 +96,7 @@
                                   }                            
                                 ?> 
                               
-                              | <a href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>"><?php echo isset($quest->total_comment)?($quest->total_comment):(0) ?> comment</a> 
+                              | <a href="<?php echo base_url();?>entry/<?php echo $quest->question_id;?>"><?php echo isset($quest->total_comment)?($quest->total_comment):(0) ?> <?php echo  $this->lang->line("comment_s")?> </a>
                              <?php   
 
                                     $session_data = $this->session->userdata('logged_in');
@@ -104,8 +104,8 @@
                                     if($quest->user_info[0]->user_id == $session_data['user_id'])
                                     {
                                       
-                                      echo '| <a href="'.base_url().'entry/edit/'.$e_id.'"> edit </a>';
-                                      echo ' | <a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;"> delete</a>';
+                                      echo '| <a href="'.base_url().'entry/edit/'.$e_id.'">'.$this->lang->line("edit_e").'</a>';
+                                      echo ' | <a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;"> '.$this->lang->line("deletee").'</a>';
                                     }
                                     else
                                     {

@@ -29,7 +29,7 @@
                               <?php endif; ?>
                               <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
                               <small class="label label-info">
-                              Like : <?php echo isset($com->title_like)?($com->title_like):(0) ?>
+                                  <?php echo  $this->lang->line("like_k")?> : <?php echo isset($com->title_like)?($com->title_like):(0) ?>
                               </small>
                           </form> 
                           </span>
@@ -39,8 +39,8 @@
                       <input type="hidden" name="comment_id" value="<?php echo $com->comment_id ?>">               
                       <input type="hidden" name="view" value="last_comment">                           
                                       
-                        <span> Last comment : <?php echo $com->comment ?></span>
-                        <small> <br/> created by : 
+                        <span> <?php echo  $this->lang->line("l_comment")?> : <?php echo $com->comment ?></span>
+                        <small> <br/> <?php echo  $this->lang->line("create_byy")?> :
                           <?php  
                           if($guest===0)
                           { 
@@ -95,7 +95,7 @@
                                     
                                     if($u_id == $session_data['user_id'])
                                     {
-                                      echo '| <a href="#" onclick="$(\'#comment_delete_'.$com->comment_id.'\').submit();return false;"> delete</a>';
+                                      echo '| <a href="#" onclick="$(\'#comment_delete_'.$com->comment_id.'\').submit();return false;">'.$this->lang->line("deletee").' </a>';
                                     }
                                     else
                                     {

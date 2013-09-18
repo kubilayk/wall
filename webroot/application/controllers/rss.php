@@ -53,7 +53,21 @@ class Rss extends CI_Controller
 
        function entries()
       {
-        
+          if (isset($_GET['lang']) && $_GET['lang'] == "tr")
+              $this->session->set_userdata('lang', "tr");
+          else
+              $this->session->set_userdata('lang', "en");
+
+          $data['boolean']=$this->entry_model->is_logged_in();
+
+          if ($this->session->userdata('lang') == "tr"){
+              $this->lang->load("turkish", "turkish");
+              $config['language'] = "turkish";
+          }else{
+              $this->lang->load("english", "english");
+              $config['language'] = "english";
+
+          }
         $id_q= $this->uri->segment(3);
         if($id_q==null)
         {

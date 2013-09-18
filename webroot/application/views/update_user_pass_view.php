@@ -1,11 +1,11 @@
 <?php include_once('header.php'); ?>
-	
+
 
 		<?php echo validation_errors('<p class="error">'); ?>
 	<?php echo form_open(base_url()."account/change_password_validate/".$session_data['user_id'] ); ?>
-		 
+
 		 	<div class="row">
-		 		<div id="msg"class="span12">	
+		 		<div id="msg"class="span12">
 						<?php if(! is_null($msg)) echo $msg; else{echo "";}?>
 				</div>
 				<div class="span2">
@@ -35,11 +35,11 @@
 				<div class="span12">
 					<input type="submit" value="Submit" class="btn btn-primary"/> &nbsp; &nbsp; &nbsp;
 				</div>
-				
+
 			</div>
-		
+
 	<?php echo form_close(); ?>
-	
+
 
 
 <?php include_once('footer.php'); ?>

@@ -6,7 +6,7 @@
 
 		 			<input type="hidden" name="user_id" value="<?php echo $user->user_id ?>">
 				<div class="span2">
-					<label for="user_name">User Name:</label>
+					<label for="user_name"><?php echo  $this->lang->line("usser")?></label>
 				</div>
 
 				<div class="span10">
@@ -14,7 +14,7 @@
 			    </div>
 
 			    <div class="span2">
-					<label for="email_address">Your Email:</label>
+					<label for="email_address"><?php echo  $this->lang->line("mailna")?></label>
 				</div>
 
 				<div class="span10">
@@ -24,13 +24,13 @@
 				<div class="span7">
 					
                             
-                            <a href="<?php echo base_url();?>home/user_question/<?php echo $user->user_id; ?>">Questions</a>
+                            <a href="<?php echo base_url();?>home/user_question/<?php echo $user->user_id; ?>"><?php echo  $this->lang->line("ques")?></a>
                     
 				</div>
 
 				<div class="span7">
 				    
-                            <a href="<?php echo base_url();?>home/user_comment/<?php echo $user->user_id; ?>">Comments</a>
+                            <a href="<?php echo base_url();?>home/user_comment/<?php echo $user->user_id; ?>"><?php echo  $this->lang->line("comm")?></a>
                    
 				</div>
 				<div class="span7">
@@ -40,7 +40,7 @@
                                     
                                    if($user->user_id == $session_data['user_id']):
                                    	?>
-                                    	<a href="<?php echo base_url();?>account/profile_info/<?php echo $user->user_id; ?>"> Update Profile</a>
+                                    	<a href="<?php echo base_url();?>account/profile_info/<?php echo $user->user_id; ?>"> <?php echo  $this->lang->line("prof_update")?></a>
                                     <?php endif; ?>
                                     
                             

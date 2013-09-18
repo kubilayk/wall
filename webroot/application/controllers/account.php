@@ -16,9 +16,10 @@ class Account extends CI_Controller{
  $this->session->set_userdata('previous_page', base_url());
  }
 	}
-	
+
 	public function index()
 	{
+
 		$data['boolean']=$this->entry_model->is_logged_in();
 			
 			if(filter_var($data['boolean'], FILTER_VALIDATE_BOOLEAN))
@@ -70,7 +71,7 @@ class Account extends CI_Controller{
 		$tags =$this->input->post('username');
 		$result = $this->user_model->login($this->input->post());
 		if(! $result)
-			{	$msg = '<font color=red>Invalid username and/or password.</font><br />';
+			{	$msg = '<font color=red>Invaliiid username and/or password.</font><br />';
 				$this->login($msg);
 			}
 		else

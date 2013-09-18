@@ -27,7 +27,7 @@
                           ?>
                          <?php endif; ?>
                         
-                         <small class="label label-info">  Like : <?php echo ( $quest->title_like ? $quest->title_like : 0 ); ?>
+                         <small class="label label-info">  <?php echo  $this->lang->line("like_k")?> : <?php echo ( $quest->title_like ? $quest->title_like : 0 ); ?>
                          </small>
                          </span>
                       </form>
@@ -59,7 +59,7 @@
 
                    
                         <small>
-                        created by:
+                            <?php echo  $this->lang->line("creeat")?>:
                         <?php  
                           if($guest===0)
                           { 
@@ -69,7 +69,7 @@
                         <?php }else{ ?>
                         <a class="create-user" href="#"><?php echo isset($quest->user_info[0])?($quest->user_info[0]->username):("") ?></a>
                         <?php } ?>
-                        | last like by:     
+                        | <?php echo  $this->lang->line("laast_like")?>:
                         <?php  
                           if($guest===0)
                           { 
@@ -128,8 +128,8 @@
                                     
                                     if($quest->user_info[0]->user_id == $session_data['user_id'])
                                     {
-                                      echo '| <a href="'.base_url().'entry/edit/'.$e_id.'"> edit </a>';
-                                      echo '| <a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;"> delete</a>';
+                                      echo '| <a href="'.base_url().'entry/edit/'.$e_id.'"> '.$this->lang->line("edit_e").' </a>';
+                                      echo '| <a href="#" onclick="$(\'#question_delete_'.$quest->question_id.'\').submit();return false;"> '.$this->lang->line("deletee").'</a>';
                                     }
                                     else
                                     {
@@ -147,7 +147,7 @@
     <div class="container">          
         <div class="row">
           
-           <h4>Leave your comment !</h4><hr>
+           <h4><?php echo  $this->lang->line("leave_yc")?></h4><hr>
            </div>
            <?php foreach($comment as $com){ ?>
            <form action="<?php echo base_url();?>comment/delete_comment" id="comment_delete_<?php echo isset($com->comment_id)?($com->comment_id):("") ?>" method="POST">
@@ -160,7 +160,7 @@
             <input type="hidden" name="entry_id" value="<?php echo $e_id; ?>">
            
               
-                <strong>Comment:</strong>
+                <strong><?php echo  $this->lang->line("comment_s")?>:</strong>
                   <?php 
 
                         preg_match_all("#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#", $com->comment, $matchesc);
@@ -247,8 +247,8 @@
               <div class="span6">
                   <input type ="hidden" name="entry_id" value="<?php echo $e_id ?> ">
                   <?php if (! $boolean == false): ?>
-                    <textarea class="span8" rows="7" placeholder="enter optional comment" name="comment" id="comment_text"></textarea><br>
-                    <button type="submit" class="btn btn-primary">Comment</button>
+                    <textarea class="span8" rows="7" placeholder='<?php echo $this->lang->line("co_placeholder")?>' name="comment" id="comment_text"></textarea><br>
+                    <button type="submit" class="btn btn-primary"><?php echo  $this->lang->line("co_send")?></button>
                   <?php endif; ?>
               </div>
           </form>           

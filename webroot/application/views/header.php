@@ -32,10 +32,10 @@
   <div class="navbar">
     <div class="navbar-inner">
     <ul class="nav">
-      <li><a href="<?php echo base_url();?>home">wall</a> </li>
-      <li><a href="<?php echo base_url();?>home/last_comments">comments</a></li>
+      <li><a href="<?php echo base_url();?>home"> <?php echo  $this->lang->line("wall_k")?> </a> </li>
+      <li><a href="<?php echo base_url();?>home/last_comments"><?php echo  $this->lang->line("header_comment_text"); ?></a></li>
       <?php if (! $boolean == false): ?> 
-        <li><a href="<?php echo base_url();?>entry/new_entry">write on wall</a></li>
+        <li><a href="<?php echo base_url();?>entry/new_entry"><?php echo  $this->lang->line("wallc_k")?></a></li>
 
       <?php endif; ?>
       <?php  
@@ -43,42 +43,45 @@
       { $session_data = $this->session->userdata('logged_in');
     ?>
         <li class="dropdown" id="accountmenu">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo ''.$username.'';?>(<?php echo ''.$notification[0]->total_not.''; ?>)<b class="caret"></b></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo ''.$username.'';?>(<?php echo ''.$notification[0]->total_not.''; ?>)<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo base_url();?>home/notification/<?php echo $session_data['user_id'] ?>">notification(<?php echo ''.$notification[0]->total_not.''; ?>)</a></li>
-                            <li><a href="<?php echo base_url();?>home/user_question/<?php echo $session_data['user_id'] ?>">questions</a></li>
-                            <li><a href="<?php echo base_url();?>home/user_comment/<?php echo $session_data['user_id'] ?>">comments</a></li>
-                            <li><a href="<?php echo base_url();?>account/profile_info/<?php echo $session_data['user_id'] ?>">update profile</a></li>
-                            <li><a href="<?php echo base_url();?>account/change_password/<?php echo $session_data['user_id'] ?>">change password</a></li>
-                            <li><a href="<?php echo base_url();?>home/logout">logout</a></li>
-              
-                        </ul>
-      </li>
+                            <li><a href="<?php echo base_url();?>home/notification/<?php echo $session_data['user_id'] ?>"> <?php echo  $this->lang->line("notification_user")?> (<?php echo ''.$notification[0]->total_not.''; ?>)</a></li>
+                            <li><a href="<?php echo base_url();?>home/user_question/<?php echo $session_data['user_id'] ?>"> <?php echo  $this->lang->line("question_user")?></a></li>
+                            <li><a href="<?php echo base_url();?>home/user_comment/ <?php echo $session_data['user_id'] ?>"><?php echo  $this->lang->line("comments_user")?></a></li>
+                            <li><a href="<?php echo base_url();?>account/profile_info/ <?php echo $session_data['user_id'] ?>"><?php echo  $this->lang->line("profil_user")?></a></li>
+                            <li><a href="<?php echo base_url();?>account/change_password/ <?php echo $session_data['user_id'] ?>"><?php echo  $this->lang->line("password_user")?></a></li>
+                            <li><a href="<?php echo base_url();?>home/logout"><?php echo  $this->lang->line("logout_user")?></a>
+                            </li> </ul>
+
         
       <?php }else{ ?></li>
-        <li><a style="display: block;  text-align: right;" href="<?php echo base_url(); ?>account" style="float:right;"><?php echo $guest; ?></a></li>
-        <li><a data-toggle="modal" data-backdrop="true" data-keyboard="true" href="#modal">Login</a></li>
+        <li><a style="display: block;  text-align: right;" href="<?php echo base_url(); ?>account" style="float:right;"><?php echo  $this->lang->line("sign_uu")?></a></li>
+        <li><a data-toggle="modal" data-backdrop="true" data-keyboard="true" href="#modal"> <?php echo  $this->lang->line("login_k")?></a></li>
       <?php } ?>
 
       
       <li class="dropdown" id="accountmenu">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">sort by<b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo  $this->lang->line("sort_b")?><b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo base_url();?>entry/sort_question_rates">question rates</a></li>
-                            <li><a href="<?php echo base_url();?>entry/sort_last_questions">last questions</a></li>
-                            <li><a href="<?php echo base_url();?>entry/sort_total_comments">total comments</a></li>
-                            
-              
+                            <li><a href="<?php echo base_url();?>entry/sort_question_rates"><?php echo  $this->lang->line("question_r")?> </a></li>
+                            <li><a href="<?php echo base_url();?>entry/sort_last_questions"><?php echo  $this->lang->line("question_l")?></a></li>
+                            <li><a href="<?php echo base_url();?>entry/sort_total_comments"><?php echo  $this->lang->line("question_t")?></a></li>
+
+
                         </ul>
+
       </li>
-                
+
     </ul>
     <div class="input-append"> 
         <form class="navbar-search pull-left" action="<?php echo base_url();?>home/search" method="GET">  
              <input class="span2" name="search" id="appendedInputButtons" type="text" value="<?php echo isset($search)?($search):("");?>">
-             <button class="btn" type="submit">search</button>
-             <a href="<?php echo base_url();?>home/advanced_search" class="btn">advance search</a>
+             <button class="btn" type="submit"><?php echo  $this->lang->line("search_k")?></button>
+             <a href="<?php echo base_url();?>home/advanced_search" class="btn"><?php echo  $this->lang->line("ad_search")?></a>
+
         </form>
+
+
 
    </div>
 
@@ -96,18 +99,19 @@
     <form action="<?php echo base_url();?>account/user_login" method="POST" id="login_form" >
       
           <fieldset>
-            <label for="name">User Name</label>
+            <label for="name"><?php echo  $this->lang->line("user_n")?> </label>
             <input type="text" name="username" id="username" class="text ui-widget-content ui-corner-all" />
             
-            <label for="password">Password</label>
+            <label for="password"><?php echo  $this->lang->line("pass_w")?></label>
             <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
             <input type="hidden" name="uri" id="uri" value="<?php echo $this->uri->segment(1);?>">
           </fieldset>
-    </form>         
+    </form>
+
             </div>
             <div class="modal-footer">
-              <a href="<?php echo base_url();?>account" class="btn" >Sign up</a>
-              <a href="#" id="submitFollow" class="btn btn-success" onclick="$('#login_form').submit(); return false;">Login</a>
+              <a href="<?php echo base_url();?>account" class="btn" > <?php echo  $this->lang->line("sign_uu")?></a>
+              <a href="#" id="submitFollow" class="btn btn-success" onclick="$('#login_form').submit(); return false;"><?php echo  $this->lang->line("loog")?></a>
             </div>
   </div>
 

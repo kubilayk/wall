@@ -10,6 +10,13 @@
 |
 */
 
+$hook['post_controller_constructor'] = array(
+    'class'    => 'language',
+    'function' => 'select_language',
+    'filename' => 'language.php',
+    'filepath' => 'hooks',
+    'params'   => array()
+);
 
 
 /* End of file hooks.php */

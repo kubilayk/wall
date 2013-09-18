@@ -6,20 +6,20 @@
 		 
 		 	<div class="row">
 				<div class="span2">
-					<label for="user_name">Title</label>
+					<label for="user_name"><?php echo  $this->lang->line("title_e")?></label>
 				</div>
 				<div class="span10">
 				     <input type="text" id="q_title" name="q_title"/>
 			    </div>
 			    <div class="span2">
-					<label for="email_address">Description</label>
+					<label for="email_address"><?php echo  $this->lang->line("desc")?></label>
 				</div>
 				<div class="span10">
 					<input type="text" id="q_description" name="q_description"/>
 				</div>
 				
 				<div class="span12">
-					<input type="submit" value="Submit" /> 
+					<input type="submit" value="<?php echo  $this->lang->line("subm")?>" />
 				</div>
 				
 			</div>
